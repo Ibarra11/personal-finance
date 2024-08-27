@@ -1,4 +1,5 @@
 import CurrencyCard from "@/components/CurrencyCard";
+import PotsCard from "@/components/PotsCard";
 
 export default function Page() {
   return (
@@ -18,6 +19,12 @@ export default function Page() {
         <div className="flex-1">
           <CurrencyCard title="Expenses" amount={"1,700.50"} />
         </div>
+      </div>
+      <div className="flex gap-6">
+        <div className="flex flex-1 flex-col gap-6">
+          <PotsCard />
+        </div>
+        <div className="w-[400px]"></div>
       </div>
     </div>
   );
