@@ -16,7 +16,7 @@ export default function RootLayout({
       <div className="w-64">
         <DesktopNav />
       </div>
-      <div className="flex-1">{children}</div>
+      <div className="mx-auto max-w-6xl flex-1 px-10 py-8">{children}</div>
     </div>
   );
 }

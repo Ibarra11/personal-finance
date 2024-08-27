@@ -21,6 +21,7 @@ const config = {
       colors: {
         gray: {
           300: "hsl(0 0% 70%)",
+          500: "hsl(0 0% 41%)",
           900: "hsl(252 7% 13%)",
         },
         green: "hsl(177 52% 32%)",
