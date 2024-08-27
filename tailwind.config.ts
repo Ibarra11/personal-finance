@@ -23,6 +23,7 @@ const config = {
           300: "hsl(0 0% 70%)",
           900: "hsl(252 7% 13%)",
         },
+        green: "hsl(177 52% 32%)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
