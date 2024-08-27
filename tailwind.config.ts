@@ -20,6 +20,7 @@ const config = {
     extend: {
       colors: {
         gray: {
+          100: "hsl(0 0% 95%)",
           300: "hsl(0 0% 70%)",
           500: "hsl(0 0% 41%)",
           900: "hsl(252 7% 13%)",

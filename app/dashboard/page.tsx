@@ -1,5 +1,6 @@
 import CurrencyCard from "@/components/CurrencyCard";
 import PotsCard from "@/components/PotsCard";
+import TransactionsCard from "@/components/TransactionsCard";
 
 export default function Page() {
   return (
@@ -23,6 +24,7 @@ export default function Page() {
       <div className="flex gap-6">
         <div className="flex flex-1 flex-col gap-6">
           <PotsCard />
+          <TransactionsCard />
         </div>
         <div className="w-[400px]"></div>
       </div>
