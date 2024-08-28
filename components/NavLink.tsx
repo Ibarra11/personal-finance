@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, ReactNode, SVGProps } from "react";
+import { ReactNode } from "react";
 
 interface Props {
   href: string;
