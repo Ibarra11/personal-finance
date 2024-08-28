@@ -25,7 +25,10 @@ export default function BudgetsCard() {
         </Button>
       </CardHeader>
       <CardContent className="flex gap-3 p-0">
-        <BudgetDonut />
+        <div className="flex-1">
+          <BudgetDonut />
+        </div>
+
         <div className="flex flex-col gap-4">
           <Pot />
           <Pot />
