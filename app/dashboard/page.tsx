@@ -23,12 +23,12 @@ export default function Page() {
           <CurrencyCard title="Expenses" amount={"1,700.50"} />
         </div>
       </div>
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row">
         <div className="flex flex-1 flex-col gap-6">
           <PotsCard />
           <TransactionsCard />
         </div>
-        <div className="w-[400px] space-y-6">
+        <div className="space-y-6 lg:w-[400px]">
           <BudgetsCard />
           <RecurringBillsCard />
         </div>

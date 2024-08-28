@@ -18,7 +18,7 @@ export default function PotsCard() {
         </Button>
       </CardHeader>
       <CardContent className="flex gap-5 p-8 pt-0">
-        <div className="flex-1">
+        <div className="w-64">
           <HighlightCard />
         </div>
 

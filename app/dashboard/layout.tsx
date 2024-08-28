@@ -1,4 +1,5 @@
 import DesktopNav from "@/components/DesktopNav";
+import TabletMobileNav from "@/components/TabletMobileNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,12 +13,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen bg-background">
-      <div className="w-64">
+    <div className="h-screen bg-background lg:flex">
+      <div className="hidden lg:block lg:w-64">
         <DesktopNav />
       </div>
-      <div className="flex-1 overflow-auto">
-        <div className="mx-auto max-w-6xl px-10 py-8">{children}</div>
+      <div className="fixed bottom-0 h-20 w-full">
+        <TabletMobileNav />
+      </div>
+      <div className="px-10 py-8 pb-28 lg:flex-1 lg:overflow-auto lg:pb-0">
+        <div className="mx-auto max-w-6xl">{children}</div>
       </div>
     </div>
   );
