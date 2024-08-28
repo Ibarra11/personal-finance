@@ -13,7 +13,7 @@ import Pot from "./Pot";
 
 export default function BudgetsCard() {
   return (
-    <Card className="space-y-5 p-8">
+    <Card className="space-y-5 px-5 py-6 md:p-8">
       <CardHeader className="flex-row items-center justify-between p-0">
         <h3 className="text-xl font-bold">Budgets</h3>
         <Button
@@ -24,12 +24,11 @@ export default function BudgetsCard() {
           <IconCaretRight className="size-3" />
         </Button>
       </CardHeader>
-      <CardContent className="flex gap-3 p-0">
+      <CardContent className="flex flex-col gap-4 p-0 md:flex-row">
         <div className="flex-1">
           <BudgetDonut />
         </div>
-
-        <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
           <Pot />
           <Pot />
           <Pot />

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 
 export default function RecurringBillsCard() {
   return (
-    <Card className="space-y-8 p-8">
+    <Card className="space-y-8 px-5 py-6 md:p-8">
       <CardHeader className="flex-row items-center justify-between p-0">
         <h3 className="text-xl font-bold">Recurring Bills</h3>
         <Button

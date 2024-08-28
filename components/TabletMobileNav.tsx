@@ -7,47 +7,57 @@ import NavLink from "./NavLink";
 
 export default function TabletMobileNav() {
   return (
-    <div className="h-full w-full rounded-tl-lg rounded-tr-lg bg-gray-900 px-10 py-2 text-gray-300">
+    <div className="h-full w-full rounded-tl-lg rounded-tr-lg bg-gray-900 px-4 pt-2 text-gray-300 md:px-10">
       <nav>
-        <ul className="flex justify-between gap-10">
+        <ul className="flex md:justify-between md:gap-10">
           <li className="flex-1">
             <NavLink
-              icon={<IconNavOverview className="size-5" />}
+              icon={<IconNavOverview className="size-6 md:size-5" />}
               href="/dashboard"
             >
-              Overview
+              <span className="hidden text-xs font-bold leading-4 md:inline">
+                Overview
+              </span>
             </NavLink>
           </li>
           <li className="flex-1">
             <NavLink
-              icon={<IconNavTransactions className="size-5" />}
+              icon={<IconNavTransactions className="size-6 md:size-5" />}
               href="/dashboard/transactions"
             >
-              Transactions
+              <span className="hidden text-xs font-bold leading-4 md:inline">
+                Transactions
+              </span>
             </NavLink>
           </li>
           <li className="flex-1">
             <NavLink
               href="/dashboard/budgets"
-              icon={<IconNavBudgets className="size-5" />}
+              icon={<IconNavBudgets className="size-6 md:size-5" />}
             >
-              Budgets
+              <span className="hidden text-xs font-bold leading-4 md:inline">
+                Budgets
+              </span>
             </NavLink>
           </li>
           <li className="flex-1">
             <NavLink
               href="/dashboard/pots"
-              icon={<IconNavPots className="size-5" />}
+              icon={<IconNavPots className="size-6 md:size-5" />}
             >
-              Pots
+              <span className="hidden text-xs font-bold leading-4 md:inline">
+                Pots
+              </span>
             </NavLink>
           </li>
           <li className="flex-1">
             <NavLink
               href="/dashboard/recurring-bills"
-              icon={<IconNavRecurringBills className="size-5" />}
+              icon={<IconNavRecurringBills className="size-6 md:size-5" />}
             >
-              Recurring bills
+              <span className="hidden text-xs font-bold md:inline">
+                Recurring Bills
+              </span>
             </NavLink>
           </li>
         </ul>

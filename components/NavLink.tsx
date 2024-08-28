@@ -18,7 +18,7 @@ export default function NavLink({
 
   return (
     <Link
-      className={`flex flex-col items-center gap-1 rounded-tl-lg rounded-tr-lg pb-3 pt-2 text-xs font-bold lg:flex-row lg:gap-4 lg:rounded-br-xl lg:rounded-tr-xl lg:border-b-0 lg:px-8 lg:py-4 lg:text-base ${active ? "border-green border-b-4 bg-background text-gray-900" : ""} `}
+      className={`flex min-h-11 items-center justify-center rounded-tl-lg rounded-tr-lg text-xs font-bold md:flex-col md:justify-start md:gap-1 md:pb-3 md:pt-2 lg:flex-row lg:gap-4 lg:rounded-br-xl lg:rounded-tr-xl lg:border-b-0 lg:px-8 lg:py-4 lg:text-base ${active ? "border-green border-b-4 bg-background text-gray-900" : ""} `}
       href={href}
     >
       <span className={active ? "text-green" : ""}>{icon}</span>

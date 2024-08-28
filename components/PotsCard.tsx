@@ -6,8 +6,8 @@ import Pot from "./Pot";
 
 export default function PotsCard() {
   return (
-    <Card className="space-y-5">
-      <CardHeader className="flex-row items-center justify-between p-8 pb-0">
+    <Card className="space-y-5 px-5 py-6 md:p-8">
+      <CardHeader className="flex-row items-center justify-between p-0">
         <h3 className="text-xl font-bold">Pots</h3>
         <Button
           variant="link"
@@ -17,12 +17,11 @@ export default function PotsCard() {
           <IconCaretRight className="size-3" />
         </Button>
       </CardHeader>
-      <CardContent className="flex gap-5 p-8 pt-0">
-        <div className="w-64">
+      <CardContent className="flex flex-col gap-5 p-0 md:flex-row">
+        <div className="md:w-64">
           <HighlightCard />
         </div>
-
-        <div className="grid flex-1 grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:flex-1">
           <Pot />
           <Pot />
           <Pot />
