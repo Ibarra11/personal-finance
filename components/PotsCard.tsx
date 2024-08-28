@@ -11,7 +11,7 @@ export default function PotsCard() {
         <h3 className="text-xl font-bold">Pots</h3>
         <Button
           variant="link"
-          className="items-center gap-3 py-0 text-sm text-gray-500"
+          className="items-center gap-3 p-0 text-sm text-gray-500"
         >
           See Details
           <IconCaretRight className="size-3" />

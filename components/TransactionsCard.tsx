@@ -9,7 +9,7 @@ export default function TransactionsCard() {
         <h3 className="text-xl font-bold">Transactions</h3>
         <Button
           variant="link"
-          className="items-center gap-3 py-0 text-sm text-gray-500"
+          className="items-center gap-3 p-0 text-sm text-gray-500"
         >
           View All
           <IconCaretRight className="size-3" />
