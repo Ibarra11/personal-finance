@@ -1,3 +1,4 @@
+import BudgetsCard from "@/components/BudgetsCard";
 import CurrencyCard from "@/components/CurrencyCard";
 import PotsCard from "@/components/PotsCard";
 import TransactionsCard from "@/components/TransactionsCard";
@@ -26,7 +27,9 @@ export default function Page() {
           <PotsCard />
           <TransactionsCard />
         </div>
-        <div className="w-[400px]"></div>
+        <div className="w-[400px]">
+          <BudgetsCard />
+        </div>
       </div>
     </div>
   );

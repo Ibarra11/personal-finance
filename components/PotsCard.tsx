@@ -2,6 +2,7 @@ import { Button } from "./ui/button";
 import IconCaretRight from "../public/icons/icon-caret-right.svg";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import IconPot from "../public/icons/icon-pot.svg";
+import Pot from "./Pot";
 
 export default function PotsCard() {
   return (
@@ -41,17 +42,5 @@ function HighlightCard() {
         <p className="text-3xl font-bold text-gray-900">$850</p>
       </div>
     </Card>
-  );
-}
-
-function Pot() {
-  return (
-    <div className="flex w-32 gap-4">
-      <div className="bg-green w-1 rounded-full"></div>
-      <div className="space-y-1">
-        <p className="text-xs text-gray-500">Savings</p>
-        <p className="text-sm font-bold text-gray-900">$159</p>
-      </div>
-    </div>
   );
 }
