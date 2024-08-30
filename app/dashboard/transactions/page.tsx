@@ -4,7 +4,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { InputWithIcon } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import IconSearch from "@/public/icons/icon-search.svg";
 import IconFilterMobile from "@/public/icons/icon-filter-mobile.svg";
@@ -20,46 +20,171 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-export default function Page() {
+import { columns, Transaction } from "@/components/transaction-table/columns";
+import { TransactionsTable } from "@/components/transaction-table/data-table";
+import { SearchIcon } from "lucide-react";
+
+// Example mock data
+const data: Transaction[] = [
+  {
+    transactionParty: "John Doe",
+    category: "Groceries",
+    date: "2024-08-30",
+    amount: "$150.00",
+  },
+  {
+    transactionParty: "Jane Smith",
+    category: "Utilities",
+    date: "2024-08-29",
+    amount: "$75.50",
+  },
+  {
+    transactionParty: "Acme Corp",
+    category: "Salary",
+    date: "2024-08-28",
+    amount: "$3,000.00",
+  },
+  {
+    transactionParty: "Big Mart",
+    category: "Shopping",
+    date: "2024-08-27",
+    amount: "$220.75",
+  },
+  {
+    transactionParty: "Rent Payment",
+    category: "Housing",
+    date: "2024-08-26",
+    amount: "$1,200.00",
+  },
+  {
+    transactionParty: "Jane Smith",
+    category: "Dining",
+    date: "2024-08-25",
+    amount: "$85.40",
+  },
+  {
+    transactionParty: "John Doe",
+    category: "Insurance",
+    date: "2024-08-24",
+    amount: "$250.00",
+  },
+  {
+    transactionParty: "XYZ Electric",
+    category: "Utilities",
+    date: "2024-08-23",
+    amount: "$95.60",
+  },
+  {
+    transactionParty: "Acme Corp",
+    category: "Bonus",
+    date: "2024-08-22",
+    amount: "$500.00",
+  },
+  {
+    transactionParty: "Medical Center",
+    category: "Healthcare",
+    date: "2024-08-21",
+    amount: "$200.00",
+  },
+];
+
+async function getData(): Promise<Transaction[]> {
+  return data;
+}
+
+export default async function Page() {
+  const data = await getData();
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-gray-900">Transactions</h1>
-      <Card className="space-y-6 px-5 py-6">
+      <Card className="space-y-6 px-5 py-6 md:p-8">
         <div className="flex items-center gap-6">
-          <Label className="relative">
-            <Input
-              className="border-beige-500 placeholder-beige-500border bg-white pr-8 text-gray-900"
+          <div className="flex-1">
+            <InputWithIcon
+              icon={<SearchIcon size={16} />}
               placeholder="search transaction"
             />
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-              <IconSearch className="size-4 text-gray-900" />
-            </span>
-          </Label>
-          <Button variant="ghost" size="icon">
-            <IconSortMobile className="size-5 text-gray-900" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <IconFilterMobile className="size-5 text-gray-900" />
-          </Button>
+          </div>
+
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon">
+              <IconSortMobile className="size-5 text-gray-900" />
+            </Button>
+            <Button variant="ghost" size="icon">
+              <IconFilterMobile className="size-5 text-gray-900" />
+            </Button>
+          </div>
+          <div className="hidden md:flex md:gap-6">
+            <div className="flex items-center gap-3">
+              <p className="text-sm text-gray-500">Sort By</p>
+              <TransactionSortDropdown />
+            </div>
+            <div className="flex items-center gap-3">
+              <p className="text-sm text-gray-500">Category</p>
+              <TransactionCategoryDropdown />
+            </div>
+          </div>
         </div>
         <CardContent className="space-y-4">
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
-          <CompactTransaction />
+          <div className="md:hidden">
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+            <CompactTransaction />
+          </div>
+          <div className="hidden md:block">
+            <TransactionsTable data={data} columns={columns} />
+          </div>
         </CardContent>
         <CardFooter className="flex h-16 items-end">
           <TransactionPagination />
         </CardFooter>
       </Card>
     </div>
+  );
+}
+
+function TransactionSortDropdown() {
+  return (
+    <Select>
+      <SelectTrigger className="w-28">
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="light">Light</SelectItem>
+        <SelectItem value="dark">Dark</SelectItem>
+        <SelectItem value="system">System</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+}
+
+function TransactionCategoryDropdown() {
+  return (
+    <Select>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="light">Light</SelectItem>
+        <SelectItem value="dark">Dark</SelectItem>
+        <SelectItem value="system">System</SelectItem>
+      </SelectContent>
+    </Select>
   );
 }
 
