@@ -67,7 +67,7 @@ function TransactionPagination() {
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem>
+        <PaginationItem className="md:mr-auto">
           <PaginationPrevious />
         </PaginationItem>
         <PaginationItem>
@@ -82,7 +82,7 @@ function TransactionPagination() {
         <PaginationItem>
           <PaginationButton>5</PaginationButton>
         </PaginationItem>
-        <PaginationItem>
+        <PaginationItem className="md:ml-auto">
           <PaginationNext />
         </PaginationItem>
       </PaginationContent>
