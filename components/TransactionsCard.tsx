@@ -16,12 +16,12 @@ export default function TransactionsCard() {
           <IconCaretRight className="size-3" />
         </Button>
       </CardHeader>
-      <CardContent className="space-y-5 p-0">
-        <CompactTransaction />
-        <CompactTransaction />
-        <CompactTransaction />
-        <CompactTransaction />
-        <CompactTransaction />
+      <CardContent>
+        {new Array(5).fill(null).map(() => (
+          <div className="border-b border-b-gray-100 py-5 first:pt-0 last:border-none last:pb-0">
+            <CompactTransaction />
+          </div>
+        ))}
       </CardContent>
     </Card>
   );

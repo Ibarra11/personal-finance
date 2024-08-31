@@ -135,16 +135,11 @@ export default async function Page() {
         </div>
         <CardContent className="space-y-4">
           <div className="md:hidden">
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
-            <CompactTransaction />
+            {new Array(10).fill(null).map(() => (
+              <div className="border-b border-b-gray-100 py-4 first:pt-0 last:border-none last:pb-0">
+                <CompactTransaction />
+              </div>
+            ))}
           </div>
           <div className="hidden md:block">
             <TransactionsTable data={data} columns={columns} />

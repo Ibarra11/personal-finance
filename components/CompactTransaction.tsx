@@ -1,6 +1,6 @@
 export default function CompactTransaction() {
   return (
-    <div className="flex border-b border-b-gray-100 pb-4 last:border-none last:pb-0">
+    <div className="flex">
       <div className="flex flex-1 items-center gap-4">
         <div className="size-10 rounded-full bg-gray-300"></div>
         <p className="text-sm font-bold text-gray-900">John Doe</p>
