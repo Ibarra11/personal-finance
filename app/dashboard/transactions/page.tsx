@@ -106,14 +106,14 @@ export default async function Page() {
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-gray-900">Transactions</h1>
       <Card className="space-y-6 px-5 py-6 md:p-8">
-        <div className="flex items-center gap-6">
-          <div className="flex-1">
+        <div className="flex items-center gap-6 lg:justify-between">
+          <div className="flex-1 lg:flex-none">
             <InputWithIcon
+              className="lg:w-80"
               icon={<SearchIcon size={16} />}
               placeholder="search transaction"
             />
           </div>
-
           <div className="md:hidden">
             <Button variant="ghost" size="icon">
               <IconSortMobile className="size-5 text-gray-900" />
