@@ -202,8 +202,11 @@ function TransactionPagination() {
           <PaginationButton>2</PaginationButton>
         </PaginationItem>
         <PaginationItem>
-          <PaginationEllipsis />
+          <PaginationButton>3</PaginationButton>
         </PaginationItem>
+        {/* <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem> */}
         <PaginationItem>
           <PaginationButton>5</PaginationButton>
         </PaginationItem>
