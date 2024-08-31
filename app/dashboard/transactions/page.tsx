@@ -156,7 +156,7 @@ export default async function Page() {
 function TransactionSortDropdown() {
   return (
     <Select>
-      <SelectTrigger className="w-28">
+      <SelectTrigger className="borde w-28">
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent>
