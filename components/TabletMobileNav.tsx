@@ -1,11 +1,14 @@
+"use client";
 import IconNavOverview from "../public/icons/icon-nav-overview.svg";
 import IconNavTransactions from "../public/icons/icon-nav-transactions.svg";
 import IconNavBudgets from "../public/icons/icon-nav-budgets.svg";
 import IconNavPots from "../public/icons/icon-nav-pots.svg";
 import IconNavRecurringBills from "../public/icons/icon-nav-recurring-bills.svg";
 import NavLink from "./NavLink";
+import useScrollBar from "@/hooks/useScrollbar";
 
 export default function TabletMobileNav() {
+  useScrollBar();
   return (
     <div className="h-full w-full rounded-tl-lg rounded-tr-lg bg-gray-900 px-4 pt-2 text-gray-300 md:px-10">
       <nav>
