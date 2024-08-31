@@ -16,10 +16,7 @@ export default function BudgetsCard() {
     <Card className="space-y-5 px-5 py-6 md:p-8">
       <CardHeader className="flex-row items-center justify-between p-0">
         <h3 className="text-xl font-bold">Budgets</h3>
-        <Button
-          variant="link"
-          className="items-center gap-3 p-0 text-sm text-gray-500"
-        >
+        <Button variant="link" className="items-center gap-3" size="sm">
           See Details
           <IconCaretRight className="size-3" />
         </Button>
