@@ -1,4 +1,4 @@
-import BudgetsCard from "@/components/BudgetsCard";
+import BudgetsCard from "@/components/budgets/BudgetsCard";
 import CurrencyCard from "@/components/CurrencyCard";
 import PotsCard from "@/components/PotsCard";
 import RecurringBillsCard from "@/components/RecurringBillsCard";
