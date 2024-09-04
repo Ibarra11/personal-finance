@@ -8,7 +8,7 @@ export default async function Pots() {
         <h1 className="text-3xl font-bold text-gray-900">Pots</h1>
         <Button className="h-auto py-4">+ Add New Pot</Button>
       </div>
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <PotsCard pot="Savings" totalSaved={159} target={2000} />
         <PotsCard pot="Savings" totalSaved={159} target={2000} />
         <PotsCard pot="Savings" totalSaved={159} target={2000} />
