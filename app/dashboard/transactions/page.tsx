@@ -14,17 +14,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { columns, Transaction } from "@/components/transaction-table/columns";
 import { TransactionsTable } from "@/components/transaction-table/data-table";
 import SortByDropdown from "@/components/SortByDropdown";
+import TransactionCategoryDropdown from "@/components/transactions/TransactionsCategoryDropdown";
 
 // Example mock data
 const data: Transaction[] = [
@@ -123,7 +117,9 @@ export default async function Page() {
             </div>
             <div className="flex items-center gap-3">
               <p className="text-sm text-gray-500">Category</p>
-              <TransactionCategoryDropdown />
+              <TransactionCategoryDropdown
+                categories={["Entertainment", "Food", "Rent", "Gas"]}
+              />
             </div>
           </div>
         </div>
@@ -144,21 +140,6 @@ export default async function Page() {
         </CardFooter>
       </Card>
     </div>
-  );
-}
-
-function TransactionCategoryDropdown() {
-  return (
-    <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
-      </SelectContent>
-    </Select>
   );
 }
 
