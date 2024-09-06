@@ -11,7 +11,7 @@ const OPTIONS = ["Latest", "Oldest", "A to Z", "Z to A", "Highest", "Lowest"];
 export default function SortByDropdown() {
   return (
     <Select defaultValue={OPTIONS[0]}>
-      <SelectTrigger className="w-28 border">
+      <SelectTrigger className="w-28">
         <SelectValue placeholder="Theme" />
       </SelectTrigger>
       <SelectContent>
