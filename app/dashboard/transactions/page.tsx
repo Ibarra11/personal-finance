@@ -1,11 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InputWithIcon } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import IconSearch from "@/public/icons/icon-search.svg";
 import IconFilterMobile from "@/public/icons/icon-filter-mobile.svg";
 import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
@@ -30,7 +24,7 @@ import {
 
 import { columns, Transaction } from "@/components/transaction-table/columns";
 import { TransactionsTable } from "@/components/transaction-table/data-table";
-import { SearchIcon } from "lucide-react";
+import SortByDropdown from "@/components/SortByDropdown";
 
 // Example mock data
 const data: Transaction[] = [
@@ -110,7 +104,7 @@ export default async function Page() {
           <div className="flex-1 lg:flex-none">
             <InputWithIcon
               className="lg:w-80"
-              icon={<SearchIcon size={16} />}
+              icon={<IconSearch className="size-4" />}
               placeholder="search transaction"
             />
           </div>
@@ -125,7 +119,7 @@ export default async function Page() {
           <div className="hidden md:flex md:gap-6">
             <div className="flex items-center gap-3">
               <p className="text-sm text-gray-500">Sort By</p>
-              <TransactionSortDropdown />
+              <SortByDropdown />
             </div>
             <div className="flex items-center gap-3">
               <p className="text-sm text-gray-500">Category</p>
@@ -150,21 +144,6 @@ export default async function Page() {
         </CardFooter>
       </Card>
     </div>
-  );
-}
-
-function TransactionSortDropdown() {
-  return (
-    <Select>
-      <SelectTrigger className="borde w-28">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
-      </SelectContent>
-    </Select>
   );
 }
 

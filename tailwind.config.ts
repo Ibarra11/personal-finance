@@ -28,6 +28,7 @@ const config = {
         beige: {
           500: "hsl(23 6% 57%)",
         },
+        red: "hsl(7 58% 50%)",
         green: "hsl(177 52% 32%)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
