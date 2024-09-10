@@ -22,12 +22,12 @@ export default function EditBudgetDialog() {
           Edit Budget
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-[560px] bg-white p-8">
-        <DialogHeader className="relative border border-red">
-          <DialogTitle className="text-3xl font-bold text-gray-900">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-white px-5 py-6 md:p-8">
+        <DialogHeader className="relative">
+          <DialogTitle className="flex items-center justify-between text-left text-xl font-bold text-gray-900 md:text-3xl">
             Edit Budget
           </DialogTitle>
-          <DialogDescription className="text-sm text-gray-500">
+          <DialogDescription className="text-left text-sm text-gray-500">
             As your budgets change, feel free to update your spending limits.
           </DialogDescription>
           <DialogClose asChild>
