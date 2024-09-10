@@ -21,18 +21,18 @@ export default function EditBudgetDialog() {
           Delete Budget
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="w-full max-w-[560px] bg-white p-8">
+      <AlertDialogContent className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-white px-5 py-6 md:p-8">
         <AlertDialogHeader className="relative">
-          <AlertDialogTitle className="text-3xl font-bold text-gray-900">
+          <AlertDialogTitle className="text-left text-xl font-bold text-gray-900 lg:text-3xl">
             Delete 'Entertainment'?
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-sm text-gray-500">
+          <AlertDialogDescription className="text-left text-sm text-gray-500">
             Are you sure you want to delete this budget? This action cannot be
             reversed, and all the data inside it will be removed forever.
           </AlertDialogDescription>
           <AlertDialogCancel asChild>
             <Button
-              className="group absolute -top-2 right-0"
+              className="group absolute -top-4 right-0"
               type="button"
               size="icon"
               variant="link"
