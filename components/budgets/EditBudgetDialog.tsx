@@ -23,7 +23,7 @@ export default function EditBudgetDialog() {
         </Button>
       </DialogTrigger>
       <DialogContent className="w-full max-w-[560px] bg-white p-8">
-        <DialogHeader className="relative">
+        <DialogHeader className="relative border border-red">
           <DialogTitle className="text-3xl font-bold text-gray-900">
             Edit Budget
           </DialogTitle>
