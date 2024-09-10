@@ -6,7 +6,7 @@ import {
 import { Button } from "@/components/ui/button";
 import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import EditBudgetDialog from "./EditBudgetDialog";
-import DeleteBudgetDialog from "./DeleteBudgtDialog";
+import DeleteBudgetDialog from "./DeleteBudgetDialog";
 
 export default function BudgetActions() {
   return (

@@ -1,7 +1,6 @@
+import AddBudgetDialog from "@/components/budgets/AddBudgetDialog";
 import BudgetDonutGraph from "@/components/budgets/BudgetDonutGraph";
-import BudgetDonut from "@/components/budgets/BudgetDonutGraph";
 import BudgetsCategoryCard from "@/components/budgets/BudgetsCategoryCard";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 export default async function Page() {
@@ -9,7 +8,7 @@ export default async function Page() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-gray-900">Budgets</h1>
-        <Button className="h-auto py-4">+ Add New Budget</Button>
+        <AddBudgetDialog />
       </div>
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <Card className="flex flex-col gap-8 px-5 py-6 md:flex-row md:p-8 lg:min-w-96 lg:flex-col">
@@ -59,7 +58,7 @@ function CompactBudgetCategory() {
   return (
     <div className="flex items-center justify-between border-b border-gray-100 py-4 first:pt-0 last:border-b-0 last:pb-0">
       <div className="flex gap-4">
-        <div className="bg-green w-1 rounded-full"></div>
+        <div className="w-1 rounded-full bg-green"></div>
         <p className="text-sm text-gray-500">Bills</p>
       </div>
       <div className="flex items-center gap-2">

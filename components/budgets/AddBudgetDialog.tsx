@@ -5,30 +5,28 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import EditBudgetForm from "./form/EditBudgetForm";
 import { CircleX } from "lucide-react";
+import AddBudgetForm from "./form/AddBudgetForm";
 
-export default function EditBudgetDialog() {
+export default function AddBudgetDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm">
-          Edit Budget
-        </Button>
+        <Button>+ Add New Budget</Button>
       </DialogTrigger>
       <DialogContent className="w-full max-w-[560px] bg-white p-8">
-        <DialogHeader className="relative border border-red">
+        <DialogHeader className="relative">
           <DialogTitle className="text-3xl font-bold text-gray-900">
-            Edit Budget
+            Add Budget
           </DialogTitle>
           <DialogDescription className="text-sm text-gray-500">
-            As your budgets change, feel free to update your spending limits.
+            Choose a category to set a spending budget. These categories can
+            help you monitor spending.
           </DialogDescription>
           <DialogClose asChild>
             <Button
@@ -44,7 +42,7 @@ export default function EditBudgetDialog() {
             </Button>
           </DialogClose>
         </DialogHeader>
-        <EditBudgetForm />
+        <AddBudgetForm />
       </DialogContent>
     </Dialog>
   );
