@@ -1,12 +1,9 @@
-import Link from "next/link";
 import { Transaction } from "../transaction-table/columns";
-import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Progress } from "@/components/ui/progress";
 
-import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import LinkWithCaretRight from "../LinkWithCaretRight";
-import CompactTransaction from "../CompactTransaction";
+import BudgetActions from "./BudgetActions";
 
 interface Props {
   category: string;
@@ -26,12 +23,10 @@ export default function BudgetsCategoryCard({
     <Card className="space-y-5 px-5 py-6 md:p-8">
       <CardHeader className="flex-row items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="bg-green size-4 rounded-full"></div>
+          <div className="size-4 rounded-full bg-green"></div>
           <h4 className="text-xl font-bold">{category}</h4>
         </div>
-        <Button variant="ghost" size="icon">
-          <IconEllipsis className="size-4 text-gray-300" />
-        </Button>
+        <BudgetActions />
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="space-y-4">

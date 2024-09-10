@@ -26,19 +26,21 @@ Input.displayName = "Input";
 
 const InputWithIcon = React.forwardRef<
   HTMLInputElement,
-  InputProps & { icon: React.ReactNode }
->(({ className, icon, ...props }, ref) => {
+  InputProps & { icon: React.ReactNode; variant: "start" | "end" }
+>(({ className, icon, variant, ...props }, ref) => {
   return (
-    <Label className="relative w-full">
+    <div className="relative w-full">
       <Input
         ref={ref}
-        className={`${className} pr-8 hover:border-gray-900`}
+        className={`${className} hover:border-gray-900 ${variant === "start" ? "pl-8" : "pr-8"}`}
         {...props}
       />
-      <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+      <div
+        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 ${variant === "start" ? "left-4" : "right-4"} `}
+      >
         <span className="text-gray-900">{icon}</span>
       </div>
-    </Label>
+    </div>
   );
 });
 
