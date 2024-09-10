@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import PotsProgressBar from "./PotsProgressBar";
+import PotActions from "./PotActions";
 
 interface Props {
   pot: string;
@@ -25,9 +26,7 @@ export default function PotsCard({ pot, totalSaved, target }: Props) {
           <div className="size-4 rounded-full bg-green"></div>
           <h4 className="text-xl font-bold">{pot}</h4>
         </div>
-        <Button variant="ghost" size="icon">
-          <IconEllipsis className="size-4 text-gray-300" />
-        </Button>
+        <PotActions />
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">

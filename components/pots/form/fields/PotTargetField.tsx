@@ -1,0 +1,35 @@
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+import { InputWithIcon } from "@/components/ui/input";
+import { DollarSign } from "lucide-react";
+import { AddPortFormType } from "../AddPotForm";
+
+export default function PotTargetField({ form }: { form: AddPortFormType }) {
+  return (
+    <FormField
+      control={form.control}
+      name="target"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Target</FormLabel>
+          <FormControl>
+            <InputWithIcon
+              variant="start"
+              type="number"
+              icon={<DollarSign size={14} className="text-beige-500" />}
+              {...field}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
