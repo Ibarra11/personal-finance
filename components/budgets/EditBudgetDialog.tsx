@@ -18,7 +18,7 @@ export default function EditBudgetDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm">
+        <Button variant="link" size="sm">
           Edit Budget
         </Button>
       </DialogTrigger>

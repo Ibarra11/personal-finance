@@ -17,7 +17,7 @@ export default function EditBudgetDialog() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="secondary" size="sm">
+        <Button className="text-red/90 hover:text-red" variant="link" size="sm">
           Delete Budget
         </Button>
       </AlertDialogTrigger>

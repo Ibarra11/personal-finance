@@ -21,7 +21,7 @@ export default function BudgetActions() {
         className="w-fit flex-col items-start p-2 text-left"
       >
         <EditBudgetDialog />
-        <div className="h-px self-stretch bg-gray-100 px-5"></div>
+        <div className="my-1 h-px self-stretch bg-gray-100 px-5"></div>
         <DeleteBudgetDialog />
       </PopoverContent>
     </Popover>

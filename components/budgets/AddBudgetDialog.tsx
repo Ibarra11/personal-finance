@@ -19,28 +19,28 @@ export default function AddBudgetDialog() {
       <DialogTrigger asChild>
         <Button>+ Add New Budget</Button>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-[560px] bg-white p-8">
-        <DialogHeader className="relative">
-          <DialogTitle className="text-3xl font-bold text-gray-900">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-white px-5 py-6 md:p-8">
+        <DialogHeader className="space-y-4 lg:space-y-5">
+          <DialogTitle className="flex items-center justify-between text-left text-xl font-bold text-gray-900 md:text-3xl">
             Add Budget
+            <DialogClose asChild>
+              <Button
+                className="group"
+                type="button"
+                size="icon"
+                variant="link"
+              >
+                <CircleX
+                  size={24}
+                  className="text-gray-500 group-hover:text-gray-900"
+                />
+              </Button>
+            </DialogClose>
           </DialogTitle>
-          <DialogDescription className="text-sm text-gray-500">
+          <DialogDescription className="text-left text-sm text-gray-500">
             Choose a category to set a spending budget. These categories can
             help you monitor spending.
           </DialogDescription>
-          <DialogClose asChild>
-            <Button
-              className="group absolute -top-2 right-0"
-              type="button"
-              size="icon"
-              variant="link"
-            >
-              <CircleX
-                size={24}
-                className="text-gray-500 group-hover:text-gray-900"
-              />
-            </Button>
-          </DialogClose>
         </DialogHeader>
         <AddBudgetForm />
       </DialogContent>
