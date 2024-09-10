@@ -9,10 +9,10 @@ import { Progress } from "@/components/ui/progress";
 import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
+import WithDrawPotDialog from "./WithdrawPotDialog";
 
 interface Props {
   pot: string;
-
   totalSaved: number;
   target: number;
 }
@@ -34,7 +34,7 @@ export default function PotsCard({ pot, totalSaved, target }: Props) {
           <p className="text-2xl font-bold text-gray-900">${totalSaved}</p>
         </div>
         <div className="space-y-3">
-          <PotsProgressBar color="bg-green" value={progress} />
+          <PotsProgressBar type="default" progress={progress} />
           <div className="flex justify-between text-xs text-gray-500">
             <p className="font-bold">{progress}%</p>
             <p>Target of ${target}</p>
@@ -42,12 +42,16 @@ export default function PotsCard({ pot, totalSaved, target }: Props) {
         </div>
       </CardContent>
       <CardFooter className="gap-4">
-        <Button variant="secondary" className="h-fit flex-1 p-4">
+        <Button variant="secondary" className="flex-1">
           + Add Money
         </Button>
-        <Button variant="secondary" className="h-fit flex-1 p-4">
+        <div className="flex-1">
+          <WithDrawPotDialog />
+        </div>
+
+        {/* <Button variant="secondary" className="h-fit flex-1 p-4">
           Withdraw
-        </Button>
+        </Button> */}
       </CardFooter>
     </Card>
   );
