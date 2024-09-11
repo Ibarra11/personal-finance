@@ -10,6 +10,7 @@ import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
 import WithDrawPotDialog from "./WithdrawPotDialog";
+import DepositPotDialog from "./DepositPotDialog";
 
 interface Props {
   pot: string;
@@ -42,16 +43,12 @@ export default function PotsCard({ pot, totalSaved, target }: Props) {
         </div>
       </CardContent>
       <CardFooter className="gap-4">
-        <Button variant="secondary" className="flex-1">
-          + Add Money
-        </Button>
+        <div className="flex-1">
+          <DepositPotDialog />
+        </div>
         <div className="flex-1">
           <WithDrawPotDialog />
         </div>
-
-        {/* <Button variant="secondary" className="h-fit flex-1 p-4">
-          Withdraw
-        </Button> */}
       </CardFooter>
     </Card>
   );
