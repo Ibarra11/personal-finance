@@ -97,6 +97,7 @@ export default async function Page() {
         <div className="flex items-center gap-6 lg:justify-between">
           <div className="flex-1 lg:flex-none">
             <InputWithIcon
+              variant="end"
               className="lg:w-80"
               icon={<IconSearch className="size-4" />}
               placeholder="search transaction"
