@@ -15,81 +15,14 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { columns, Transaction } from "@/components/transaction-table/columns";
 import { TransactionsTable } from "@/components/transaction-table/data-table";
 import SortByDropdown from "@/components/SortByDropdown";
 import TransactionCategoryDropdown from "@/components/transactions/TransactionsCategoryDropdown";
-
-// Example mock data
-const data: Transaction[] = [
-  {
-    transactionParty: "John Doe",
-    category: "Groceries",
-    date: "2024-08-30",
-    amount: "$150.00",
-  },
-  {
-    transactionParty: "Jane Smith",
-    category: "Utilities",
-    date: "2024-08-29",
-    amount: "$75.50",
-  },
-  {
-    transactionParty: "Acme Corp",
-    category: "Salary",
-    date: "2024-08-28",
-    amount: "$3,000.00",
-  },
-  {
-    transactionParty: "Big Mart",
-    category: "Shopping",
-    date: "2024-08-27",
-    amount: "$220.75",
-  },
-  {
-    transactionParty: "Rent Payment",
-    category: "Housing",
-    date: "2024-08-26",
-    amount: "$1,200.00",
-  },
-  {
-    transactionParty: "Jane Smith",
-    category: "Dining",
-    date: "2024-08-25",
-    amount: "$85.40",
-  },
-  {
-    transactionParty: "John Doe",
-    category: "Insurance",
-    date: "2024-08-24",
-    amount: "$250.00",
-  },
-  {
-    transactionParty: "XYZ Electric",
-    category: "Utilities",
-    date: "2024-08-23",
-    amount: "$95.60",
-  },
-  {
-    transactionParty: "Acme Corp",
-    category: "Bonus",
-    date: "2024-08-22",
-    amount: "$500.00",
-  },
-  {
-    transactionParty: "Medical Center",
-    category: "Healthcare",
-    date: "2024-08-21",
-    amount: "$200.00",
-  },
-];
-
-async function getData(): Promise<Transaction[]> {
-  return data;
-}
+import { getAllTransactions } from "@/services/transactions/getAllTransactions";
 
 export default async function Page() {
-  const data = await getData();
+  const transactions = await getAllTransactions();
+
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-gray-900">Transactions</h1>
@@ -133,7 +66,7 @@ export default async function Page() {
             ))}
           </div>
           <div className="hidden md:block">
-            <TransactionsTable data={data} columns={columns} />
+            <TransactionsTable data={transactions} />
           </div>
         </CardContent>
         <CardFooter className="flex h-16 items-end">

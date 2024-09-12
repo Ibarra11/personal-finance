@@ -40,6 +40,13 @@ const SEED_POTS = [
 const SEED_THEMES = [{ id: 1, name: "Sunny", color: "yellow" }];
 
 const SEED_TRANSACTIONS: (typeof transactions.$inferInsert)[] = [];
+// Example list of recipients (any entity)
+const SEED_PARTIES = [
+  "Amazon",
+  "Local Grocery",
+  "Utility Company",
+  "Rent Office",
+];
 
 const defaultTo = new Date();
 const defaultFrom = subDays(defaultTo, 90);
@@ -63,16 +70,17 @@ const generateTransactionsForDay = (day: Date) => {
     const category =
       SEED_CATEGORIES[Math.floor(Math.random() * SEED_CATEGORIES.length)];
     const isExpense = Math.random() > 0.6;
+    const party = SEED_PARTIES[Math.floor(Math.random() * SEED_PARTIES.length)];
 
-    const amount = generateRandomAmount(category);
-    const formattedAmount = (isExpense ? -amount : amount).toFixed(2);
+    const amount = generateRandomAmount(category).toFixed(2);
 
     SEED_TRANSACTIONS.push({
       budgetId: SEED_BUDGETS[0].id,
       categoryId: category.id,
       createdAt: day,
       updatedAt: day,
-      amount: formattedAmount,
+      amount,
+      party,
       type: isExpense ? "payment" : "deposit",
     });
   }

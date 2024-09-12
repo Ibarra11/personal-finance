@@ -15,19 +15,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { columns } from "./columns";
+import { TransactionWithCategory } from "@/services/transactions/getAllTransactions";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProps {
+  data: TransactionWithCategory[];
 }
 
-export function TransactionsTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function TransactionsTable({ data }: DataTableProps) {
   const table = useReactTable({
     data,
-    columns,
+    columns: columns as ColumnDef<TransactionWithCategory, any>[],
     getCoreRowModel: getCoreRowModel(),
   });
 

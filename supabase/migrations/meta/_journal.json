@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1726102980342,
+      "tag": "0000_empty_spirit",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1726105928979,
+      "tag": "0001_mysterious_gertrude_yorkes",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726106512817,
+      "tag": "0002_empty_warpath",
+      "breakpoints": true
+    }
+  ]
+}

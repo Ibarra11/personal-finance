@@ -21,6 +21,7 @@ export const transactions = pgTable(
   "transactions",
   {
     id: serial("id").primaryKey(),
+    party: varchar("party", { length: 255 }).notNull(),
     amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
     type: transactionTypeEnum("type").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -47,6 +48,10 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
   budget: one(budgets, {
     fields: [transactions.budgetId],
     references: [budgets.id],
+  }),
+  category: one(categories, {
+    fields: [transactions.categoryId],
+    references: [categories.id],
   }),
 }));
 
