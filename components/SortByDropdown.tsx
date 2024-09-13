@@ -6,13 +6,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const OPTIONS = ["Latest", "Oldest", "A to Z", "Z to A", "Highest", "Lowest"];
+const OPTIONS = [
+  "Latest",
+  "Oldest",
+  "A to Z",
+  "Z to A",
+  "Highest",
+  "Lowest",
+] as const;
+export type SortTableOptions = (typeof OPTIONS)[number];
+interface Props {
+  sortOption: SortTableOptions;
+  onSortOptionChange: (sortOption: SortTableOptions) => void;
+}
 
-export default function SortByDropdown() {
+export default function SortByDropdown({
+  sortOption,
+  onSortOptionChange,
+}: Props) {
   return (
-    <Select defaultValue={OPTIONS[0]}>
+    <Select value={sortOption} onValueChange={onSortOptionChange}>
       <SelectTrigger className="w-28">
-        <SelectValue placeholder="Theme" />
+        <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {OPTIONS.map((option) => (

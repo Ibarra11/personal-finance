@@ -1,6 +1,6 @@
 "use client";
 
-import { TransactionWithCategory } from "@/services/transactions/getAllTransactions";
+import { TransactionWithCategory } from "@/services/transactions/getTransactions";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<TransactionWithCategory>[] = [
@@ -32,7 +32,11 @@ export const columns: ColumnDef<TransactionWithCategory>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex h-10 items-center">
-          {new Date(row.original.createdAt).toDateString()}
+          {new Date(row.original.createdAt).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
         </div>
       );
     },

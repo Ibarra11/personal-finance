@@ -4,7 +4,9 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
+  ColumnSort,
 } from "@tanstack/react-table";
 
 import {
@@ -16,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { columns } from "./columns";
-import { TransactionWithCategory } from "@/services/transactions/getAllTransactions";
+import { TransactionWithCategory } from "@/services/transactions/getTransactions";
 
 interface DataTableProps {
   data: TransactionWithCategory[];

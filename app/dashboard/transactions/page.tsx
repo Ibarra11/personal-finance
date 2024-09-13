@@ -1,5 +1,5 @@
 import PageClient from "./page.client";
-import { getAllTransactions } from "@/services/transactions/getAllTransactions";
+import { getAllTransactions } from "@/services/transactions/getTransactions";
 import { getCategories } from "@/services/categories/getCategories";
 
 export default async function Page() {

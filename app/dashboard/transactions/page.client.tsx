@@ -17,10 +17,12 @@ import {
 } from "@/components/ui/pagination";
 
 import { TransactionsTable } from "@/components/transaction-table/data-table";
-import SortByDropdown from "@/components/SortByDropdown";
+import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
 import TransactionCategoryDropdown from "@/components/transactions/TransactionsCategoryDropdown";
-import type { TransactionWithCategory } from "@/services/transactions/getAllTransactions";
-import { ChangeEvent, useState } from "react";
+import type { TransactionWithCategory } from "@/services/transactions/getTransactions";
+import React, { ChangeEvent, useState } from "react";
+import { filterTransactions } from "./helpers";
+let prevFiltered: any = [];
 
 interface Props {
   transactions: Array<TransactionWithCategory>;
@@ -29,29 +31,25 @@ interface Props {
 export default function PageClient({ transactions, categories }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  function handleCategoryChange(category: string) {
+  const [selectedSortOption, setSelectedSortOption] =
+    useState<SortTableOptions>("Latest");
+
+  function handleCategoryChange(category: string | null) {
     setSelectedCategory(category);
   }
   function handleSearchTermChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchTerm(e.target.value);
   }
-
-  let filteredTransactions: Array<TransactionWithCategory>;
-
-  if (!selectedCategory && !searchTerm) {
-    filteredTransactions = transactions;
-  } else {
-    filteredTransactions = transactions.filter((transaction) => {
-      const matchesCategory = selectedCategory
-        ? transaction.category.name === selectedCategory
-        : true;
-
-      const matchesSearchTerm = searchTerm
-        ? transaction.party.toLowerCase().includes(searchTerm.toLowerCase())
-        : true;
-      return matchesCategory && matchesSearchTerm;
-    });
+  function handleSortOptionChange(sortOption: SortTableOptions) {
+    setSelectedSortOption(sortOption);
   }
+
+  const filteredTransactions = filterTransactions({
+    searchTerm,
+    selectedCategory,
+    selectedSortOption,
+    transactions,
+  });
 
   return (
     <Card className="space-y-6 px-5 py-6 md:p-8">
@@ -76,7 +74,10 @@ export default function PageClient({ transactions, categories }: Props) {
         <div className="hidden md:flex md:gap-6">
           <div className="flex items-center gap-3">
             <p className="text-sm text-gray-500">Sort By</p>
-            <SortByDropdown />
+            <SortByDropdown
+              sortOption={selectedSortOption}
+              onSortOptionChange={handleSortOptionChange}
+            />
           </div>
           <div className="flex items-center gap-3">
             <p className="text-sm text-gray-500">Category</p>

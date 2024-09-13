@@ -9,8 +9,8 @@ import {
 
 interface Props {
   categories: Array<string>;
-  selectedCategory: null | string;
-  onCategoryChange: (category: string) => void;
+  selectedCategory: string | null;
+  onCategoryChange: (category: string | null) => void;
 }
 
 export default function TransactionCategoryDropdown({
@@ -19,7 +19,15 @@ export default function TransactionCategoryDropdown({
   onCategoryChange,
 }: Props) {
   return (
-    <Select value={selectedCategory ?? "all"} onValueChange={onCategoryChange}>
+    <Select
+      value={selectedCategory ?? "all"}
+      onValueChange={(value) => {
+        if (value === "all") {
+          return onCategoryChange(null);
+        }
+        return onCategoryChange(value);
+      }}
+    >
       <SelectTrigger className="w-[180px]">
         <SelectValue />
       </SelectTrigger>
