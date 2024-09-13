@@ -32,7 +32,7 @@ export const columns: ColumnDef<TransactionWithCategory>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex h-10 items-center">
-          {new Date(row.original.createdAt).toLocaleDateString("en-GB", {
+          {row.original.createdAt.toLocaleDateString("en-GB", {
             day: "numeric",
             month: "short",
             year: "numeric",

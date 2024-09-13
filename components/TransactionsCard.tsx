@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import IconCaretRight from "../public/icons/icon-caret-right.svg";
 import { Card, CardContent, CardHeader } from "./ui/card";
-import CompactTransaction from "./CompactTransaction";
+import CompactTransaction from "./transactions/CompactTransaction";
 
 export default function TransactionsCard() {
   return (
@@ -16,7 +16,7 @@ export default function TransactionsCard() {
       <CardContent>
         {new Array(5).fill(null).map(() => (
           <div className="border-b border-b-gray-100 py-5 first:pt-0 last:border-none last:pb-0">
-            <CompactTransaction />
+            {/* <CompactTransaction /> */}
           </div>
         ))}
       </CardContent>

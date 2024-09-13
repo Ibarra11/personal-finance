@@ -5,7 +5,7 @@ import IconSearch from "@/public/icons/icon-search.svg";
 import IconFilterMobile from "@/public/icons/icon-filter-mobile.svg";
 import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
 import { Button } from "@/components/ui/button";
-import CompactTransaction from "@/components/CompactTransaction";
+import CompactTransaction from "@/components/transactions/CompactTransaction";
 
 import { TransactionsTable } from "@/components/transaction-table/data-table";
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
@@ -14,6 +14,7 @@ import type { TransactionWithCategory } from "@/services/transactions/getTransac
 import React, { ChangeEvent, useMemo, useState } from "react";
 import { filterTransactions, getPaginatedTransactions } from "./helpers";
 import TransactionPagination from "@/components/transactions/TransactionsPagination";
+import TransactionSortPopover from "@/components/transactions/TransactionSortPopover";
 
 interface Props {
   transactions: Array<TransactionWithCategory>;
@@ -72,9 +73,10 @@ export default function PageClient({ transactions, categories }: Props) {
           />
         </div>
         <div className="md:hidden">
-          <Button variant="ghost" size="icon">
-            <IconSortMobile className="size-5 text-gray-900" />
-          </Button>
+          <TransactionSortPopover
+            sortOption={selectedSortOption}
+            onSortOptionChange={handleSortOptionChange}
+          />
           <Button variant="ghost" size="icon">
             <IconFilterMobile className="size-5 text-gray-900" />
           </Button>
@@ -99,12 +101,12 @@ export default function PageClient({ transactions, categories }: Props) {
       </div>
       <CardContent className="space-y-4">
         <div className="md:hidden">
-          {new Array(10).fill(null).map((_, idx) => (
+          {paginatedTransactions.map((transaction) => (
             <div
-              key={idx}
+              key={transaction.id}
               className="border-b border-b-gray-100 py-4 first:pt-0 last:border-none last:pb-0"
             >
-              <CompactTransaction />
+              <CompactTransaction {...transaction} />
             </div>
           ))}
         </div>

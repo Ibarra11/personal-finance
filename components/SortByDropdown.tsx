@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const OPTIONS = [
+export const SORT_BY_OPTIONS = [
   "Latest",
   "Oldest",
   "A to Z",
@@ -14,7 +14,7 @@ const OPTIONS = [
   "Highest",
   "Lowest",
 ] as const;
-export type SortTableOptions = (typeof OPTIONS)[number];
+export type SortTableOptions = (typeof SORT_BY_OPTIONS)[number];
 interface Props {
   sortOption: SortTableOptions;
   onSortOptionChange: (sortOption: SortTableOptions) => void;
@@ -30,7 +30,7 @@ export default function SortByDropdown({
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {OPTIONS.map((option) => (
+        {SORT_BY_OPTIONS.map((option) => (
           <SelectItem key={option} value={option}>
             {option}
           </SelectItem>
