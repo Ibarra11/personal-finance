@@ -1,3 +1,4 @@
+"use client";
 import {
   Select,
   SelectContent,
@@ -6,16 +7,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface Categories {
+interface Props {
   categories: Array<string>;
+  selectedCategory: null | string;
+  onCategoryChange: (category: string) => void;
 }
 
 export default function TransactionCategoryDropdown({
   categories,
-}: Categories) {
+  selectedCategory,
+  onCategoryChange,
+}: Props) {
   return (
-    <Select>
-      <SelectTrigger defaultValue="all" className="w-[180px]">
+    <Select value={selectedCategory ?? "all"} onValueChange={onCategoryChange}>
+      <SelectTrigger className="w-[180px]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
