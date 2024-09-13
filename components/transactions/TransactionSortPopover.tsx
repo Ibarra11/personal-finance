@@ -37,7 +37,7 @@ export default function TransactionSortPopover({
               setIsOpen(false);
               onSortOptionChange(option);
             }}
-            className={`h-10 w-full px-0 text-gray-900 hover:bg-accent hover:text-gray-900 focus-visible:bg-accent ${sortOption === option ? "font-bold text-gray-900" : "text-gray-500"}`}
+            className={`h-10 w-full justify-start text-gray-900 hover:bg-accent hover:text-gray-900 focus-visible:bg-accent ${sortOption === option ? "font-bold text-gray-900" : "text-gray-500"}`}
             size="sm"
             variant="ghost"
           >

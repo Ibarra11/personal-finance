@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InputWithIcon } from "@/components/ui/input";
 import IconSearch from "@/public/icons/icon-search.svg";
 import IconFilterMobile from "@/public/icons/icon-filter-mobile.svg";
-import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
+
 import { Button } from "@/components/ui/button";
 import CompactTransaction from "@/components/transactions/CompactTransaction";
 
@@ -15,6 +15,7 @@ import React, { ChangeEvent, useMemo, useState } from "react";
 import { filterTransactions, getPaginatedTransactions } from "./helpers";
 import TransactionPagination from "@/components/transactions/TransactionsPagination";
 import TransactionSortPopover from "@/components/transactions/TransactionSortPopover";
+import TransactionCategoryPopover from "@/components/transactions/TransactionCategoryPopover";
 
 interface Props {
   transactions: Array<TransactionWithCategory>;
@@ -77,9 +78,11 @@ export default function PageClient({ transactions, categories }: Props) {
             sortOption={selectedSortOption}
             onSortOptionChange={handleSortOptionChange}
           />
-          <Button variant="ghost" size="icon">
-            <IconFilterMobile className="size-5 text-gray-900" />
-          </Button>
+          <TransactionCategoryPopover
+            selectedCategory={selectedCategory}
+            onCategoryChange={handleCategoryChange}
+            categories={categories}
+          />
         </div>
         <div className="hidden md:flex md:gap-6">
           <div className="flex items-center gap-3">
