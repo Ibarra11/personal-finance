@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS "category_name_unique_index";

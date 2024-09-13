@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   pgTable,
   numeric,
@@ -9,6 +9,7 @@ import {
   varchar,
   integer,
   index,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 // Enum for transaction type
@@ -97,12 +98,20 @@ export const potsRelations = relations(pots, ({ one }) => ({
   }),
 }));
 
-export const categories = pgTable("categories", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
-});
+export const categories = pgTable(
+  "categories",
+  {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+  },
+  (table) => ({
+    categoryNameUniqueIndex: uniqueIndex("category_name_unique_index").on(
+      sql`lower(${table.name})`,
+    ),
+  }),
+);
 
 export const themes = pgTable("themes", {
   id: serial("id").primaryKey(),

@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "category_name_unique_index" ON "categories" USING btree (lower("name"));
