@@ -22,7 +22,11 @@ export default function TransactionSortPopover({
   return (
     <Popover open={open} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Open sorting options for transactions"
+        >
           <IconSortMobile className="size-5 text-gray-900" />
         </Button>
       </PopoverTrigger>
