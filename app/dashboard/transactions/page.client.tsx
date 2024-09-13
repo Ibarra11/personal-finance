@@ -91,8 +91,11 @@ export default function PageClient({ transactions, categories }: Props) {
       </div>
       <CardContent className="space-y-4">
         <div className="md:hidden">
-          {new Array(10).fill(null).map(() => (
-            <div className="border-b border-b-gray-100 py-4 first:pt-0 last:border-none last:pb-0">
+          {new Array(10).fill(null).map((_, idx) => (
+            <div
+              key={idx}
+              className="border-b border-b-gray-100 py-4 first:pt-0 last:border-none last:pb-0"
+            >
               <CompactTransaction />
             </div>
           ))}

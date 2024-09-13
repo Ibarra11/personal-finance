@@ -34,7 +34,9 @@ export default function TransactionCategoryDropdown({
       <SelectContent>
         <SelectItem value="all">All Categories</SelectItem>
         {categories.map((category) => (
-          <SelectItem value={category}>{category}</SelectItem>
+          <SelectItem key={category} value={category}>
+            {category}
+          </SelectItem>
         ))}
       </SelectContent>
     </Select>

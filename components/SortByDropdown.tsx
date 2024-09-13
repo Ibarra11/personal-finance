@@ -31,7 +31,9 @@ export default function SortByDropdown({
       </SelectTrigger>
       <SelectContent>
         {OPTIONS.map((option) => (
-          <SelectItem value={option}>{option}</SelectItem>
+          <SelectItem key={option} value={option}>
+            {option}
+          </SelectItem>
         ))}
       </SelectContent>
     </Select>
