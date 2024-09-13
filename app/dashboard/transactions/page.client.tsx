@@ -6,49 +6,57 @@ import IconFilterMobile from "@/public/icons/icon-filter-mobile.svg";
 import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
 import { Button } from "@/components/ui/button";
 import CompactTransaction from "@/components/CompactTransaction";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationButton,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 
 import { TransactionsTable } from "@/components/transaction-table/data-table";
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
 import TransactionCategoryDropdown from "@/components/transactions/TransactionsCategoryDropdown";
 import type { TransactionWithCategory } from "@/services/transactions/getTransactions";
-import React, { ChangeEvent, useState } from "react";
-import { filterTransactions } from "./helpers";
-let prevFiltered: any = [];
+import React, { ChangeEvent, useMemo, useState } from "react";
+import { filterTransactions, getPaginatedTransactions } from "./helpers";
+import TransactionPagination from "@/components/transactions/TransactionsPagination";
 
 interface Props {
   transactions: Array<TransactionWithCategory>;
   categories: Array<string>;
 }
+
 export default function PageClient({ transactions, categories }: Props) {
+  const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSortOption, setSelectedSortOption] =
     useState<SortTableOptions>("Latest");
 
   function handleCategoryChange(category: string | null) {
+    setPage(1);
     setSelectedCategory(category);
   }
   function handleSearchTermChange(e: ChangeEvent<HTMLInputElement>) {
+    setPage(1);
     setSearchTerm(e.target.value);
   }
   function handleSortOptionChange(sortOption: SortTableOptions) {
+    setPage(1);
     setSelectedSortOption(sortOption);
   }
+  function handlePageChange(nextPage: number) {
+    setPage(nextPage);
+  }
 
-  const filteredTransactions = filterTransactions({
-    searchTerm,
-    selectedCategory,
-    selectedSortOption,
-    transactions,
+  const filteredTransactions = useMemo(
+    () =>
+      filterTransactions({
+        searchTerm,
+        selectedCategory,
+        selectedSortOption,
+        transactions,
+      }),
+    [selectedCategory, searchTerm, selectedSortOption, transactions],
+  );
+
+  const { paginatedTransactions, totalPages } = getPaginatedTransactions({
+    currentPage: page,
+    allTransactions: filteredTransactions,
   });
 
   return (
@@ -101,42 +109,16 @@ export default function PageClient({ transactions, categories }: Props) {
           ))}
         </div>
         <div className="hidden md:block">
-          <TransactionsTable data={filteredTransactions} />
+          <TransactionsTable data={paginatedTransactions} />
         </div>
       </CardContent>
       <CardFooter className="flex h-16 items-end">
-        <TransactionPagination />
+        <TransactionPagination
+          currentPage={page}
+          onPageChange={handlePageChange}
+          totalPages={totalPages}
+        />
       </CardFooter>
     </Card>
-  );
-}
-
-function TransactionPagination() {
-  return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem className="md:mr-auto">
-          <PaginationPrevious />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationButton isActive>1</PaginationButton>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationButton>2</PaginationButton>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationButton>3</PaginationButton>
-        </PaginationItem>
-        {/* <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem> */}
-        <PaginationItem>
-          <PaginationButton>5</PaginationButton>
-        </PaginationItem>
-        <PaginationItem className="md:ml-auto">
-          <PaginationNext />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
   );
 }

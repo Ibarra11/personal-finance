@@ -1,6 +1,8 @@
 import { SortTableOptions } from "@/components/SortByDropdown";
 import { TransactionWithCategory } from "@/services/transactions/getTransactions";
 
+export const TRANSACTIONS_PER_PAGE = 10;
+
 export function filterTransactions({
   transactions,
   selectedCategory,
@@ -85,4 +87,19 @@ function sortTransactions({
       });
     }
   }
+}
+
+export function getPaginatedTransactions({
+  currentPage,
+  allTransactions,
+}: {
+  currentPage: number;
+  allTransactions: Array<TransactionWithCategory>;
+}) {
+  const start = (currentPage - 1) * TRANSACTIONS_PER_PAGE;
+  const end = currentPage * TRANSACTIONS_PER_PAGE;
+  return {
+    paginatedTransactions: allTransactions.slice(start, end),
+    totalPages: Math.ceil(allTransactions.length / TRANSACTIONS_PER_PAGE),
+  };
 }
