@@ -13,18 +13,11 @@ const SEED_CATEGORIES = [
 ];
 
 const SEED_BUDGETS = [
-  {
-    id: 1,
-    name: "Monthly Budget",
-    maxSpend: "2000.00",
-    categoryId: 1,
-  },
-  {
-    id: 2,
-    name: "Utilities Budget",
-    maxSpend: "500.00",
-    categoryId: 2,
-  },
+  { id: 1, name: "Monthly Expenses", maxSpend: "5000.00", themeId: 1 },
+  { id: 2, name: "Vacation Fund", maxSpend: "3000.00", themeId: 2 },
+  { id: 3, name: "Home Renovation", maxSpend: "10000.00", themeId: 3 },
+  { id: 4, name: "Education Savings", maxSpend: "8000.00", themeId: 4 },
+  { id: 5, name: "Emergency Fund", maxSpend: "7000.00", themeId: 5 },
 ];
 
 const SEED_THEMES = [

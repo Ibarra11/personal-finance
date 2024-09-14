@@ -36,6 +36,13 @@
       "when": 1726199426181,
       "tag": "0004_naive_sharon_ventura",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1726286983500,
+      "tag": "0005_bouncy_deathstrike",
+      "breakpoints": true
     }
   ]
 }

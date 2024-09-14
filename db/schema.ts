@@ -65,9 +65,13 @@ export const budgets = pgTable(
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
     categoryId: integer("category_id").references(() => categories.id),
+    themeId: integer("theme_id")
+      .references(() => themes.id)
+      .notNull(),
   },
   (table) => ({
     budgetCategoryIdx: index("budget_category_idx").on(table.categoryId),
+    budgetThemeIdx: index("budget_theme_idx").on(table.themeId),
   }),
 );
 // a budget can have many transactions
