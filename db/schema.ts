@@ -84,7 +84,9 @@ export const pots = pgTable(
     totalSaved: numeric("total_saved", { precision: 10, scale: 2 }).notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
-    themeId: integer("theme_id").references(() => themes.id),
+    themeId: integer("theme_id")
+      .references(() => themes.id)
+      .notNull(),
   },
   (table) => ({
     themeIdx: index("theme_idx").on(table.themeId),
