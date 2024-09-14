@@ -2,8 +2,11 @@ import AddBudgetDialog from "@/components/budgets/AddBudgetDialog";
 import BudgetDonutGraph from "@/components/budgets/BudgetDonutGraph";
 import BudgetsCategoryCard from "@/components/budgets/BudgetsCategoryCard";
 import { Card } from "@/components/ui/card";
+import { getAllBudgets } from "@/services/budgets/getAllBudgets";
 
 export default async function Page() {
+  const budgets = await getAllBudgets();
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -28,26 +31,9 @@ export default async function Page() {
           </div>
         </Card>
         <div className="space-y-6 lg:flex-1">
-          <BudgetsCategoryCard
-            category="Entertainment"
-            budget={50}
-            spent={25}
-          />
-          <BudgetsCategoryCard
-            category="Entertainment"
-            budget={50}
-            spent={25}
-          />
-          <BudgetsCategoryCard
-            category="Entertainment"
-            budget={50}
-            spent={25}
-          />
-          <BudgetsCategoryCard
-            category="Entertainment"
-            budget={50}
-            spent={25}
-          />
+          {budgets.map((budget) => (
+            <BudgetsCategoryCard key={budget.id} {...budget} />
+          ))}
         </div>
       </div>
     </div>
