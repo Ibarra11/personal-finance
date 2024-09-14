@@ -1,8 +1,10 @@
 import AddPotDialog from "@/components/pots/AddPotDialog";
 import PotsCard from "@/components/pots/PotsCard";
-import { Button } from "@/components/ui/button";
+import { getPots } from "@/services/pots/getPots";
 
 export default async function Pots() {
+  const pots = await getPots();
+  console.log(pots);
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -10,10 +12,9 @@ export default async function Pots() {
         <AddPotDialog />
       </div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <PotsCard pot="Savings" totalSaved={159} target={2000} />
-        <PotsCard pot="Savings" totalSaved={159} target={2000} />
-        <PotsCard pot="Savings" totalSaved={159} target={2000} />
-        <PotsCard pot="Savings" totalSaved={159} target={2000} />
+        {pots.map((pot) => (
+          <PotsCard key={pot.id} {...pot} />
+        ))}
       </div>
     </div>
   );

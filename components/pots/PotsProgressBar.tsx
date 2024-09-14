@@ -4,39 +4,31 @@ import * as React from "react";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 import { cn } from "@/lib/utils";
-import { PotProgressProps } from "./PotProgress";
-
-type Props = Omit<PotProgressProps, "totalSaved" | "target">;
 
 const PotsProgressBar = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & Props
->(({ className, value, type, ...props }, ref) => (
-  <ProgressPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative h-2 w-full overflow-hidden rounded-full bg-background",
-      className,
-    )}
-    {...props}
-  >
-    {type === "default" && (
+  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
+>(({ className, value, color, ...props }, ref) => {
+  console.log(value);
+  return (
+    <ProgressPrimitive.Root
+      ref={ref}
+      className={cn(
+        "relative h-2 w-full overflow-hidden rounded-full bg-background",
+        className,
+      )}
+      {...props}
+    >
       <ProgressPrimitive.Indicator
-        className={`h-full w-full flex-1 bg-green transition-all`}
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        className={`h-full w-full flex-1 transition-all`}
+        style={{
+          transform: `translateX(-${100 - (value || 0)}%)`,
+          backgroundColor: color,
+        }}
       />
-    )}
-
-    {/* <ProgressPrimitive.Indicator
-      className={`h-full w-full flex-1 transition-all ${color}`}
-      style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-    /> */}
-  </ProgressPrimitive.Root>
-));
-
-function WithDrawBar() {
-  return null;
-}
+    </ProgressPrimitive.Root>
+  );
+});
 
 PotsProgressBar.displayName = ProgressPrimitive.Root.displayName;
 

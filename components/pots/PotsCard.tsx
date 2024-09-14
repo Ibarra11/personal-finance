@@ -11,21 +11,19 @@ import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
 import WithDrawPotDialog from "./WithdrawPotDialog";
 import DepositPotDialog from "./DepositPotDialog";
+import type { Pot } from "@/services/pots/getPots";
 
-interface Props {
-  pot: string;
-  totalSaved: number;
-  target: number;
-}
-
-export default function PotsCard({ pot, totalSaved, target }: Props) {
-  const progress = (totalSaved / target) * 100;
+export default function PotsCard({ totalSaved, target, name, theme }: Pot) {
+  const progress = (Number(totalSaved) / Number(target)) * 100;
   return (
     <Card className="space-y-8">
       <CardHeader className="flex-row items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="size-4 rounded-full bg-green"></div>
-          <h4 className="text-xl font-bold">{pot}</h4>
+          <div
+            style={{ backgroundColor: theme.color }}
+            className="size-4 rounded-full"
+          ></div>
+          <h4 className="text-xl font-bold">{name}</h4>
         </div>
         <PotActions />
       </CardHeader>
@@ -35,9 +33,9 @@ export default function PotsCard({ pot, totalSaved, target }: Props) {
           <p className="text-2xl font-bold text-gray-900">${totalSaved}</p>
         </div>
         <div className="space-y-3">
-          <PotsProgressBar type="default" progress={progress} />
+          <PotsProgressBar color={theme.color} value={progress} />
           <div className="flex justify-between text-xs text-gray-500">
-            <p className="font-bold">{progress}%</p>
+            <p className="font-bold">{progress.toFixed(2)}%</p>
             <p>Target of ${target}</p>
           </div>
         </div>
