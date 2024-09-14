@@ -1,9 +1,9 @@
 "use client";
 
-import { TransactionWithCategory } from "@/services/transactions/getTransactions";
+import { Transaction } from "@/services/transactions/getAllTransactions";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<TransactionWithCategory>[] = [
+export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "transactionParty",
     header: "Recipient/Sender",
@@ -20,9 +20,7 @@ export const columns: ColumnDef<TransactionWithCategory>[] = [
     header: "Category",
     cell: ({ row }) => {
       return (
-        <div className="flex h-10 items-center">
-          {row.original.category.name}
-        </div>
+        <div className="flex h-10 items-center">{row.original.category}</div>
       );
     },
   },

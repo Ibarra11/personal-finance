@@ -18,16 +18,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { columns } from "./columns";
-import { TransactionWithCategory } from "@/services/transactions/getTransactions";
+import { Transaction } from "@/services/transactions/getAllTransactions";
 
 interface DataTableProps {
-  data: TransactionWithCategory[];
+  data: Transaction[];
 }
 
 export function TransactionsTable({ data }: DataTableProps) {
   const table = useReactTable({
     data,
-    columns: columns as ColumnDef<TransactionWithCategory, any>[],
+    columns: columns as ColumnDef<Transaction, any>[],
     getCoreRowModel: getCoreRowModel(),
   });
 

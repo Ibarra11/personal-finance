@@ -13,24 +13,54 @@ const SEED_CATEGORIES = [
 ];
 
 const SEED_BUDGETS = [
-  { id: 1, name: "Monthly Expenses", maxSpend: "5000.00", themeId: 1 },
-  { id: 2, name: "Vacation Fund", maxSpend: "3000.00", themeId: 2 },
-  { id: 3, name: "Home Renovation", maxSpend: "10000.00", themeId: 3 },
-  { id: 4, name: "Education Savings", maxSpend: "8000.00", themeId: 4 },
-  { id: 5, name: "Emergency Fund", maxSpend: "7000.00", themeId: 5 },
+  {
+    id: 1,
+    name: "Monthly Expenses",
+    maxSpend: "5000.00",
+    categoryId: 1,
+    themeId: 1,
+  },
+  {
+    id: 2,
+    name: "Vacation Fund",
+    maxSpend: "3000.00",
+    categoryId: 2,
+    themeId: 2,
+  },
+  {
+    id: 3,
+    name: "Home Renovation",
+    maxSpend: "10000.00",
+    categoryId: 3,
+    themeId: 3,
+  },
+  {
+    id: 4,
+    name: "Education Savings",
+    maxSpend: "8000.00",
+    categoryId: 4,
+    themeId: 4,
+  },
+  {
+    id: 5,
+    name: "Emergency Fund",
+    maxSpend: "7000.00",
+    categoryId: 2,
+    themeId: 5,
+  },
 ];
 
 const SEED_THEMES = [
-  { id: 1, name: "Sunny", color: "#FFD700" }, // Bright yellow
-  { id: 2, name: "Ocean", color: "#1E90FF" }, // Ocean blue
-  { id: 3, name: "Forest", color: "#228B22" }, // Forest green
-  { id: 4, name: "Sunset", color: "#FF4500" }, // Orange-red
-  { id: 5, name: "Blush", color: "#FFB6C1" }, // Light pink
-  { id: 6, name: "Night Sky", color: "#2F4F4F" }, // Dark slate gray
-  { id: 7, name: "Mountain", color: "#A9A9A9" }, // Dark gray
-  { id: 8, name: "Lavender", color: "#E6E6FA" }, // Soft lavender
-  { id: 9, name: "Fire", color: "#FF6347" }, // Tomato red
-  { id: 10, name: "Royal", color: "#4169E1" }, // Royal blue
+  { id: 1, name: "Sunny", color: "#FFD700" },
+  { id: 2, name: "Ocean", color: "#1E90FF" },
+  { id: 3, name: "Forest", color: "#228B22" },
+  { id: 4, name: "Sunset", color: "#FF4500" },
+  { id: 5, name: "Blush", color: "#FFB6C1" },
+  { id: 6, name: "Night Sky", color: "#2F4F4F" },
+  { id: 7, name: "Mountain", color: "#A9A9A9" },
+  { id: 8, name: "Lavender", color: "#E6E6FA" },
+  { id: 9, name: "Fire", color: "#FF6347" },
+  { id: 10, name: "Royal", color: "#4169E1" },
 ];
 
 const SEED_POTS = [
@@ -107,6 +137,7 @@ const SEED_POTS = [
 ];
 
 const SEED_TRANSACTIONS: (typeof transactions.$inferInsert)[] = [];
+
 // Example list of recipients (any entity)
 const SEED_PARTIES = [
   "Amazon",
@@ -143,7 +174,6 @@ const generateTransactionsForDay = (day: Date) => {
 
     SEED_TRANSACTIONS.push({
       budgetId: SEED_BUDGETS[0].id,
-      categoryId: category.id,
       createdAt: day,
       updatedAt: day,
       amount,

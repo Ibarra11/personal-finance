@@ -33,26 +33,16 @@ export const transactions = pgTable(
     budgetId: integer("budget_id")
       .references(() => budgets.id, { onDelete: "cascade" })
       .notNull(),
-    categoryId: integer("category_id")
-      .references(() => categories.id)
-      .notNull(),
   },
   (table) => ({
     budgetIdx: index("budget_idx").on(table.budgetId),
-    transactionsCategoryIdx: index("transactions_category_idx").on(
-      table.categoryId,
-    ),
   }),
 );
-// a transaction belongs to a single budget
+
 export const transactionsRelations = relations(transactions, ({ one }) => ({
   budget: one(budgets, {
     fields: [transactions.budgetId],
     references: [budgets.id],
-  }),
-  category: one(categories, {
-    fields: [transactions.categoryId],
-    references: [categories.id],
   }),
 }));
 
@@ -60,11 +50,12 @@ export const budgets = pgTable(
   "budgets",
   {
     id: serial("id").primaryKey(),
-    name: text("name").notNull(),
     maxSpend: numeric("max_spend", { precision: 10, scale: 2 }).notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
-    categoryId: integer("category_id").references(() => categories.id),
+    categoryId: integer("category_id")
+      .references(() => categories.id)
+      .notNull(),
     themeId: integer("theme_id")
       .references(() => themes.id)
       .notNull(),
@@ -74,9 +65,17 @@ export const budgets = pgTable(
     budgetThemeIdx: index("budget_theme_idx").on(table.themeId),
   }),
 );
-// a budget can have many transactions
-export const budgetsRelations = relations(budgets, ({ many }) => ({
+
+export const budgetsRelations = relations(budgets, ({ many, one }) => ({
   transactions: many(transactions),
+  theme: one(themes, {
+    fields: [budgets.themeId],
+    references: [themes.id],
+  }),
+  category: one(categories, {
+    fields: [budgets.categoryId],
+    references: [categories.id],
+  }), // Ensure the budget links to a category
 }));
 
 export const pots = pgTable(

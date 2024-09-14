@@ -2,15 +2,12 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InputWithIcon } from "@/components/ui/input";
 import IconSearch from "@/public/icons/icon-search.svg";
-import IconFilterMobile from "@/public/icons/icon-filter-mobile.svg";
-
-import { Button } from "@/components/ui/button";
 import CompactTransaction from "@/components/transactions/CompactTransaction";
 
 import { TransactionsTable } from "@/components/transaction-table/data-table";
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
 import TransactionCategoryDropdown from "@/components/transactions/TransactionsCategoryDropdown";
-import type { TransactionWithCategory } from "@/services/transactions/getTransactions";
+import type { Transaction } from "@/services/transactions/getAllTransactions";
 import React, { ChangeEvent, useMemo, useState } from "react";
 import { filterTransactions, getPaginatedTransactions } from "./helpers";
 import TransactionPagination from "@/components/transactions/TransactionsPagination";
@@ -18,7 +15,7 @@ import TransactionSortPopover from "@/components/transactions/TransactionSortPop
 import TransactionCategoryPopover from "@/components/transactions/TransactionCategoryPopover";
 
 interface Props {
-  transactions: Array<TransactionWithCategory>;
+  transactions: Array<Transaction>;
   categories: Array<string>;
 }
 

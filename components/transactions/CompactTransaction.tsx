@@ -1,4 +1,4 @@
-import { TransactionWithCategory } from "@/services/transactions/getTransactions";
+import { Transaction } from "@/services/transactions/getAllTransactions";
 
 export default function CompactTransaction({
   party,
@@ -6,12 +6,12 @@ export default function CompactTransaction({
   amount,
   createdAt,
   type,
-}: TransactionWithCategory) {
+}: Transaction) {
   return (
     <div className="flex justify-between">
       <div className="space-y-1">
         <p className="text-sm font-bold text-gray-900">{party}</p>
-        <p className="text-xs text-gray-500">{category.name}</p>
+        <p className="text-xs text-gray-500">{category}</p>
       </div>
       <div className="space-y-2">
         <p

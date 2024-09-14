@@ -1,5 +1,5 @@
 import { SortTableOptions } from "@/components/SortByDropdown";
-import { TransactionWithCategory } from "@/services/transactions/getTransactions";
+import { Transaction } from "@/services/transactions/getAllTransactions";
 
 export const TRANSACTIONS_PER_PAGE = 10;
 
@@ -9,12 +9,12 @@ export function filterTransactions({
   searchTerm,
   selectedSortOption,
 }: {
-  transactions: Array<TransactionWithCategory>;
+  transactions: Array<Transaction>;
   selectedCategory: string | null;
   searchTerm: string;
   selectedSortOption: SortTableOptions;
 }) {
-  let filteredTransactions: Array<TransactionWithCategory>;
+  let filteredTransactions: Array<Transaction>;
 
   if (!selectedCategory && !searchTerm) {
     //   spread transasctions, so when we change sortOption we have new array and Tanstack table will re-render
@@ -22,7 +22,7 @@ export function filterTransactions({
   } else {
     filteredTransactions = transactions.filter((transaction) => {
       const matchesCategory = selectedCategory
-        ? transaction.category.name === selectedCategory
+        ? transaction.category === selectedCategory
         : true;
 
       const matchesSearchTerm = searchTerm
@@ -44,7 +44,7 @@ function sortTransactions({
   filteredTransactions,
   sortOption,
 }: {
-  filteredTransactions: Array<TransactionWithCategory>;
+  filteredTransactions: Array<Transaction>;
   sortOption: SortTableOptions;
 }) {
   switch (sortOption) {
@@ -94,7 +94,7 @@ export function getPaginatedTransactions({
   allTransactions,
 }: {
   currentPage: number;
-  allTransactions: Array<TransactionWithCategory>;
+  allTransactions: Array<Transaction>;
 }) {
   const start = (currentPage - 1) * TRANSACTIONS_PER_PAGE;
   const end = currentPage * TRANSACTIONS_PER_PAGE;

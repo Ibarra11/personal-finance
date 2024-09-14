@@ -11,7 +11,7 @@ import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
 import WithDrawPotDialog from "./WithdrawPotDialog";
 import DepositPotDialog from "./DepositPotDialog";
-import type { Pot } from "@/services/pots/getPots";
+import type { Pot } from "@/services/pots/getAllPots";
 
 export default function PotsCard({ totalSaved, target, name, theme }: Pot) {
   const progress = (Number(totalSaved) / Number(target)) * 100;

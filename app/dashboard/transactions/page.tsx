@@ -1,11 +1,11 @@
 import PageClient from "./page.client";
-import { getAllTransactions } from "@/services/transactions/getTransactions";
-import { getCategories } from "@/services/categories/getCategories";
+import { getAllTransactions } from "@/services/transactions/getAllTransactions";
+import { getAllCategories } from "@/services/categories/getAllCategories";
 
 export default async function Page() {
   const [transactions, categories] = await Promise.all([
     getAllTransactions(),
-    getCategories(),
+    getAllCategories(),
   ]);
 
   return (

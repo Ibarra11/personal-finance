@@ -1,8 +1,8 @@
 import { db } from "@/db";
 
-export type Pot = Awaited<ReturnType<typeof getPots>>[number];
+export type Pot = Awaited<ReturnType<typeof getAllPots>>[number];
 
-export async function getPots() {
+export async function getAllPots() {
   return db.query.pots.findMany({
     with: {
       theme: {

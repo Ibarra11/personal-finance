@@ -1,9 +1,9 @@
 import AddPotDialog from "@/components/pots/AddPotDialog";
 import PotsCard from "@/components/pots/PotsCard";
-import { getPots } from "@/services/pots/getPots";
+import { getAllPots } from "@/services/pots/getAllPots";
 
 export default async function Pots() {
-  const pots = await getPots();
+  const pots = await getAllPots();
   console.log(pots);
   return (
     <div className="space-y-8">
