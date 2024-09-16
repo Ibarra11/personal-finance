@@ -5,24 +5,32 @@ import { useForm, UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import WithDrawPotField from "./fields/WithdrawPotField";
-import PotProgress from "../PotProgress";
-import WithdrawProgress from "../WithdrawProgress";
 import DepositPotField from "./fields/DepositPotField";
 import DepositProgress from "../DepositProgress";
+import { AddMoney } from "@/actions/pots/add-money-action";
+import { Loader } from "lucide-react";
 
 interface Props {
+  potId: number;
   totalSaved: number;
   target: number;
+  onAddMoney: (args: AddMoney) => void;
+  isPending: boolean;
 }
 
 const formSchema = z.object({
-  depositAmount: z.number().min(0, "Deposit amount must be positive"),
+  depositAmount: z.coerce.number().min(0, "Deposit amount must be positive"),
 });
 
 export type DepositPotFormType = UseFormReturn<z.infer<typeof formSchema>>;
 
-export default function DepositPortForm({ totalSaved, target }: Props) {
+export default function AddMoneyPotForm({
+  totalSaved,
+  target,
+  potId,
+  onAddMoney,
+  isPending,
+}: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,7 +39,7 @@ export default function DepositPortForm({ totalSaved, target }: Props) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Handle form submit
+    onAddMoney({ potId, newAmount: totalSaved + values.depositAmount });
   }
 
   // Watch for changes in withdrawAmount and automatically trigger re-renders
@@ -43,7 +51,6 @@ export default function DepositPortForm({ totalSaved, target }: Props) {
 
   return (
     <>
-      {/* Pass calculated progress values to the progress components */}
       <DepositProgress
         progressAfterDeposit={progressAfterDeposit}
         progress={progress}
@@ -51,11 +58,20 @@ export default function DepositPortForm({ totalSaved, target }: Props) {
         target={target}
       />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <DepositPotField form={form} />
-          <Button className="w-full" type="submit">
-            Confirm Addition
-          </Button>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <fieldset className="space-y-4" disabled={isPending}>
+            <DepositPotField form={form} />
+            <Button
+              disabled={isPending}
+              className="relative w-full"
+              type="submit"
+            >
+              <span className={`${isPending ? "invisible" : ""}`}>
+                Confirm Addition
+              </span>
+              {isPending && <Loader className="absolute size-4 animate-spin" />}
+            </Button>
+          </fieldset>
         </form>
       </Form>
     </>

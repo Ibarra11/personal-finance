@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -10,11 +11,14 @@ import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
 import WithDrawPotDialog from "./WithdrawPotDialog";
-import DepositPotDialog from "./DepositPotDialog";
+import AddMoneyPotDialog from "./AddMoneyPotDialog";
 import type { Pot } from "@/services/pots/getAllPots";
 
-export default function PotsCard({ totalSaved, target, name, theme }: Pot) {
+import React from "react";
+
+export default function PotsCard({ id, totalSaved, target, name, theme }: Pot) {
   const progress = (Number(totalSaved) / Number(target)) * 100;
+
   return (
     <Card className="space-y-8">
       <CardHeader className="flex-row items-center justify-between">
@@ -42,7 +46,12 @@ export default function PotsCard({ totalSaved, target, name, theme }: Pot) {
       </CardContent>
       <CardFooter className="gap-4">
         <div className="flex-1">
-          <DepositPotDialog />
+          <AddMoneyPotDialog
+            title={name}
+            potId={id}
+            totalSaved={Number(totalSaved)}
+            target={Number(target)}
+          />
         </div>
         <div className="flex-1">
           <WithDrawPotDialog />

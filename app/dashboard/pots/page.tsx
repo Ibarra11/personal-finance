@@ -1,10 +1,11 @@
 import AddPotDialog from "@/components/pots/AddPotDialog";
 import PotsCard from "@/components/pots/PotsCard";
 import { getAllPots } from "@/services/pots/getAllPots";
+import React from "react";
 
 export default async function Pots() {
   const pots = await getAllPots();
-  console.log(pots);
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">

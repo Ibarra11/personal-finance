@@ -11,5 +11,6 @@ export async function getAllPots() {
         },
       },
     },
+    orderBy: (pots, { desc }) => [desc(pots.updatedAt)],
   });
 }

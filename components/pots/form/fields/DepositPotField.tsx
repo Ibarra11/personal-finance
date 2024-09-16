@@ -8,7 +8,7 @@ import {
 
 import { InputWithIcon } from "@/components/ui/input";
 import { DollarSign } from "lucide-react";
-import { DepositPotFormType } from "../DepositPotForm";
+import { DepositPotFormType } from "../AddMoneyPotForm";
 
 export default function DepositPotField({
   form,
@@ -27,7 +27,7 @@ export default function DepositPotField({
               variant="start"
               type="number"
               icon={<DollarSign size={14} className="text-beige-500" />}
-              {...field} // Spread field props to ensure onChange, onBlur, and value are passed
+              {...field}
             />
           </FormControl>
           <FormMessage />

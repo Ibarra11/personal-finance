@@ -30,7 +30,7 @@ export default function PotProgress({
         <p className="text-2xl font-bold text-gray-900">${totalSaved}</p>
       </div>
       <div className="space-y-3">
-        <PotsProgressBar {...props} type={type} />
+        <PotsProgressBar value={progress} />
         <div className="flex justify-between text-xs text-gray-500">
           <p className={`font-bold ${config[type]}`}>{progress}%</p>
           <p>Target of ${target}</p>

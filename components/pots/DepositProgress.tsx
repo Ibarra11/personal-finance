@@ -33,7 +33,7 @@ export default function DepositProgress({
           <p
             className={`font-bold ${progress === progressAfterDeposit ? "text-gray-900" : "text-green"}`}
           >
-            {progressAfterDeposit}%
+            {progressAfterDeposit.toFixed(2)}%
           </p>
           <p>Target of ${target}</p>
         </div>
