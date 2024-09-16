@@ -33,7 +33,7 @@ export default function WithdrawProgress({
           <p
             className={`font-bold ${withdrawProgress === progressAfterWithdraw ? "text-gray-900" : "text-red"}`}
           >
-            {progressAfterWithdraw}%
+            {progressAfterWithdraw.toFixed(2)}%
           </p>
           <p>Target of ${target}</p>
         </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Dialog,
   DialogClose,
@@ -13,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { CircleX } from "lucide-react";
 import AddPotForm from "./form/AddPotForm";
 import React from "react";
-import { toast } from "sonner";
 
 export default function AddPotDialog() {
   return (

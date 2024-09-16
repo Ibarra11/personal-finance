@@ -10,7 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
-import WithDrawPotDialog from "./WithdrawPotDialog";
+import WithDrawPotDialog from "./WithdrawMoneyPotDialog";
 import AddMoneyPotDialog from "./AddMoneyPotDialog";
 import type { Pot } from "@/services/pots/getAllPots";
 
@@ -54,7 +54,12 @@ export default function PotsCard({ id, totalSaved, target, name, theme }: Pot) {
           />
         </div>
         <div className="flex-1">
-          <WithDrawPotDialog />
+          <WithDrawPotDialog
+            title={name}
+            potId={id}
+            totalSaved={Number(totalSaved)}
+            target={Number(target)}
+          />
         </div>
       </CardFooter>
     </Card>
