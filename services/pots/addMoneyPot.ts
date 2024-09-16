@@ -1,9 +1,14 @@
 import { db } from "@/db";
-import { AddMoney } from "@/actions/pots/add-money-action";
+
 import { pots } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-export async function addMoneyPot({ potId, newAmount }: AddMoney) {
+interface Data {
+  potId: number;
+  newAmount: number;
+}
+
+export async function addMoneyPot({ potId, newAmount }: Data) {
   return db
     .update(pots)
     .set({ totalSaved: String(newAmount) })

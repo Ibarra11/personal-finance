@@ -39,7 +39,7 @@ export default function AddMoneyPotForm({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onAddMoney({ potId, newAmount: totalSaved + values.depositAmount });
+    onAddMoney({ potId, deposit: values.depositAmount });
   }
 
   // Watch for changes in withdrawAmount and automatically trigger re-renders
