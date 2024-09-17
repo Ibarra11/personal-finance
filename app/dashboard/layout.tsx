@@ -24,6 +24,7 @@ export default function RootLayout({
       <div className="fixed bottom-0 left-0 right-[var(--scrollbar-width)] lg:hidden">
         <TabletMobileNav />
       </div>
+      <Toaster closeButton position="top-right" richColors theme="light" />
     </div>
   );
 }

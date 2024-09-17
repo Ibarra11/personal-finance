@@ -1,6 +1,6 @@
 "use client";
 
-import { deletePotAction } from "@/actions/pots/delete-pot-action";
+import { DeletePot, deletePotAction } from "@/actions/pots/delete-pot-action";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { CircleX, Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import ErrorDialogMessage from "../ErrorDialogMessage";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   title: string;
@@ -22,9 +24,17 @@ interface Props {
 }
 
 export default function DeletePotDialog({ title, potId }: Props) {
-  const { execute, isPending, result } = useAction(deletePotAction);
+  const [open, setIsOpen] = useState(false);
+  const { isPending, result, executeAsync } = useAction(deletePotAction);
+  async function handleDeletePot() {
+    const result = await executeAsync({ potId });
+    if (result?.data?.success) {
+      setIsOpen(false);
+      toast.success(`Pot ‘${title}’ deleted successfully.`);
+    }
+  }
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
         <Button className="text-red/90 hover:text-red" variant="link" size="sm">
           Delete Pot
@@ -59,7 +69,7 @@ export default function DeletePotDialog({ title, potId }: Props) {
         </AlertDialogHeader>
         <div className="space-y-4 text-center">
           <Button
-            onClick={() => execute({ potId })}
+            onClick={handleDeletePot}
             className="w-full"
             variant="destructive"
             disabled={isPending}

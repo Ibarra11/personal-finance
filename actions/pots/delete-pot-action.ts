@@ -11,6 +11,8 @@ const deletePotSchema = z.object({
   potId: z.number({ required_error: "potId is required" }),
 });
 
+export type DeletePot = z.infer<typeof deletePotSchema>;
+
 export const deletePotAction = actionClient
   .schema(deletePotSchema)
   .action(async ({ parsedInput: { potId } }) => {
