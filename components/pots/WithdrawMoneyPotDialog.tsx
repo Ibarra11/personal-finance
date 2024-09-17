@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { useAction } from "next-safe-action/hooks";
 
 import { withdrawMoneyAction } from "@/actions/pots/withdraw-money-action";
-import ErrorDialogBadge from "../ErrorDialogBadge";
+import ErrorDialogBadge from "../ErrorDialogMessage";
 
 interface Props {
   potId: number;

@@ -8,7 +8,12 @@ import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import EditPotDialog from "./EditPotDialog";
 import DeletePotDialog from "./DeletePotDialog";
 
-export default function PotActions() {
+interface Props {
+  title: string;
+  potId: number;
+}
+
+export default function PotActions({ title, potId }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -22,7 +27,7 @@ export default function PotActions() {
       >
         <EditPotDialog />
         <div className="my-1 h-px self-stretch bg-gray-100 px-5"></div>
-        <DeletePotDialog />
+        <DeletePotDialog title={title} potId={potId} />
       </PopoverContent>
     </Popover>
   );

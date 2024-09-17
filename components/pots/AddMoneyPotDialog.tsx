@@ -15,7 +15,7 @@ import { CircleX } from "lucide-react";
 import { addMoneyAction } from "@/actions/pots/add-money-action";
 import AddMoneyPotForm from "./form/AddMoneyPotForm";
 import { useEffect, useState } from "react";
-import ErrorDialogBadge from "../ErrorDialogBadge";
+import ErrorDialogBadge from "../ErrorDialogMessage";
 
 interface Props {
   potId: number;

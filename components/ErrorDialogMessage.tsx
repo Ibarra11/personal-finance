@@ -4,7 +4,7 @@ interface Props {
   message: string;
 }
 
-export default function ErrorDialogBadge({ message }: Props) {
+export default function ErrorDialogMessage({ message }: Props) {
   return (
     <div className="flex items-center gap-4 rounded-sm bg-destructive p-2 text-destructive-foreground">
       <CircleAlert size={16} />

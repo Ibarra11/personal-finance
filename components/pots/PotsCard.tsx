@@ -29,7 +29,7 @@ export default function PotsCard({ id, totalSaved, target, name, theme }: Pot) {
           ></div>
           <h4 className="text-xl font-bold">{name}</h4>
         </div>
-        <PotActions />
+        <PotActions title={name} potId={id} />
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
