@@ -7,6 +7,7 @@ import { Budget } from "@/services/budgets/getAllBudgets";
 
 type Props = Pick<
   Budget,
+  | "id"
   | "category"
   | "maxSpend"
   | "createdAt"
@@ -16,6 +17,7 @@ type Props = Pick<
 >;
 
 export default function BudgetsCategoryCard({
+  id,
   category,
   maxSpend,
   createdAt,
@@ -33,7 +35,7 @@ export default function BudgetsCategoryCard({
           ></div>
           <h4 className="text-xl font-bold">{category.name}</h4>
         </div>
-        <BudgetActions />
+        <BudgetActions key={id} id={id} category={category} />
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="space-y-4">

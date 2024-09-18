@@ -10,7 +10,7 @@ import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
 
 import AddPotThemeField from "./fields/AddPotThemeField";
 import { Loader } from "lucide-react";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../../SubmitButton";
 
 interface Props {
   isDisabled: boolean;

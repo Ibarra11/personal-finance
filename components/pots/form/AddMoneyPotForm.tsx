@@ -9,7 +9,7 @@ import DepositPotField from "./fields/DepositPotField";
 import DepositProgress from "../DepositProgress";
 import { AddMoney } from "@/actions/pots/add-money-action";
 import { Loader } from "lucide-react";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../../SubmitButton";
 
 interface Props {
   potId: number;

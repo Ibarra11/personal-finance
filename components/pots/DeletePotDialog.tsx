@@ -17,7 +17,7 @@ import { useAction } from "next-safe-action/hooks";
 import ErrorDialogMessage from "../ErrorDialogMessage";
 import { useState } from "react";
 import { toast } from "sonner";
-import SubmitButton from "./form/SubmitButton";
+import SubmitButton from "../SubmitButton";
 
 interface Props {
   title: string;

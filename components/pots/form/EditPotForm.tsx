@@ -11,7 +11,7 @@ import ThemeField from "./fields/ThemeField";
 import { Pot } from "@/types";
 import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
 import { Loader } from "lucide-react";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../../SubmitButton";
 
 type Props = Pick<Pot, "name" | "target" | "theme"> & {
   isDisabled: boolean;

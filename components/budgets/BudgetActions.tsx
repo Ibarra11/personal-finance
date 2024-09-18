@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button";
 import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import EditBudgetDialog from "./EditBudgetDialog";
 import DeleteBudgetDialog from "./DeleteBudgetDialog";
+import type { BudgetActions } from "@/app/dashboard/budgets/types";
 
-export default function BudgetActions() {
+export default function BudgetActions({ id, category }: BudgetActions) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -22,7 +23,7 @@ export default function BudgetActions() {
       >
         <EditBudgetDialog />
         <div className="my-1 h-px self-stretch bg-gray-100 px-5"></div>
-        <DeleteBudgetDialog />
+        <DeleteBudgetDialog id={id} category={category} />
       </PopoverContent>
     </Popover>
   );

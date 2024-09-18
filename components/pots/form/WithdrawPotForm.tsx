@@ -11,7 +11,7 @@ import WithdrawProgress from "../WithdrawProgress";
 import { AddMoney } from "@/actions/pots/add-money-action";
 import { Loader } from "lucide-react";
 import { WithdrawMoney } from "@/actions/pots/withdraw-money-action";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../../SubmitButton";
 
 interface Props {
   potId: number;
