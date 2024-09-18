@@ -16,6 +16,7 @@ import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 import { AddOrEditFormSchemaType } from "./form/schema";
 import { createPotAction } from "@/actions/pots/create-pot-action";
+import ErrorDialogMessage from "../ErrorDialogMessage";
 
 export default function AddPotDialog() {
   const [open, setIsOpen] = useState(false);
@@ -66,6 +67,9 @@ export default function AddPotDialog() {
               </Button>
             </DialogClose>
           </DialogTitle>
+          {!isPending && result.data?.success === false && (
+            <ErrorDialogMessage message={result.data.message} />
+          )}
           <DialogDescription className="text-left text-sm text-gray-500">
             Create a pot to set savings targets. These can help keep you on
             track as you save for special purchases.

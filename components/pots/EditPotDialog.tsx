@@ -18,6 +18,7 @@ import { editPotAction } from "@/actions/pots/edit-pot-action";
 import { AddOrEditFormSchemaType } from "./form/schema";
 import { useState } from "react";
 import { toast } from "sonner";
+import ErrorDialogMessage from "../ErrorDialogMessage";
 
 type Props = Pick<Pot, "id" | "name" | "target" | "theme">;
 
@@ -60,6 +61,9 @@ export default function EditPotDialog({ id, name, target, theme }: Props) {
           <DialogTitle className="flex items-center justify-between text-left text-xl font-bold text-gray-900 md:text-3xl">
             Edit Pot
           </DialogTitle>
+          {!isPending && result.data?.success === false && (
+            <ErrorDialogMessage message={result.data.message} />
+          )}
           <DialogDescription className="text-left text-sm text-gray-500">
             If your saving targets change, feel free to update your pots.
           </DialogDescription>

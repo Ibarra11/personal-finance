@@ -24,7 +24,6 @@ export const createPotAction = actionClient
         potTarget,
         potThemeId,
       });
-      console.log(createdPot);
 
       if (createdPot.length === 0) {
         return {
