@@ -31,7 +31,7 @@ export default function DeleteBudgetDialog({
     const result = await executeAsync({ budgetId: id });
     if (result?.data?.success) {
       setIsOpen(false);
-      toast.success(`Pot ‘${category.name}’ deleted successfully.`);
+      toast.success(`Budget ‘${category.name}’ deleted successfully.`);
     }
   }
   return (

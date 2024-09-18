@@ -27,7 +27,7 @@ export const deleteBudgetAction = actionClient
         };
       }
 
-      await revalidatePath("/dashboard/pots");
+      await revalidatePath("/dashboard/budgets");
 
       return {
         success: true,

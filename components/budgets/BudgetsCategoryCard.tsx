@@ -1,3 +1,4 @@
+"use client";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Progress } from "@/components/ui/progress";
 
@@ -35,7 +36,7 @@ export default function BudgetsCategoryCard({
           ></div>
           <h4 className="text-xl font-bold">{category.name}</h4>
         </div>
-        <BudgetActions key={id} id={id} category={category} />
+        <BudgetActions id={id} category={category} />
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="space-y-4">
