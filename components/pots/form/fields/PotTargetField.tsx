@@ -9,9 +9,9 @@ import {
 
 import { InputWithIcon } from "@/components/ui/input";
 import { DollarSign } from "lucide-react";
-import { AddPortFormType } from "../AddPotForm";
+import { AddOrEditFormType } from "../schema";
 
-export default function PotTargetField({ form }: { form: AddPortFormType }) {
+export default function PotTargetField({ form }: { form: AddOrEditFormType }) {
   return (
     <FormField
       control={form.control}

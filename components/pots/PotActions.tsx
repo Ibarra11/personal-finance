@@ -7,13 +7,11 @@ import { Button } from "@/components/ui/button";
 import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import EditPotDialog from "./EditPotDialog";
 import DeletePotDialog from "./DeletePotDialog";
+import { Pot } from "@/types";
 
-interface Props {
-  title: string;
-  potId: number;
-}
+type Props = Pick<Pot, "id" | "target" | "theme" | "name">;
 
-export default function PotActions({ title, potId }: Props) {
+export default function PotActions({ id, target, theme, name }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -25,9 +23,9 @@ export default function PotActions({ title, potId }: Props) {
         align="end"
         className="w-fit flex-col items-start p-2 text-left"
       >
-        <EditPotDialog />
+        <EditPotDialog id={id} name={name} target={target} theme={theme} />
         <div className="my-1 h-px self-stretch bg-gray-100 px-5"></div>
-        <DeletePotDialog title={title} potId={potId} />
+        <DeletePotDialog title={name} potId={id} />
       </PopoverContent>
     </Popover>
   );

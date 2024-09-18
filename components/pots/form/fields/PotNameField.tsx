@@ -1,5 +1,4 @@
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -7,26 +6,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { InputWithIcon } from "@/components/ui/input";
-import { DollarSign } from "lucide-react";
-import { AddPortFormType } from "../AddPotForm";
+import { Input } from "@/components/ui/input";
+import { AddOrEditFormType } from "../schema";
 
-export default function PotNameField({ form }: { form: AddPortFormType }) {
+export default function PotNameField({ form }: { form: AddOrEditFormType }) {
   return (
     <FormField
       control={form.control}
       name="potName"
-      render={({ field }) => (
-        <FormItem>
+      render={({ field, fieldState }) => (
+        <FormItem className="relative">
           <FormLabel>Pot Name</FormLabel>
           <FormControl>
-            <InputWithIcon
-              variant="start"
-              type="number"
-              icon={<DollarSign size={14} className="text-beige-500" />}
-              {...field}
-            />
+            <Input {...field} />
           </FormControl>
+          {!fieldState.error && (
+            <p className="absolute -bottom-2 right-0 translate-y-full text-right text-xs text-gray-500">
+              {30 - field.value.length} of 30 characters left
+            </p>
+          )}
           <FormMessage />
         </FormItem>
       )}

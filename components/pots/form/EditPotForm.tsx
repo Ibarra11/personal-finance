@@ -8,29 +8,48 @@ import { Form } from "@/components/ui/form";
 import PotNameField from "./fields/PotNameField";
 import PotTargetField from "./fields/PotTargetField";
 import ThemeField from "./fields/ThemeField";
+import { Pot } from "@/types";
+import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
+import { Loader } from "lucide-react";
 
-const formSchema = z.object({
-  potName: z.string(),
-  target: z.number(),
-  theme: z.string(),
-});
+type Props = Pick<Pot, "name" | "target" | "theme"> & {
+  isDisabled: boolean;
+  onPotEdit: (values: AddOrEditFormSchemaType) => void;
+};
 
-export default function EditPotForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {},
+export default function EditPotForm({
+  name,
+  target,
+  theme,
+  isDisabled,
+  onPotEdit,
+}: Props) {
+  const form = useForm<AddOrEditFormSchemaType>({
+    resolver: zodResolver(addOrEditFormSchema),
+    defaultValues: {
+      potName: name,
+      target,
+      theme,
+    },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {}
+  function onSubmit({ potName, target, theme }: AddOrEditFormSchemaType) {
+    onPotEdit({ potName, target, theme });
+  }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <PotNameField form={form} />
-        <PotTargetField form={form} />
-        <ThemeField form={form} />
-        <Button className="w-full" type="submit">
-          Save Changes
-        </Button>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <fieldset className="space-y-4" disabled={isDisabled}>
+          <PotNameField form={form} />
+          <PotTargetField form={form} />
+          <ThemeField currentTheme={theme} form={form} />
+          <Button className="relative w-full" type="submit">
+            <span className={`${isDisabled ? "invisible" : ""}`}>
+              Save Changes
+            </span>
+            {isDisabled && <Loader className="absolute size-4 animate-spin" />}
+          </Button>
+        </fieldset>
       </form>
     </Form>
   );

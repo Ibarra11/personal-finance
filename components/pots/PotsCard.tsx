@@ -5,16 +5,13 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import IconEllipsis from "@/public/icons/icon-ellipsis.svg";
 import PotsProgressBar from "./PotsProgressBar";
 import PotActions from "./PotActions";
 import WithDrawPotDialog from "./WithdrawMoneyPotDialog";
 import AddMoneyPotDialog from "./AddMoneyPotDialog";
-import type { Pot } from "@/services/pots/getAllPots";
 
 import React from "react";
+import { Pot } from "@/types";
 
 export default function PotsCard({ id, totalSaved, target, name, theme }: Pot) {
   const progress = (Number(totalSaved) / Number(target)) * 100;
@@ -29,7 +26,7 @@ export default function PotsCard({ id, totalSaved, target, name, theme }: Pot) {
           ></div>
           <h4 className="text-xl font-bold">{name}</h4>
         </div>
-        <PotActions title={name} potId={id} />
+        <PotActions target={target} theme={theme} name={name} id={id} />
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
