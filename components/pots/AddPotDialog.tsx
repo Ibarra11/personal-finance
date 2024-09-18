@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -10,15 +12,42 @@ import {
 import { Button } from "@/components/ui/button";
 import { CircleX } from "lucide-react";
 import AddPotForm from "./form/AddPotForm";
-import React from "react";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
+import { AddOrEditFormSchemaType } from "./form/schema";
+import { createPotAction } from "@/actions/pots/create-pot-action";
 
 export default function AddPotDialog() {
+  const [open, setIsOpen] = useState(false);
+  const { executeAsync, result, isPending } = useAction(createPotAction);
+  async function handlePotAdd({
+    potName,
+    target,
+    theme,
+  }: AddOrEditFormSchemaType) {
+    const result = await executeAsync({
+      potName,
+      potThemeId: theme.id,
+      potTarget: target,
+    });
+    if (result?.data?.success) {
+      setIsOpen(false);
+      toast.success(`Pot ‘${potName}’ created successfully.`);
+    }
+  }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>+ Add New Pot</Button>
       </DialogTrigger>
-      <DialogContent className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-white px-5 py-6 md:p-8">
+      <DialogContent
+        onInteractOutside={(e) => {
+          if (isPending) {
+            e.preventDefault();
+          }
+        }}
+        className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-white px-5 py-6 md:p-8"
+      >
         <DialogHeader className="space-y-4 lg:space-y-5">
           <DialogTitle className="flex items-center justify-between text-left text-xl font-bold text-gray-900 md:text-3xl">
             Add Pot
@@ -28,6 +57,7 @@ export default function AddPotDialog() {
                 type="button"
                 size="icon"
                 variant="link"
+                disabled={isPending}
               >
                 <CircleX
                   size={24}
@@ -41,7 +71,7 @@ export default function AddPotDialog() {
             track as you save for special purchases.
           </DialogDescription>
         </DialogHeader>
-        <AddPotForm />
+        <AddPotForm isDisabled={isPending} onPotAdd={handlePotAdd} />
       </DialogContent>
     </Dialog>
   );

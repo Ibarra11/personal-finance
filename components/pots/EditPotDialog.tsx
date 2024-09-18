@@ -15,7 +15,6 @@ import EditPotForm from "./form/EditPotForm";
 import { Pot } from "@/types";
 import { useAction } from "next-safe-action/hooks";
 import { editPotAction } from "@/actions/pots/edit-pot-action";
-import { DeletePot } from "@/actions/pots/delete-pot-action";
 import { AddOrEditFormSchemaType } from "./form/schema";
 import { useState } from "react";
 import { toast } from "sonner";

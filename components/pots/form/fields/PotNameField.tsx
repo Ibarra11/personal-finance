@@ -18,7 +18,7 @@ export default function PotNameField({ form }: { form: AddOrEditFormType }) {
         <FormItem className="relative">
           <FormLabel>Pot Name</FormLabel>
           <FormControl>
-            <Input {...field} />
+            <Input placeholder="Enter a name for your pot" {...field} />
           </FormControl>
           {!fieldState.error && (
             <p className="absolute -bottom-2 right-0 translate-y-full text-right text-xs text-gray-500">

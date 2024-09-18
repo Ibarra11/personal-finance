@@ -1,31 +1,45 @@
 "use client";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import PotNameField from "./fields/PotNameField";
 import PotTargetField from "./fields/PotTargetField";
-import ThemeField from "./fields/ThemeField";
 import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
 
-export default function AddPotForm() {
+import AddPotThemeField from "./fields/AddPotThemeField";
+import { Loader } from "lucide-react";
+
+interface Props {
+  isDisabled: boolean;
+  onPotAdd: (values: AddOrEditFormSchemaType) => void;
+}
+
+export default function AddPotForm({ isDisabled, onPotAdd }: Props) {
   const form = useForm<AddOrEditFormSchemaType>({
     resolver: zodResolver(addOrEditFormSchema),
-    defaultValues: {},
+    defaultValues: {
+      potName: "",
+      target: "0.00",
+    },
   });
 
-  function onSubmit(values: AddOrEditFormSchemaType) {}
+  function onSubmit(values: AddOrEditFormSchemaType) {
+    onPotAdd(values);
+  }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <PotNameField form={form} />
-        <PotTargetField form={form} />
-        <ThemeField currentTheme={{} as any} form={form} />
-        <Button className="w-full" type="submit">
-          Add Pot
-        </Button>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <fieldset className="space-y-4" disabled={isDisabled}>
+          <PotNameField form={form} />
+          <PotTargetField form={form} />
+          <AddPotThemeField form={form} />
+          <Button className="relative w-full" type="submit">
+            <span className={`${isDisabled ? "invisible" : ""}`}>Add Pot</span>
+            {isDisabled && <Loader className="absolute size-4 animate-spin" />}
+          </Button>
+        </fieldset>
       </form>
     </Form>
   );
