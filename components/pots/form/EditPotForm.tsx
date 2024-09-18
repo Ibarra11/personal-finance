@@ -11,6 +11,7 @@ import ThemeField from "./fields/ThemeField";
 import { Pot } from "@/types";
 import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
 import { Loader } from "lucide-react";
+import SubmitButton from "./SubmitButton";
 
 type Props = Pick<Pot, "name" | "target" | "theme"> & {
   isDisabled: boolean;
@@ -43,12 +44,7 @@ export default function EditPotForm({
           <PotNameField form={form} />
           <PotTargetField form={form} />
           <ThemeField currentTheme={theme} form={form} />
-          <Button className="relative w-full" type="submit">
-            <span className={`${isDisabled ? "invisible" : ""}`}>
-              Save Changes
-            </span>
-            {isDisabled && <Loader className="absolute size-4 animate-spin" />}
-          </Button>
+          <SubmitButton text="Save Changes" />
         </fieldset>
       </form>
     </Form>

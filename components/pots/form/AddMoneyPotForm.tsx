@@ -9,6 +9,7 @@ import DepositPotField from "./fields/DepositPotField";
 import DepositProgress from "../DepositProgress";
 import { AddMoney } from "@/actions/pots/add-money-action";
 import { Loader } from "lucide-react";
+import SubmitButton from "./SubmitButton";
 
 interface Props {
   potId: number;
@@ -61,16 +62,7 @@ export default function AddMoneyPotForm({
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <fieldset className="space-y-4" disabled={isPending}>
             <DepositPotField form={form} />
-            <Button
-              disabled={isPending}
-              className="relative w-full"
-              type="submit"
-            >
-              <span className={`${isPending ? "invisible" : ""}`}>
-                Confirm Addition
-              </span>
-              {isPending && <Loader className="absolute size-4 animate-spin" />}
-            </Button>
+            <SubmitButton text="Confirm Addition" />
           </fieldset>
         </form>
       </Form>

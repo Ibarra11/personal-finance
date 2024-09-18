@@ -11,6 +11,7 @@ import WithdrawProgress from "../WithdrawProgress";
 import { AddMoney } from "@/actions/pots/add-money-action";
 import { Loader } from "lucide-react";
 import { WithdrawMoney } from "@/actions/pots/withdraw-money-action";
+import SubmitButton from "./SubmitButton";
 
 interface Props {
   potId: number;
@@ -69,16 +70,7 @@ export default function WithdrawPortForm({
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <fieldset className="space-y-4" disabled={isPending}>
             <WithDrawPotField form={form} />
-            <Button
-              disabled={isPending}
-              className="relative w-full"
-              type="submit"
-            >
-              <span className={`${isPending ? "invisible" : ""}`}>
-                Confirm Withdraw
-              </span>
-              {isPending && <Loader className="absolute size-4 animate-spin" />}
-            </Button>
+            <SubmitButton text="Confirm Withdraw" />
           </fieldset>
         </form>
       </Form>

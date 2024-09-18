@@ -10,6 +10,7 @@ import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
 
 import AddPotThemeField from "./fields/AddPotThemeField";
 import { Loader } from "lucide-react";
+import SubmitButton from "./SubmitButton";
 
 interface Props {
   isDisabled: boolean;
@@ -35,10 +36,7 @@ export default function AddPotForm({ isDisabled, onPotAdd }: Props) {
           <PotNameField form={form} />
           <PotTargetField form={form} />
           <AddPotThemeField form={form} />
-          <Button className="relative w-full" type="submit">
-            <span className={`${isDisabled ? "invisible" : ""}`}>Add Pot</span>
-            {isDisabled && <Loader className="absolute size-4 animate-spin" />}
-          </Button>
+          <SubmitButton text="Add Pot" />
         </fieldset>
       </form>
     </Form>

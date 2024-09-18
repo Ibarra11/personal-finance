@@ -17,6 +17,7 @@ import { useAction } from "next-safe-action/hooks";
 import ErrorDialogMessage from "../ErrorDialogMessage";
 import { useState } from "react";
 import { toast } from "sonner";
+import SubmitButton from "./form/SubmitButton";
 
 interface Props {
   title: string;
@@ -76,17 +77,12 @@ export default function DeletePotDialog({ title, potId }: Props) {
           </AlertDialogCancel>
         </AlertDialogHeader>
         <div className="space-y-4 text-center">
-          <Button
+          <SubmitButton
             onClick={handleDeletePot}
-            className="w-full"
             variant="destructive"
             disabled={isPending}
-          >
-            <span className={`${isPending ? "invisible" : ""}`}>
-              Yes, Confirm Deletion
-            </span>
-            {isPending && <Loader className="absolute size-4 animate-spin" />}
-          </Button>
+            text="Yes, Confirm Deletion"
+          />
           <AlertDialogCancel asChild>
             <Button disabled={isPending} size="sm" variant="link">
               No, Go Back
