@@ -31,7 +31,7 @@ export default function AddMoneyPotDialog({
   title,
 }: Props) {
   const [open, setIsOpen] = useState(false);
-  const { execute, result, isPending } = useAction(addMoneyAction);
+  const { execute, result, isPending, reset } = useAction(addMoneyAction);
 
   useEffect(() => {
     if (result.data?.success) {
@@ -40,7 +40,15 @@ export default function AddMoneyPotDialog({
   }, [result]);
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="secondary" className="w-full">
           + Add Money

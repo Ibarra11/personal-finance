@@ -20,7 +20,7 @@ import ErrorDialogMessage from "../ErrorDialogMessage";
 
 export default function AddPotDialog() {
   const [open, setIsOpen] = useState(false);
-  const { executeAsync, result, isPending } = useAction(createPotAction);
+  const { executeAsync, result, isPending, reset } = useAction(createPotAction);
   async function handlePotAdd({
     potName,
     target,
@@ -37,7 +37,15 @@ export default function AddPotDialog() {
     }
   }
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <DialogTrigger asChild>
         <Button>+ Add New Pot</Button>
       </DialogTrigger>

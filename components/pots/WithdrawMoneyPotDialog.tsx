@@ -32,7 +32,7 @@ export default function WithdrawMoneyPotDialog({
   title,
 }: Props) {
   const [open, setIsOpen] = useState(false);
-  const { execute, result, isPending } = useAction(withdrawMoneyAction);
+  const { execute, result, isPending, reset } = useAction(withdrawMoneyAction);
 
   useEffect(() => {
     if (result.data?.success) {
@@ -41,7 +41,15 @@ export default function WithdrawMoneyPotDialog({
   }, [result]);
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="secondary" className="w-full">
           Withdraw

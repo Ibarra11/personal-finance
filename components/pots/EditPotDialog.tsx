@@ -24,7 +24,7 @@ type Props = Pick<Pot, "id" | "name" | "target" | "theme">;
 
 export default function EditPotDialog({ id, name, target, theme }: Props) {
   const [open, setIsOpen] = useState(false);
-  const { executeAsync, result, isPending } = useAction(editPotAction);
+  const { executeAsync, result, isPending, reset } = useAction(editPotAction);
   async function handlePotEdit({
     potName,
     target,
@@ -43,7 +43,15 @@ export default function EditPotDialog({ id, name, target, theme }: Props) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setIsOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="link" size="sm">
           Edit Pot

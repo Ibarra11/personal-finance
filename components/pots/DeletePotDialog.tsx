@@ -25,7 +25,7 @@ interface Props {
 
 export default function DeletePotDialog({ title, potId }: Props) {
   const [open, setIsOpen] = useState(false);
-  const { isPending, result, executeAsync } = useAction(deletePotAction);
+  const { isPending, result, executeAsync, reset } = useAction(deletePotAction);
   async function handleDeletePot() {
     const result = await executeAsync({ potId });
     if (result?.data?.success) {
@@ -34,7 +34,15 @@ export default function DeletePotDialog({ title, potId }: Props) {
     }
   }
   return (
-    <AlertDialog open={open} onOpenChange={setIsOpen}>
+    <AlertDialog
+      open={open}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <AlertDialogTrigger asChild>
         <Button className="text-red/90 hover:text-red" variant="link" size="sm">
           Delete Pot
