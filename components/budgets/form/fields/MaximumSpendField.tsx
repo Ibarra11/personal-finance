@@ -1,5 +1,4 @@
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -9,17 +8,17 @@ import {
 
 import { InputWithIcon } from "@/components/ui/input";
 import { DollarSign } from "lucide-react";
+import { AddOrEditFormType } from "../schema";
 
-import { EditBudgetFormType } from "../EditBudgetForm";
 export default function MaximumSpendField({
   form,
 }: {
-  form: EditBudgetFormType;
+  form: AddOrEditFormType;
 }) {
   return (
     <FormField
       control={form.control}
-      name="budgetCategory"
+      name="maxSpend"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Maximum Spend</FormLabel>

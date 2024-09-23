@@ -1,16 +1,14 @@
 "use client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormReturn } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import { Form } from "@/components/ui/form";
 import PotNameField from "./fields/PotNameField";
 import PotTargetField from "./fields/PotTargetField";
 import ThemeField from "./fields/ThemeField";
 import { Pot } from "@/types";
 import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
-import { Loader } from "lucide-react";
 import SubmitButton from "../../SubmitButton";
 
 type Props = Pick<Pot, "name" | "target" | "theme"> & {

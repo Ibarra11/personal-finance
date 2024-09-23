@@ -53,7 +53,11 @@ export default function ThemeField({
             <SelectContent className="max-h-72" side="bottom" align="start">
               {themes.map((theme) => (
                 <SelectItem
-                  disabled={theme.taken && field.value.id !== theme.id}
+                  disabled={
+                    theme.taken &&
+                    field.value.id !== theme.id &&
+                    currentTheme.id !== theme.id
+                  }
                   defaultChecked={field.value.id === theme.id}
                   key={theme.id}
                   className="group rounded-none border-b border-gray-100 last:border-b-0 hover:bg-none focus-visible:bg-none"

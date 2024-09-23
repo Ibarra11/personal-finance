@@ -5,7 +5,6 @@ import { actionClient } from "@/actions/safe-action";
 
 import { revalidatePath } from "next/cache";
 
-import { deletePotById } from "@/services/pots/deletePotById";
 import { editPotById } from "@/services/pots/editPotById";
 
 const editPotSchema = z.object({

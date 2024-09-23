@@ -10,6 +10,22 @@ const SEED_CATEGORIES = [
   { id: 2, name: "Rent" },
   { id: 3, name: "Utilities" },
   { id: 4, name: "Shop" },
+  { id: 5, name: "Transportation" },
+  { id: 6, name: "Entertainment" },
+  { id: 7, name: "Healthcare" },
+  { id: 8, name: "Insurance" },
+  { id: 9, name: "Savings" },
+  { id: 10, name: "Debt Payments" },
+  { id: 11, name: "Education" },
+  { id: 12, name: "Dining Out" },
+  { id: 13, name: "Personal Care" },
+  { id: 14, name: "Subscriptions" }, // Blank Category
+  { id: 15, name: "Gifts & Donations" },
+  { id: 16, name: "Childcare" }, // Blank Category
+  { id: 17, name: "Pets" },
+  { id: 18, name: "Home Maintenance" },
+  { id: 19, name: "Clothing" }, // Blank Category
+  { id: 20, name: "Miscellaneous" }, // Blank Category
 ];
 
 const SEED_BUDGETS = [
@@ -152,13 +168,33 @@ const defaultFrom = subDays(defaultTo, 90);
 const generateRandomAmount = (category: typeof categories.$inferInsert) => {
   switch (category.name) {
     case "Rent":
-      return Math.random() * 400 + 90;
+      return Math.random() * 400 + 900;
     case "Utilities":
-      return Math.random() * 400 + 90;
+      return Math.random() * 300 + 50;
     case "Food":
-      return Math.random() * 30 + 10;
+    case "Dining Out":
+      return Math.random() * 100 + 20;
+    case "Transportation":
+      return Math.random() * 60 + 10;
+    case "Entertainment":
+      return Math.random() * 80 + 10;
+    case "Healthcare":
+      return Math.random() * 300 + 50;
+    case "Insurance":
+      return Math.random() * 150 + 200;
+    case "Savings":
+    case "Debt Payments":
+      return Math.random() * 500 + 100;
+    case "Gifts & Donations":
+      return Math.random() * 200 + 30;
+    case "Personal Care":
+      return Math.random() * 50 + 20;
+    case "Home Maintenance":
+      return Math.random() * 200 + 100;
+
+    // For categories without specific amounts, return a default or skip
     default:
-      return Math.random() * 50 + 10;
+      return null; // Leave blank categories with no specific logic
   }
 };
 
@@ -170,13 +206,16 @@ const generateTransactionsForDay = (day: Date) => {
     const isExpense = Math.random() > 0.6;
     const party = SEED_PARTIES[Math.floor(Math.random() * SEED_PARTIES.length)];
 
-    const amount = generateRandomAmount(category).toFixed(2);
+    const amount = generateRandomAmount(category);
+
+    // Skip the transaction if amount is null (i.e., blank category)
+    if (!amount) continue;
 
     SEED_TRANSACTIONS.push({
       budgetId: SEED_BUDGETS[0].id,
       createdAt: day,
       updatedAt: day,
-      amount,
+      amount: amount.toFixed(2),
       party,
       type: isExpense ? "payment" : "deposit",
     });

@@ -8,31 +8,43 @@ import { Form } from "@/components/ui/form";
 import BudgetCategoryField from "./fields/BudgetCategoryField";
 import MaximumSpendField from "./fields/MaximumSpendField";
 import ThemeField from "./fields/ThemeField";
+import { BudgetActions } from "@/app/dashboard/budgets/types";
+import { addOrEditFormSchema, AddOrEditFormSchemaType } from "./schema";
+import SubmitButton from "@/components/SubmitButton";
 
-const formSchema = z.object({
-  budgetCategory: z.string(),
-  maximumSpend: z.number(),
-  theme: z.string(),
-});
+interface Props extends BudgetActions {
+  isDisabled: boolean;
+  onBudgetEdit: (values: AddOrEditFormSchemaType) => void;
+}
 
-export type EditBudgetFormType = UseFormReturn<z.infer<typeof formSchema>>;
-
-export default function EditBudgetForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {},
+export default function EditBudgetForm({
+  maxSpend,
+  theme,
+  category,
+  isDisabled,
+  onBudgetEdit,
+}: Props) {
+  const form = useForm<z.infer<typeof addOrEditFormSchema>>({
+    resolver: zodResolver(addOrEditFormSchema),
+    defaultValues: {
+      budgetCategory: category,
+      maxSpend,
+      theme,
+    },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {}
+  function onSubmit(values: z.infer<typeof addOrEditFormSchema>) {
+    onBudgetEdit(values);
+  }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <BudgetCategoryField form={form} />
-        <MaximumSpendField form={form} />
-        <ThemeField form={form} />
-        <Button className="w-full" type="submit">
-          Save Changes
-        </Button>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <fieldset className="space-y-4" disabled={isDisabled}>
+          <BudgetCategoryField currentCategory={category} form={form} />
+          <MaximumSpendField form={form} />
+          <ThemeField form={form} currentTheme={theme} />
+          <SubmitButton text="Save Changes" />
+        </fieldset>
       </form>
     </Form>
   );

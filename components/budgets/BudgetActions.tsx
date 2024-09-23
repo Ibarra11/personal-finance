@@ -1,3 +1,4 @@
+"use client";
 import {
   Popover,
   PopoverContent,
@@ -9,7 +10,12 @@ import EditBudgetDialog from "./EditBudgetDialog";
 import DeleteBudgetDialog from "./DeleteBudgetDialog";
 import type { BudgetActions } from "@/app/dashboard/budgets/types";
 
-export default function BudgetActions({ id, category }: BudgetActions) {
+export default function BudgetActions({
+  id,
+  category,
+  maxSpend,
+  theme,
+}: BudgetActions) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -21,7 +27,12 @@ export default function BudgetActions({ id, category }: BudgetActions) {
         align="end"
         className="w-fit flex-col items-start p-2 text-left"
       >
-        <EditBudgetDialog />
+        <EditBudgetDialog
+          id={id}
+          category={category}
+          maxSpend={maxSpend}
+          theme={theme}
+        />
         <div className="my-1 h-px self-stretch bg-gray-100 px-5"></div>
         <DeleteBudgetDialog id={id} category={category} />
       </PopoverContent>

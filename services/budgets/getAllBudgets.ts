@@ -7,11 +7,14 @@ export async function getAllBudgets() {
     with: {
       category: {
         columns: {
+          id: true,
           name: true,
         },
       },
       theme: {
         columns: {
+          id: true,
+          name: true,
           color: true,
         },
       },
@@ -26,6 +29,7 @@ export async function getAllBudgets() {
         orderBy: (transactions, { desc }) => [desc(transactions.createdAt)],
       },
     },
+    orderBy: (budgets, { desc }) => [desc(budgets.updatedAt)],
   });
 
   return budgets.map((budget) => {

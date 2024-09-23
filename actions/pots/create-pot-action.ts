@@ -39,7 +39,6 @@ export const createPotAction = actionClient
         message: `Pot was successfully created.`,
       };
     } catch (error) {
-      console.log(error);
       return {
         success: false,
         message: `An error occurred while trying to create a pot.`,
