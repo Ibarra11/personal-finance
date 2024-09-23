@@ -12,10 +12,42 @@ import {
 import { Button } from "@/components/ui/button";
 import { CircleX } from "lucide-react";
 import AddBudgetForm from "./form/AddBudgetForm";
+import { useState } from "react";
+import { AddOrEditFormSchemaType } from "./form/schema";
+import { useAction } from "next-safe-action/hooks";
+import { createBudgetAction } from "@/actions/budgets/create-budget-action";
+import { toast } from "sonner";
+import ErrorDialogMessage from "../ErrorDialogMessage";
 
 export default function AddBudgetDialog() {
+  const [open, setIsOpen] = useState(false);
+  const { executeAsync, isPending, reset, result } =
+    useAction(createBudgetAction);
+  async function handleBudgetAdd({
+    budgetCategory,
+    theme,
+    maxSpend,
+  }: AddOrEditFormSchemaType) {
+    const result = await executeAsync({
+      budgetCategoryId: budgetCategory.id,
+      maxSpend,
+      budgetThemeId: theme.id,
+    });
+    if (result?.data?.success) {
+      setIsOpen(false);
+      toast.success(result.data.message);
+    }
+  }
   return (
-    <Dialog>
+    <Dialog
+      open={open}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <DialogTrigger asChild>
         <Button>+ Add New Budget</Button>
       </DialogTrigger>
@@ -37,12 +69,15 @@ export default function AddBudgetDialog() {
               </Button>
             </DialogClose>
           </DialogTitle>
+          {!isPending && result.data?.success === false && (
+            <ErrorDialogMessage message={result.data.message} />
+          )}
           <DialogDescription className="text-left text-sm text-gray-500">
             Choose a category to set a spending budget. These categories can
             help you monitor spending.
           </DialogDescription>
         </DialogHeader>
-        <AddBudgetForm />
+        <AddBudgetForm isDisabled={isPending} onBudgetAdd={handleBudgetAdd} />
       </DialogContent>
     </Dialog>
   );

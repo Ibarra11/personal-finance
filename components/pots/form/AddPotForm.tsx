@@ -2,14 +2,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import PotNameField from "./fields/PotNameField";
 import PotTargetField from "./fields/PotTargetField";
 import { AddOrEditFormSchemaType, addOrEditFormSchema } from "./schema";
 
 import AddPotThemeField from "./fields/AddPotThemeField";
-import { Loader } from "lucide-react";
 import SubmitButton from "../../SubmitButton";
 
 interface Props {

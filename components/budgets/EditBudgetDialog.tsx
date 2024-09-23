@@ -18,6 +18,7 @@ import { editBudgetAction } from "@/actions/budgets/edit-budget-action";
 import { AddOrEditFormSchemaType } from "./form/schema";
 import { useState } from "react";
 import { toast } from "sonner";
+import ErrorDialogMessage from "../ErrorDialogMessage";
 
 export default function EditBudgetDialog({
   id,
@@ -47,7 +48,15 @@ export default function EditBudgetDialog({
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(newState) => {
+        if (!newState && !result.data?.success) {
+          reset();
+        }
+        setIsOpen(newState);
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="link" size="sm">
           Edit Budget
@@ -65,6 +74,9 @@ export default function EditBudgetDialog({
           <DialogTitle className="flex items-center justify-between text-left text-xl font-bold text-gray-900 md:text-3xl">
             Edit Budget
           </DialogTitle>
+          {!isPending && result.data?.success === false && (
+            <ErrorDialogMessage message={result.data.message} />
+          )}
           <DialogDescription className="text-left text-sm text-gray-500">
             As your budgets change, feel free to update your spending limits.
           </DialogDescription>
