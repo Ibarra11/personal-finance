@@ -2,7 +2,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { InputWithIcon } from "@/components/ui/input";
 import IconSearch from "@/public/icons/icon-search.svg";
-import CompactTransaction from "@/components/transactions/CompactTransaction";
+import CompactTransaction from "@/components/CompactTransaction";
 
 import { TransactionsTable } from "@/components/transaction-table/data-table";
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";

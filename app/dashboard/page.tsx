@@ -1,9 +1,9 @@
 import BudgetsCard from "@/components/budgets/BudgetsCard";
 import CurrencyCard from "@/components/CurrencyCard";
 import PotsCard from "@/components/dashboard/PotsCard";
+import TransactionsCard from "@/components/dashboard/TransactionsCard";
 
 import RecurringBillsCard from "@/components/RecurringBillsCard";
-import TransactionsCard from "@/components/TransactionsCard";
 
 export default function Page() {
   return (
@@ -27,7 +27,7 @@ export default function Page() {
       <div className="flex flex-col gap-6 lg:flex-row">
         <div className="flex-1 space-y-4 md:space-y-6">
           <PotsCard />
-          {/* <TransactionsCard /> */}
+          <TransactionsCard />
         </div>
         <div className="space-y-4 md:space-y-6 lg:w-[400px]">
           {/* <BudgetsCard /> */}

@@ -2,7 +2,11 @@ import { db } from "@/db";
 
 export type Transaction = Awaited<ReturnType<typeof getAllTransactions>>[0];
 
-export async function getAllTransactions() {
+interface Props {
+  limit?: number;
+}
+
+export async function getAllTransactions({ limit }: Props) {
   const transactions = await db.query.transactions.findMany({
     orderBy: (transactions, { desc }) => [desc(transactions.createdAt)],
     with: {
@@ -17,6 +21,7 @@ export async function getAllTransactions() {
         },
       },
     },
+    limit: limit,
   });
 
   return transactions.map((transaction) => ({
