@@ -6,6 +6,7 @@ import { getAllBudgets } from "@/services/budgets/getAllBudgets";
 import { getAllThemes } from "@/services/themes/getAllThemes";
 import BudgetsProvider from "./page.context";
 import { getAllCategories } from "@/services/categories/getAllCategories";
+import CompactBudgetCategory from "@/components/budgets/CompactBudgetCategory";
 
 export default async function Page() {
   const [budgets, themes, categories] = await Promise.all([
@@ -41,10 +42,14 @@ export default async function Page() {
                 Spending Summary
               </h4>
               <div>
-                <CompactBudgetCategory />
-                <CompactBudgetCategory />
-                <CompactBudgetCategory />
-                <CompactBudgetCategory />
+                {budgets.map((budget) => (
+                  <CompactBudgetCategory
+                    categoryName={budget.category.name}
+                    maxSpend={budget.maxSpend}
+                    totalSpent={budget.totalSpent}
+                    theme={budget.theme.color}
+                  />
+                ))}
               </div>
             </div>
           </Card>
@@ -56,20 +61,5 @@ export default async function Page() {
         </div>
       </div>
     </BudgetsProvider>
-  );
-}
-
-function CompactBudgetCategory() {
-  return (
-    <div className="flex items-center justify-between border-b border-gray-100 py-4 first:pt-0 last:border-b-0 last:pb-0">
-      <div className="flex gap-4">
-        <div className="w-1 rounded-full bg-green"></div>
-        <p className="text-sm text-gray-500">Bills</p>
-      </div>
-      <div className="flex items-center gap-2">
-        <p className="text-base font-bold">$250.00</p>
-        <p className="text-xs text-gray-500">of 750.00</p>
-      </div>
-    </div>
   );
 }
