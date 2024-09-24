@@ -30,7 +30,7 @@ export default function Page() {
           <TransactionsCard />
         </div>
         <div className="space-y-4 md:space-y-6 lg:w-[400px]">
-          {/* <BudgetsCard /> */}
+          <BudgetsCard />
           {/* <RecurringBillsCard /> */}
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import IconPot from "@/public/icons/icon-pot.svg";
 import { getAllPots } from "@/services/pots/getAllPots";
 import { formatNumber } from "@/lib/utils";
+import PotSummary from "../PotSummary";
 
 export default async function PotsCard() {
   const pots = await getAllPots();
@@ -26,7 +27,7 @@ export default async function PotsCard() {
         </div>
         <div className="grid grid-cols-2 gap-4 md:flex-1">
           {pots.map((pot) => (
-            <Pot
+            <PotSummary
               key={pot.id}
               theme={pot.theme.color}
               name={pot.name}
@@ -50,30 +51,5 @@ function HighlightCard({ totalSaved }: { totalSaved: number }) {
         </p>
       </div>
     </Card>
-  );
-}
-
-function Pot({
-  theme,
-  name,
-  totalSaved,
-}: {
-  theme: string;
-  name: string;
-  totalSaved: string;
-}) {
-  return (
-    <div className="flex gap-4">
-      <div
-        style={{ backgroundColor: theme }}
-        className="w-1 rounded-full"
-      ></div>
-      <div className="space-y-1">
-        <p className="text-xs text-gray-500">{name}</p>
-        <p className="text-sm font-bold text-gray-900">
-          ${formatNumber(totalSaved)}
-        </p>
-      </div>
-    </div>
   );
 }
