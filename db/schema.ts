@@ -84,9 +84,9 @@ export const pots = pgTable(
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 30 }).notNull(),
     target: numeric("target", { precision: 10, scale: 2 }).notNull(),
-    totalSaved: numeric("total_saved", { precision: 10, scale: 2 }).default(
-      "0.00",
-    ),
+    totalSaved: numeric("total_saved", { precision: 10, scale: 2 })
+      .notNull()
+      .default("0.00"),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
     themeId: integer("theme_id")

@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 import IconCaretRight from "@/public/icons/icon-caret-right.svg";
 import { Card, CardContent, CardHeader } from "../ui/card";
 
-import Pot from "../Pot";
+import Pot from "../dashboard/Pot";
 import BudgetDonut from "./BudgetDonutGraph";
 
 export default function BudgetsCard() {
