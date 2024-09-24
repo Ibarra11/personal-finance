@@ -203,16 +203,17 @@ const generateTransactionsForDay = (day: Date) => {
   for (let i = 0; i < numTransactions; i++) {
     const category =
       SEED_CATEGORIES[Math.floor(Math.random() * SEED_CATEGORIES.length)];
+    const budget =
+      SEED_BUDGETS[Math.floor(Math.random() * SEED_BUDGETS.length)]; // Randomly select a budget
     const isExpense = Math.random() > 0.6;
     const party = SEED_PARTIES[Math.floor(Math.random() * SEED_PARTIES.length)];
 
     const amount = generateRandomAmount(category);
 
-    // Skip the transaction if amount is null (i.e., blank category)
     if (!amount) continue;
 
     SEED_TRANSACTIONS.push({
-      budgetId: SEED_BUDGETS[0].id,
+      budgetId: budget.id, // Assign random budgetId
       createdAt: day,
       updatedAt: day,
       amount: amount.toFixed(2),

@@ -18,9 +18,9 @@ export async function getAllBudgets() {
           color: true,
         },
       },
-      // Fetch all transactions for total spent calculation
       transactions: {
         columns: {
+          id: true,
           party: true,
           type: true,
           amount: true,

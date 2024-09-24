@@ -5,6 +5,8 @@ import { Progress } from "@/components/ui/progress";
 import LinkWithCaretRight from "../LinkWithCaretRight";
 import BudgetActions from "./BudgetActions";
 import { Budget } from "@/services/budgets/getAllBudgets";
+import BudgetLatestTransactions from "./BudgetLatestTransactions";
+import { formatNumber } from "@/lib/utils";
 
 type Props = Pick<
   Budget,
@@ -17,8 +19,11 @@ export default function BudgetsCategoryCard({
   maxSpend,
   theme,
   totalSpent,
+  transactions,
 }: Props) {
   const leftoverBudget = Number(maxSpend) - totalSpent;
+  const budgetProgress = (totalSpent / Number(maxSpend)) * 100;
+
   return (
     <Card className="space-y-5 px-5 py-6 md:p-8">
       <CardHeader className="flex-row items-center justify-between">
@@ -38,8 +43,14 @@ export default function BudgetsCategoryCard({
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="space-y-4">
-          <p className="text-sm text-gray-500">Maximum of ${maxSpend}</p>
-          <Progress color={theme.color} className="rounded-sm p-1" value={33} />
+          <p className="text-sm text-gray-500">
+            Maximum of ${formatNumber(maxSpend)}
+          </p>
+          <Progress
+            color={theme.color}
+            className="rounded-sm p-1"
+            value={budgetProgress}
+          />
           <div className="grid grid-cols-2">
             <BudgetSummary
               themeColor={theme.color}
@@ -49,7 +60,7 @@ export default function BudgetsCategoryCard({
             <BudgetSummary type="free" amount={leftoverBudget} />
           </div>
         </div>
-        <BudgetLatestTransactions />
+        <BudgetLatestTransactions transactions={transactions} />
       </CardContent>
     </Card>
   );
@@ -73,40 +84,8 @@ function BudgetSummary({
       <div className="space-y-1">
         <p className="text-xs capitalize text-gray-500">{type}</p>
         <p className="text-sm font-bold text-gray-900">
-          $
-          {amount.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
+          $ {formatNumber(amount)}
         </p>
-      </div>
-    </div>
-  );
-}
-
-function BudgetLatestTransactions() {
-  return (
-    <Card className="space-y-5 bg-background p-4 md:p-5">
-      <CardHeader className="flex-row items-center justify-between">
-        <h4 className="text-base font-bold text-gray-900">Latest Spending</h4>
-        <LinkWithCaretRight href="/">See Details</LinkWithCaretRight>
-      </CardHeader>
-      <CardContent>
-        <BudgetTransaction />
-        <BudgetTransaction />
-        <BudgetTransaction />
-      </CardContent>
-    </Card>
-  );
-}
-
-function BudgetTransaction() {
-  return (
-    <div className="flex items-center justify-between border-b border-b-gray-200 py-3 text-xs first:pt-0 last:border-0 last:pb-0">
-      <p className="font-bold text-gray-900">Papa Software</p>
-      <div className="space-y-1">
-        <p className="font-bold text-gray-900">$16.00</p>
-        <p className="text-gray-500">16 Aug 24</p>
       </div>
     </div>
   );
