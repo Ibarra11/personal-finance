@@ -34,7 +34,7 @@ export default async function Page() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
           <Card className="flex flex-col gap-8 px-5 py-6 md:flex-row md:p-8 lg:min-w-96 lg:flex-col">
             <div className="flex-1">
-              <BudgetDonutGraph />
+              <BudgetDonutGraph budgets={budgets} />
             </div>
             <div className="space-y-6 md:w-72">
               <h4 className="text-lg font-bold text-gray-900">

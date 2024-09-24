@@ -6,6 +6,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Budget } from "@/services/budgets/getAllBudgets";
+import { formatNumber } from "@/lib/utils";
 
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
@@ -41,7 +43,32 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function BudgetDonutGraph() {
+export default function BudgetDonutGraph({ budgets }: { budgets: Budget[] }) {
+  const [totalSpent, totalLimit] = budgets.reduce(
+    (acc, curr) => {
+      const nextTotalSpent = acc[0] + curr.totalSpent;
+      const nextTotalLimit = acc[1] + Number(curr.maxSpend);
+      return [nextTotalSpent, nextTotalLimit];
+    },
+    [0, 0],
+  );
+
+  const chartData = budgets.map((budget) => ({
+    ...budget,
+    categoryName: budget.category.name,
+    fill: budget.theme.color,
+  }));
+
+  const chartConfig: ChartConfig = chartData.reduce(
+    (acc, budget) => ({
+      ...acc,
+      [budget.categoryName]: {
+        label: budget.categoryName,
+      },
+    }),
+    {} as ChartConfig,
+  );
+
   return (
     <ChartContainer
       config={chartConfig}
@@ -54,8 +81,8 @@ export default function BudgetDonutGraph() {
         />
         <Pie
           data={chartData}
-          dataKey="visitors"
-          nameKey="browser"
+          dataKey="totalSpent"
+          nameKey="categoryName"
           innerRadius={80}
           outerRadius={120}
           strokeWidth={5}
@@ -73,16 +100,16 @@ export default function BudgetDonutGraph() {
                     <tspan
                       x={viewBox.cx}
                       y={viewBox.cy}
-                      className="text-3xl font-bold text-gray-900"
+                      className="text-xl font-bold text-gray-900"
                     >
-                      ${650.0}
+                      ${formatNumber(totalSpent)}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy || 0) + 24}
                       className="text-xs text-gray-500"
                     >
-                      of 975 limit
+                      of {formatNumber(totalLimit)} limit
                     </tspan>
                   </text>
                 );
