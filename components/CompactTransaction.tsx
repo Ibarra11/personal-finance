@@ -8,7 +8,7 @@ export default function CompactTransaction({
   type,
 }: Transaction) {
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center justify-between">
       <div className="space-y-1">
         <p className="text-sm font-bold text-gray-900">{party}</p>
         <p className="text-xs text-gray-500">{category}</p>
