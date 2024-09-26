@@ -12,6 +12,7 @@ import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 import { ChangeEvent, useMemo, useState } from "react";
 import { filterRecurringBills } from "./helpers";
+import RecurringBillsBudgetDropdown from "@/components/recurring-bills/ReccuringBillsBudgetDropdown";
 
 interface Props {
   recurringBills: RecurringBill[];
@@ -55,7 +56,15 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
   //    currentPage: page,
   //    allTransactions: filteredTransactions,
   //  });
-  console.log(searchTerm);
+
+  // Get the unique budget categories being used by recurring bills
+  const budgetCategories = useMemo(() => {
+    const categoriesSet = new Set(
+      recurringBills.map((bill) => bill.budget.category.name),
+    );
+    return Array.from(categoriesSet);
+  }, [recurringBills]);
+
   return (
     <Card className="space-y-6 lg:flex-1">
       <CardHeader className="flex-row items-center gap-6 md:justify-between">
@@ -75,6 +84,14 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
           <SortByDropdown
             onSortOptionChange={handleSortOptionChange}
             sortOption={selectedSortOption}
+          />
+        </div>
+        <div className="hidden md:flex md:items-center md:gap-2">
+          <p className="text-sm text-gray-500">Budget</p>
+          <RecurringBillsBudgetDropdown
+            budgetCategories={budgetCategories}
+            onBudgetChange={handleBudgetChange}
+            selectedBudget={selectedBudget}
           />
         </div>
       </CardHeader>
