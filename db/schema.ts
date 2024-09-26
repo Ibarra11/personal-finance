@@ -40,13 +40,6 @@ export const transactions = pgTable(
   }),
 );
 
-export const transactionsRelations = relations(transactions, ({ one }) => ({
-  budget: one(budgets, {
-    fields: [transactions.budgetId],
-    references: [budgets.id],
-  }),
-}));
-
 export const budgets = pgTable(
   "budgets",
   {
@@ -67,18 +60,6 @@ export const budgets = pgTable(
   }),
 );
 
-export const budgetsRelations = relations(budgets, ({ many, one }) => ({
-  transactions: many(transactions),
-  theme: one(themes, {
-    fields: [budgets.themeId],
-    references: [themes.id],
-  }),
-  category: one(categories, {
-    fields: [budgets.categoryId],
-    references: [categories.id],
-  }), // Ensure the budget links to a category
-}));
-
 export const pots = pgTable(
   "pots",
   {
@@ -98,13 +79,6 @@ export const pots = pgTable(
     themeIdx: index("theme_idx").on(table.themeId),
   }),
 );
-// each pot has one theme
-export const potsRelations = relations(pots, ({ one }) => ({
-  theme: one(themes, {
-    fields: [pots.themeId],
-    references: [themes.id],
-  }),
-}));
 
 export const categories = pgTable(
   "categories",
@@ -129,14 +103,53 @@ export const themes = pgTable("themes", {
   updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
 });
 
+// Define recurringBills table
 export const recurringBills = pgTable("recurring_bills", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
   dueDate: date("due_date").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$onUpdate(() => new Date()),
   budgetId: integer("budget_id")
-    .references(() => budgets.id)
+    .references(() => budgets.id, { onDelete: "cascade" }) // Ensure cascading on delete
     .notNull(),
 });
+
+export const budgetsRelations = relations(budgets, ({ many, one }) => ({
+  transactions: many(transactions),
+  recurringBills: many(recurringBills), // Define the relationship with recurring bills
+  theme: one(themes, {
+    fields: [budgets.themeId],
+    references: [themes.id],
+  }),
+  category: one(categories, {
+    fields: [budgets.categoryId],
+    references: [categories.id],
+  }), // Ensure the budget links to a category
+}));
+
+// Define recurringBills relations
+export const recurringBillsRelations = relations(recurringBills, ({ one }) => ({
+  budget: one(budgets, {
+    fields: [recurringBills.budgetId],
+    references: [budgets.id],
+  }),
+}));
+
+// each pot has one theme
+export const potsRelations = relations(pots, ({ one }) => ({
+  theme: one(themes, {
+    fields: [pots.themeId],
+    references: [themes.id],
+  }),
+}));
+
+export const transactionsRelations = relations(transactions, ({ one }) => ({
+  budget: one(budgets, {
+    fields: [transactions.budgetId],
+    references: [budgets.id],
+  }),
+}));

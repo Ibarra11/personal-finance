@@ -13,3 +13,11 @@ export function formatNumber(value: string | number) {
     maximumFractionDigits: 2,
   });
 }
+
+export function formatDate(value: Date) {
+  return value.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}

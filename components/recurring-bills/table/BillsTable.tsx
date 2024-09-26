@@ -1,5 +1,5 @@
 "use client";
-import { Bill, columns } from "./columns"; // Import columns directly
+import { columns } from "./columns";
 
 import {
   ColumnDef,
@@ -16,15 +16,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 
 interface DataTableProps {
-  data: Bill[];
+  data: RecurringBill[];
 }
 
 export function BillsTable({ data }: DataTableProps) {
   const table = useReactTable({
     data,
-    columns: columns as ColumnDef<Bill, any>[],
+    columns: columns as ColumnDef<RecurringBill, any>[],
     getCoreRowModel: getCoreRowModel(),
   });
 

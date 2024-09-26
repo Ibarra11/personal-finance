@@ -4,7 +4,7 @@ import { getAllCategories } from "@/services/categories/getAllCategories";
 
 export default async function Page() {
   const [transactions, categories] = await Promise.all([
-    getAllTransactions(),
+    getAllTransactions({}),
     getAllCategories(),
   ]);
 

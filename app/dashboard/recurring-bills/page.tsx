@@ -2,24 +2,20 @@ import {
   SummaryCard,
   SummaryItem,
 } from "@/components/recurring-bills/SummaryCard";
-import { Button } from "@/components/ui/button";
-import { BillsCard } from "@/components/recurring-bills/BillsCard";
 import TotalBillsCard from "@/components/recurring-bills/TotalBillsCard";
-import { BillsTable } from "@/components/recurring-bills/table/BillsTable";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-
-import IconSearch from "@/public/icons/icon-search.svg";
-import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
 
 import RecurringBillsProvider from "./page.context";
-import { getAllCategories } from "@/services/categories/getAllCategories";
-import { InputWithIcon } from "@/components/ui/input";
-import SortByDropdown from "@/components/SortByDropdown";
 import RecurringBillsCreateDialog from "@/components/recurring-bills/RecurringBillsCreateDialog";
 import { getAllBudgets } from "@/services/budgets/getAllBudgets";
+import { getAllRecurringBills } from "@/services/recurring-bills/getAllBills";
+import RecurringBillsClient from "./page.client";
 
 export default async function Page() {
-  const budgets = await getAllBudgets();
+  const [recurringBills, budgets] = await Promise.all([
+    getAllRecurringBills(),
+    getAllBudgets(),
+  ]);
+
   return (
     <RecurringBillsProvider data={{ budgets }}>
       <div className="space-y-8">
@@ -45,66 +41,9 @@ export default async function Page() {
               </SummaryItem>
             </SummaryCard>
           </div>
-          <Card className="space-y-6 lg:flex-1">
-            <CardHeader className="flex-row items-center gap-6 md:justify-between">
-              <div className="flex-1 md:max-w-[320px]">
-                <InputWithIcon
-                  variant="start"
-                  icon={<IconSearch className="size-4" />}
-                  placeholder="search bills"
-                />
-              </div>
-              <Button className="md:hidden" size="icon" variant="ghost">
-                <IconSortMobile className="size-4" />
-              </Button>
-              <div className="hidden md:flex md:items-center md:gap-2">
-                <p className="text-sm text-gray-500">Sort By</p>
-                {/* <SortByDropdown /> */}
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="md:hidden">
-                <BillsCard />
-              </div>
-              <div className="sm:hidden md:block">
-                <BillsTable data={sampleBills} />
-              </div>
-            </CardContent>
-          </Card>
+          <RecurringBillsClient recurringBills={recurringBills} />
         </div>
       </div>
     </RecurringBillsProvider>
   );
 }
-const sampleBills = [
-  {
-    bill: "Electricity Bill",
-    dueDate: "2024-09-15",
-    amount: 100.75,
-  },
-  {
-    bill: "Water Bill",
-    dueDate: "2024-09-20",
-    amount: 45.5,
-  },
-  {
-    bill: "Internet Bill",
-    dueDate: "2024-09-10",
-    amount: 60.0,
-  },
-  {
-    bill: "Rent",
-    dueDate: "2024-09-01",
-    amount: 1500.0,
-  },
-  {
-    bill: "Phone Bill",
-    dueDate: "2024-09-18",
-    amount: 80.99,
-  },
-  {
-    bill: "Streaming Service",
-    dueDate: "2024-09-25",
-    amount: 12.99,
-  },
-];

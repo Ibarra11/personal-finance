@@ -1,23 +1,28 @@
 "use client";
 
+import { formatDate } from "@/lib/utils";
+import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 import { ColumnDef } from "@tanstack/react-table";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Bill = {
-  bill: string;
-  dueDate: string;
-  amount: number;
-};
-
-export const columns: ColumnDef<Bill>[] = [
+export const columns: ColumnDef<RecurringBill>[] = [
   {
     accessorKey: "bill",
     header: "Bill",
     cell: ({ row }) => {
       return (
         <div className="flex h-10 w-48 items-center truncate text-sm font-bold text-gray-900">
-          {row.getValue("bill")}
+          {row.original.name}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "budgetCategory",
+    header: "Budget",
+    cell: ({ row }) => {
+      return (
+        <div className="flex h-10 w-48 items-center truncate text-sm font-bold text-gray-900">
+          {row.original.budget.category.name}
         </div>
       );
     },
@@ -27,7 +32,7 @@ export const columns: ColumnDef<Bill>[] = [
     header: "Due Date",
     cell: ({ row }) => {
       return (
-        <div className="flex h-10 items-center">{row.getValue("dueDate")}</div>
+        <div className="flex h-10 items-center">{row.original.dueDate}</div>
       );
     },
   },
@@ -37,7 +42,7 @@ export const columns: ColumnDef<Bill>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex h-10 items-center justify-end text-sm font-bold text-gray-900">
-          ${row.getValue("amount")}
+          ${row.original.amount}
         </div>
       );
     },
