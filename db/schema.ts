@@ -134,6 +134,8 @@ export const recurringBills = pgTable("recurring_bills", {
   name: text("name").notNull(),
   amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
   dueDate: date("due_date").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   budgetId: integer("budget_id")
     .references(() => budgets.id)
     .notNull(),
