@@ -35,60 +35,60 @@ const SEED_THEMES = [
   { name: "Mountain", color: "#A9A9A9" },
 ];
 
-const SEED_BUDGETS = [
+const SEED_BUDGETS = (categoryIds: any, themeIds: any) => [
   {
     name: "Monthly Expenses",
     maxSpend: "5000.00",
-    categoryId: 1, // Linked to Food
-    themeId: 1, // Linked to Sunny
+    categoryId: categoryIds[0], // Link to Food
+    themeId: themeIds[0], // Link to Sunny
   },
   {
     name: "Vacation Fund",
     maxSpend: "3000.00",
-    categoryId: 2, // Linked to Rent
-    themeId: 2, // Linked to Ocean
+    categoryId: categoryIds[1], // Link to Rent
+    themeId: themeIds[1], // Link to Ocean
   },
   {
     name: "Home Renovation",
     maxSpend: "10000.00",
-    categoryId: 3, // Linked to Utilities
-    themeId: 3, // Linked to Forest
+    categoryId: categoryIds[2], // Link to Utilities
+    themeId: themeIds[2], // Link to Forest
   },
 ];
 
-const SEED_POTS = [
+const SEED_POTS = (themeIds: any) => [
   {
     name: "Vacation Fund",
     target: "3000.00",
     totalSaved: "1500.00",
-    themeId: 1, // Linked to Sunny
+    themeId: themeIds[0], // Link to Sunny
   },
   {
     name: "Emergency Fund",
     target: "5000.00",
     totalSaved: "2500.00",
-    themeId: 2, // Linked to Ocean
+    themeId: themeIds[1], // Link to Ocean
   },
 ];
 
-const SEED_RECURRING_BILLS = [
+const SEED_RECURRING_BILLS = (budgetIds: any) => [
   {
     name: "Electricity Bill",
     amount: "120.00",
     dueDate: format(new Date("2024-10-05"), "yyyy-MM-dd"), // Format date
-    budgetId: 1, // Link to the "Monthly Expenses" budget
+    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
   },
   {
     name: "Water Bill",
     amount: "75.00",
     dueDate: format(new Date("2024-10-07"), "yyyy-MM-dd"), // Format date
-    budgetId: 1, // Link to the "Monthly Expenses" budget
+    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
   },
   {
     name: "Rent Payment",
     amount: "1200.00",
     dueDate: format(new Date("2024-10-01"), "yyyy-MM-dd"), // Format date
-    budgetId: 2, // Link to the "Vacation Fund" budget
+    budgetId: budgetIds[1], // Link to the "Vacation Fund" budget
   },
 ];
 
@@ -126,7 +126,7 @@ const generateTransactionsForDay = (day: Date, budgetsFromDb: any[]) => {
     const category =
       SEED_CATEGORIES[Math.floor(Math.random() * SEED_CATEGORIES.length)];
     const budget =
-      budgetsFromDb[Math.floor(Math.random() * budgetsFromDb.length)]; // Use budgets from the database
+      budgetsFromDb[Math.floor(Math.random() * budgetsFromDb.length)];
 
     const isExpense = Math.random() > 0.6;
     const party = SEED_PARTIES[Math.floor(Math.random() * SEED_PARTIES.length)];
@@ -164,23 +164,36 @@ const main = async () => {
     await db.delete(themes).execute();
     await db.delete(recurringBills).execute(); // Reset recurring bills table
 
-    // Seed themes
-    await db.insert(themes).values(SEED_THEMES).execute();
-
-    // Seed categories
-    await db.insert(categories).values(SEED_CATEGORIES).execute();
-
-    // Seed budgets and retrieve inserted data
-    const budgetsFromDb = await db
-      .insert(budgets)
-      .values(SEED_BUDGETS)
+    // Seed themes and categories, retrieve inserted records
+    const themesFromDb = await db
+      .insert(themes)
+      .values(SEED_THEMES)
+      .returning();
+    const categoriesFromDb = await db
+      .insert(categories)
+      .values(SEED_CATEGORIES)
       .returning();
 
-    // Seed pots
-    await db.insert(pots).values(SEED_POTS).execute();
+    // Seed budgets and pots
+    const budgetsFromDb = await db
+      .insert(budgets)
+      .values(
+        SEED_BUDGETS(
+          categoriesFromDb.map((cat) => cat.id),
+          themesFromDb.map((thm) => thm.id),
+        ),
+      )
+      .returning();
+    await db
+      .insert(pots)
+      .values(SEED_POTS(themesFromDb.map((thm) => thm.id)))
+      .execute();
 
     // Seed recurring bills
-    await db.insert(recurringBills).values(SEED_RECURRING_BILLS).execute();
+    await db
+      .insert(recurringBills)
+      .values(SEED_RECURRING_BILLS(budgetsFromDb.map((bud) => bud.id)))
+      .execute();
 
     // Generate and seed transactions using database-generated budget IDs
     generateTransactions(budgetsFromDb);
