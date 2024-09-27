@@ -10,9 +10,9 @@ import TransactionCategoryDropdown from "@/components/transactions/TransactionsC
 import type { Transaction } from "@/services/transactions/getAllTransactions";
 import React, { ChangeEvent, useMemo, useState } from "react";
 import { filterTransactions, getPaginatedTransactions } from "./helpers";
-import TransactionPagination from "@/components/transactions/TransactionsPagination";
 import TransactionSortPopover from "@/components/transactions/TransactionSortPopover";
 import TransactionCategoryPopover from "@/components/transactions/TransactionCategoryPopover";
+import { TablePagination } from "@/components/TablePagination";
 
 interface Props {
   transactions: Array<Transaction>;
@@ -115,7 +115,7 @@ export default function PageClient({ transactions, categories }: Props) {
         </div>
       </CardContent>
       <CardFooter className="flex h-16 items-end">
-        <TransactionPagination
+        <TablePagination
           currentPage={page}
           onPageChange={handlePageChange}
           totalPages={totalPages}
