@@ -1,7 +1,7 @@
 import { SortTableOptions } from "@/components/SortByDropdown";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 
-export const TRANSACTIONS_PER_PAGE = 10;
+export const ITEMS_PER_PAGE = 10;
 
 export function filterRecurringBills({
   recurringBills,
@@ -83,15 +83,15 @@ function sortRecurringBills({
 
 export function getPaginatedRecurringBills({
   currentPage,
-  allTransactions,
+  allRecurringBills,
 }: {
   currentPage: number;
-  allTransactions: Array<RecurringBill>;
+  allRecurringBills: Array<RecurringBill>;
 }) {
-  const start = (currentPage - 1) * TRANSACTIONS_PER_PAGE;
-  const end = currentPage * TRANSACTIONS_PER_PAGE;
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const end = currentPage * ITEMS_PER_PAGE;
   return {
-    paginatedTransactions: allTransactions.slice(start, end),
-    totalPages: Math.ceil(allTransactions.length / TRANSACTIONS_PER_PAGE),
+    paginatedRecurringBills: allRecurringBills.slice(start, end),
+    totalPages: Math.ceil(allRecurringBills.length / ITEMS_PER_PAGE),
   };
 }

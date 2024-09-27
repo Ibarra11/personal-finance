@@ -90,6 +90,48 @@ const SEED_RECURRING_BILLS = (budgetIds: any) => [
     dueDate: format(new Date("2024-10-01"), "yyyy-MM-dd"), // Format date
     budgetId: budgetIds[1], // Link to the "Vacation Fund" budget
   },
+  {
+    name: "Internet Bill",
+    amount: "60.00",
+    dueDate: format(new Date("2024-10-10"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+  },
+  {
+    name: "Gym Membership",
+    amount: "30.00",
+    dueDate: format(new Date("2024-10-25"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+  },
+  {
+    name: "Netflix Subscription",
+    amount: "15.00",
+    dueDate: format(new Date("2024-10-12"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[2], // Link to the "Home Renovation" budget
+  },
+  {
+    name: "Spotify Subscription",
+    amount: "10.00",
+    dueDate: format(new Date("2024-10-28"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[2], // Link to the "Home Renovation" budget
+  },
+  {
+    name: "Car Insurance",
+    amount: "200.00",
+    dueDate: format(new Date("2024-10-15"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[1], // Link to the "Vacation Fund" budget
+  },
+  {
+    name: "Phone Bill",
+    amount: "45.00",
+    dueDate: format(new Date("2024-10-20"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+  },
+  {
+    name: "Health Insurance Premium",
+    amount: "250.00",
+    dueDate: format(new Date("2024-10-30"), "yyyy-MM-dd"), // Format date
+    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+  },
 ];
 
 const SEED_TRANSACTIONS: (typeof transactions.$inferInsert)[] = [];

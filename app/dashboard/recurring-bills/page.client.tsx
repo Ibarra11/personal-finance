@@ -4,15 +4,21 @@ import { BillsCard } from "@/components/recurring-bills/BillsCard";
 import { BillsTable } from "@/components/recurring-bills/table/BillsTable";
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { InputWithIcon } from "@/components/ui/input";
 
 import IconSearch from "@/public/icons/icon-search.svg";
 import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 import { ChangeEvent, useMemo, useState } from "react";
-import { filterRecurringBills } from "./helpers";
+import { filterRecurringBills, getPaginatedRecurringBills } from "./helpers";
 import RecurringBillsBudgetDropdown from "@/components/recurring-bills/ReccuringBillsBudgetDropdown";
+import { TablePagination } from "@/components/TablePagination";
 
 interface Props {
   recurringBills: RecurringBill[];
@@ -52,12 +58,16 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
     [selectedBudget, searchTerm, selectedSortOption, recurringBills],
   );
 
+  const { paginatedRecurringBills, totalPages } = getPaginatedRecurringBills({
+    currentPage: page,
+    allRecurringBills: filteredRecurringBills,
+  });
+
   //  const { paginatedTransactions, totalPages } = getPaginatedTransactions({
   //    currentPage: page,
   //    allTransactions: filteredTransactions,
   //  });
 
-  // Get the unique budget categories being used by recurring bills
   const budgetCategories = useMemo(() => {
     const categoriesSet = new Set(
       recurringBills.map((bill) => bill.budget.category.name),
@@ -100,9 +110,16 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
           <BillsCard />
         </div>
         <div className="sm:hidden md:block">
-          <BillsTable data={filteredRecurringBills} />
+          <BillsTable data={paginatedRecurringBills} />
         </div>
       </CardContent>
+      <CardFooter className="flex h-16 items-end">
+        <TablePagination
+          currentPage={page}
+          onPageChange={handlePageChange}
+          totalPages={totalPages}
+        />
+      </CardFooter>
     </Card>
   );
 }
