@@ -52,7 +52,7 @@ export default function RecurringBillsDeleteDialog({
     >
       <AlertDialogTrigger asChild>
         <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          Delete Recurring Bill
+          Delete
         </DropdownMenuItem>
       </AlertDialogTrigger>
       <AlertDialogContent className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-white px-5 py-6 md:p-8">
