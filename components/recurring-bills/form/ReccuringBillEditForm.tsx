@@ -50,6 +50,7 @@ export default function RecurringBillEditForm({
           <BillBudgetField
             currentBudgetId={recurringBill.budgetId}
             form={form}
+            isDisabled={isDisabled}
           />
           <BillDateField form={form} />
           <SubmitButton text="Save Changes" />

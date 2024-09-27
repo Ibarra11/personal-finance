@@ -15,22 +15,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useRef } from "react";
 import { CircleCheck } from "lucide-react";
 import { CreateOrEditBillFormType } from "../schema";
 import { useRecurringBillsContext } from "@/app/dashboard/recurring-bills/page.context";
 export default function BillBudgetField({
   form,
   currentBudgetId,
+  isDisabled,
 }: {
   form: CreateOrEditBillFormType;
   currentBudgetId?: number;
+  isDisabled: boolean;
 }) {
   const { budgets } = useRecurringBillsContext();
-  const ref = useRef<HTMLButtonElement>(null);
-  const isInDisabledFieldset = Boolean(
-    ref.current?.closest("fieldset:disabled"),
-  );
 
   return (
     <FormField
@@ -49,7 +46,7 @@ export default function BillBudgetField({
             defaultValue={field.value ? String(field.value) : undefined}
           >
             <FormControl>
-              <SelectTrigger disabled={isInDisabledFieldset} ref={ref}>
+              <SelectTrigger disabled={isDisabled}>
                 <SelectValue placeholder="Select a budget" />
               </SelectTrigger>
             </FormControl>

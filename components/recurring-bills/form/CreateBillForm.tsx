@@ -41,7 +41,7 @@ export default function CreateBillForm({
         <fieldset disabled={isDisabled} className="space-y-4">
           <BillNameField form={form} />
           <BillAmountField form={form} />
-          <BillBudgetField form={form} />
+          <BillBudgetField isDisabled={isDisabled} form={form} />
           <BillDateField form={form} />
           <SubmitButton text="Save Changes" />
         </fieldset>
