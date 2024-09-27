@@ -21,8 +21,10 @@ import { CreateOrEditBillFormType } from "../schema";
 import { useRecurringBillsContext } from "@/app/dashboard/recurring-bills/page.context";
 export default function BillBudgetField({
   form,
+  currentBudgetId,
 }: {
   form: CreateOrEditBillFormType;
+  currentBudgetId?: number;
 }) {
   const { budgets } = useRecurringBillsContext();
   const ref = useRef<HTMLButtonElement>(null);
@@ -44,6 +46,7 @@ export default function BillBudgetField({
                 field.onChange(budget.id);
               }
             }}
+            defaultValue={field.value ? String(field.value) : undefined}
           >
             <FormControl>
               <SelectTrigger disabled={isInDisabledFieldset} ref={ref}>
@@ -62,6 +65,14 @@ export default function BillBudgetField({
                     <div className="invisible ml-auto group-data-[state=checked]:visible">
                       <CircleCheck className="size-4 fill-green text-white" />
                     </div>
+                    {field.value &&
+                      currentBudgetId &&
+                      currentBudgetId !== field.value &&
+                      budget.id === currentBudgetId && (
+                        <div className="ml-auto text-xs text-gray-500">
+                          Current Budget
+                        </div>
+                      )}
                   </div>
                 </SelectItem>
               ))}

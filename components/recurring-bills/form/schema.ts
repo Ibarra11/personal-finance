@@ -15,5 +15,10 @@ export const createOrEditBillFormSchema = z.object({
     .max(30, "Bill name must be 30 characters or less"),
   dueDate: z.date(),
   budgetId: z.number(),
-  amount: z.string(),
+  amount: z
+    .string()
+    .regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format")
+    .refine((val) => parseFloat(val) > 0, {
+      message: "Amount must be greater than 0",
+    }),
 });

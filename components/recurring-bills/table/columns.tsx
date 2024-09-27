@@ -16,6 +16,7 @@ import { Loader, MoreHorizontal } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 import RecurringBillsDeleteDialog from "../RecurringBillsDeleteDialog";
+import RecurringBillsEditDialog from "../RecurringBillsEditDialog";
 
 export const columns: ColumnDef<RecurringBill>[] = [
   {
@@ -101,14 +102,11 @@ export const columns: ColumnDef<RecurringBill>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <RecurringBillsEditDialog recurringBill={row.original} />
               <RecurringBillsDeleteDialog
                 recurringBillId={row.original.id}
                 name={row.original.name}
               />
-              {/* <DropdownMenuItem onClick={handleRecurringBillEdit}>
-                Delete
-              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
