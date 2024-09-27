@@ -23,8 +23,8 @@ export default async function Page() {
           <h1 className="text-3xl font-bold text-gray-900">Recurring Bills</h1>
           <RecurringBillsCreateDialog />
         </div>
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-          <div className="flex flex-col gap-3 md:flex-row md:gap-6 lg:w-80 lg:flex-col">
+        <div className="space-y-6">
+          <div className="flex flex-col gap-3 sm:flex-row md:gap-6">
             <TotalBillsCard />
             <SummaryCard>
               <SummaryItem>
