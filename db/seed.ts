@@ -13,45 +13,42 @@ import {
 config({ path: ".env.local" });
 
 const SEED_CATEGORIES = [
-  { id: 1, name: "Food" },
-  { id: 2, name: "Rent" },
-  { id: 3, name: "Utilities" },
-  { id: 4, name: "Shop" },
-  { id: 5, name: "Transportation" },
-  { id: 6, name: "Entertainment" },
-  { id: 7, name: "Healthcare" },
-  { id: 8, name: "Insurance" },
-  { id: 9, name: "Savings" },
-  { id: 10, name: "Debt Payments" },
+  { name: "Food" },
+  { name: "Rent" },
+  { name: "Utilities" },
+  { name: "Shop" },
+  { name: "Transportation" },
+  { name: "Entertainment" },
+  { name: "Healthcare" },
+  { name: "Insurance" },
+  { name: "Savings" },
+  { name: "Debt Payments" },
 ];
 
 const SEED_THEMES = [
-  { id: 1, name: "Sunny", color: "#FFD700" },
-  { id: 2, name: "Ocean", color: "#1E90FF" },
-  { id: 3, name: "Forest", color: "#228B22" },
-  { id: 4, name: "Sunset", color: "#FF4500" },
-  { id: 5, name: "Blush", color: "#FFB6C1" },
-  { id: 6, name: "Night Sky", color: "#2F4F4F" },
-  { id: 7, name: "Mountain", color: "#A9A9A9" },
+  { name: "Sunny", color: "#FFD700" },
+  { name: "Ocean", color: "#1E90FF" },
+  { name: "Forest", color: "#228B22" },
+  { name: "Sunset", color: "#FF4500" },
+  { name: "Blush", color: "#FFB6C1" },
+  { name: "Night Sky", color: "#2F4F4F" },
+  { name: "Mountain", color: "#A9A9A9" },
 ];
 
 const SEED_BUDGETS = [
   {
-    id: 1,
     name: "Monthly Expenses",
     maxSpend: "5000.00",
     categoryId: 1, // Linked to Food
     themeId: 1, // Linked to Sunny
   },
   {
-    id: 2,
     name: "Vacation Fund",
     maxSpend: "3000.00",
     categoryId: 2, // Linked to Rent
     themeId: 2, // Linked to Ocean
   },
   {
-    id: 3,
     name: "Home Renovation",
     maxSpend: "10000.00",
     categoryId: 3, // Linked to Utilities
@@ -61,14 +58,12 @@ const SEED_BUDGETS = [
 
 const SEED_POTS = [
   {
-    id: 1,
     name: "Vacation Fund",
     target: "3000.00",
     totalSaved: "1500.00",
     themeId: 1, // Linked to Sunny
   },
   {
-    id: 2,
     name: "Emergency Fund",
     target: "5000.00",
     totalSaved: "2500.00",
@@ -125,13 +120,14 @@ const generateRandomAmount = (category: typeof categories.$inferInsert) => {
   }
 };
 
-const generateTransactionsForDay = (day: Date) => {
+const generateTransactionsForDay = (day: Date, budgetsFromDb: any[]) => {
   const numTransactions = Math.floor(Math.random() * 4) + 1;
   for (let i = 0; i < numTransactions; i++) {
     const category =
       SEED_CATEGORIES[Math.floor(Math.random() * SEED_CATEGORIES.length)];
     const budget =
-      SEED_BUDGETS[Math.floor(Math.random() * SEED_BUDGETS.length)]; // Randomly select a budget
+      budgetsFromDb[Math.floor(Math.random() * budgetsFromDb.length)]; // Use budgets from the database
+
     const isExpense = Math.random() > 0.6;
     const party = SEED_PARTIES[Math.floor(Math.random() * SEED_PARTIES.length)];
 
@@ -140,7 +136,7 @@ const generateTransactionsForDay = (day: Date) => {
     if (!amount) continue;
 
     SEED_TRANSACTIONS.push({
-      budgetId: budget.id, // Assign random budgetId
+      budgetId: budget.id, // Use database ID
       createdAt: day,
       updatedAt: day,
       amount: amount.toFixed(2),
@@ -150,15 +146,13 @@ const generateTransactionsForDay = (day: Date) => {
   }
 };
 
-const generateTransactions = () => {
+const generateTransactions = (budgetsFromDb: any[]) => {
   const days = eachDayOfInterval({
     start: defaultFrom,
     end: defaultTo,
   });
-  days.forEach((day) => generateTransactionsForDay(day));
+  days.forEach((day) => generateTransactionsForDay(day, budgetsFromDb));
 };
-
-generateTransactions();
 
 const main = async () => {
   try {
@@ -176,8 +170,11 @@ const main = async () => {
     // Seed categories
     await db.insert(categories).values(SEED_CATEGORIES).execute();
 
-    // Seed budgets
-    await db.insert(budgets).values(SEED_BUDGETS).execute();
+    // Seed budgets and retrieve inserted data
+    const budgetsFromDb = await db
+      .insert(budgets)
+      .values(SEED_BUDGETS)
+      .returning();
 
     // Seed pots
     await db.insert(pots).values(SEED_POTS).execute();
@@ -185,7 +182,8 @@ const main = async () => {
     // Seed recurring bills
     await db.insert(recurringBills).values(SEED_RECURRING_BILLS).execute();
 
-    // Seed transactions
+    // Generate and seed transactions using database-generated budget IDs
+    generateTransactions(budgetsFromDb);
     await db.insert(transactions).values(SEED_TRANSACTIONS).execute();
 
     console.log("Database successfully seeded.");
