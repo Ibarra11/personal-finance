@@ -21,7 +21,7 @@ export default async function PotsCard() {
           <IconCaretRight className="size-3" />
         </Button>
       </CardHeader>
-      <CardContent className="flex flex-col gap-5 p-0 md:flex-row">
+      <CardContent className="flex flex-col gap-5 p-0 md:flex-row md:items-start">
         <div className="md:w-64">
           <HighlightCard totalSaved={totalSaved} />
         </div>
