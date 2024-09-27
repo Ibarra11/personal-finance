@@ -1,7 +1,5 @@
 "use client";
 
-import { BillsCard } from "@/components/recurring-bills/BillsCard";
-import { BillsTable } from "@/components/recurring-bills/table/BillsTable";
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +17,8 @@ import { ChangeEvent, useMemo, useState } from "react";
 import { filterRecurringBills, getPaginatedRecurringBills } from "./helpers";
 import RecurringBillsBudgetDropdown from "@/components/recurring-bills/ReccuringBillsBudgetDropdown";
 import { TablePagination } from "@/components/TablePagination";
+import { RecurringBillsCardView } from "@/components/recurring-bills/RecurringBillsCardView";
+import { RecurringBillsTableView } from "@/components/recurring-bills/table/RecurringBillsTableView";
 
 interface Props {
   recurringBills: RecurringBill[];
@@ -63,11 +63,6 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
     allRecurringBills: filteredRecurringBills,
   });
 
-  //  const { paginatedTransactions, totalPages } = getPaginatedTransactions({
-  //    currentPage: page,
-  //    allTransactions: filteredTransactions,
-  //  });
-
   const budgetCategories = useMemo(() => {
     const categoriesSet = new Set(
       recurringBills.map((bill) => bill.budget.category.name),
@@ -107,10 +102,10 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
       </CardHeader>
       <CardContent>
         <div className="md:hidden">
-          <BillsCard />
+          <RecurringBillsCardView recurringBills={paginatedRecurringBills} />
         </div>
-        <div className="sm:hidden md:block">
-          <BillsTable data={paginatedRecurringBills} />
+        <div className="hidden md:block">
+          <RecurringBillsTableView recurringBills={paginatedRecurringBills} />
         </div>
       </CardContent>
       <CardFooter className="flex h-16 items-end">

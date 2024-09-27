@@ -19,12 +19,12 @@ import {
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 
 interface DataTableProps {
-  data: RecurringBill[];
+  recurringBills: RecurringBill[];
 }
 
-export function BillsTable({ data }: DataTableProps) {
+export function RecurringBillsTableView({ recurringBills }: DataTableProps) {
   const table = useReactTable({
-    data,
+    data: recurringBills,
     columns: columns as ColumnDef<RecurringBill, any>[],
     getCoreRowModel: getCoreRowModel(),
   });
