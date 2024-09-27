@@ -15,6 +15,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Loader, MoreHorizontal } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
+import RecurringBillsDeleteDialog from "../RecurringBillsDeleteDialog";
 
 export const columns: ColumnDef<RecurringBill>[] = [
   {
@@ -101,9 +102,13 @@ export const columns: ColumnDef<RecurringBill>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem>Edit</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleRecurringBillEdit}>
+              <RecurringBillsDeleteDialog
+                recurringBillId={row.original.id}
+                name={row.original.name}
+              />
+              {/* <DropdownMenuItem onClick={handleRecurringBillEdit}>
                 Delete
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
