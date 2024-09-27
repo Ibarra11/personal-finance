@@ -23,11 +23,13 @@ import { DropdownMenuItem } from "../ui/dropdown-menu";
 interface Props {
   recurringBillId: number;
   name: string;
+  onDeleteComplete: () => void;
 }
 
 export default function RecurringBillsDeleteDialog({
   recurringBillId,
   name,
+  onDeleteComplete,
 }: Props) {
   const [open, setIsOpen] = useState(false);
   const { isPending, result, executeAsync, reset } = useAction(
@@ -38,6 +40,7 @@ export default function RecurringBillsDeleteDialog({
     if (result?.data?.success) {
       setIsOpen(false);
       toast.success(result.data.message);
+      onDeleteComplete();
     }
   }
   return (

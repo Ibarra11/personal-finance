@@ -24,9 +24,13 @@ import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 interface Props {
   recurringBill: RecurringBill;
+  onEditComplete: () => void;
 }
 
-export default function RecurringBillsEditDialog({ recurringBill }: Props) {
+export default function RecurringBillsEditDialog({
+  recurringBill,
+  onEditComplete,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const { executeAsync, result, isPending, reset } = useAction(
     editRecurringBillAction,
@@ -48,6 +52,7 @@ export default function RecurringBillsEditDialog({ recurringBill }: Props) {
     if (result?.data?.success) {
       setIsOpen(false);
       toast.success(result.data.message);
+      onEditComplete();
     }
   }
 

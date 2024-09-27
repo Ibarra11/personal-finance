@@ -1,22 +1,19 @@
 "use client";
 
-import { deleteRecurringBillAction } from "@/actions/recurring-bills/delete-recurring-bill";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Loader, MoreHorizontal } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
-import { toast } from "sonner";
+import { MoreHorizontal } from "lucide-react";
 import RecurringBillsDeleteDialog from "../RecurringBillsDeleteDialog";
 import RecurringBillsEditDialog from "../RecurringBillsEditDialog";
+import { useState } from "react";
 
 export const columns: ColumnDef<RecurringBill>[] = [
   {
@@ -70,40 +67,24 @@ export const columns: ColumnDef<RecurringBill>[] = [
     enableHiding: false,
     size: 50, // Fixed width for Actions
     cell: ({ row }) => {
-      const { executeAsync, isPending } = useAction(deleteRecurringBillAction);
-
-      async function handleRecurringBillEdit() {
-        const response = await executeAsync({
-          recurringBillId: row.original.id,
-        });
-        if (response?.data?.success) {
-          toast.success(response.data.message);
-        } else {
-          toast.error(
-            response?.data?.message ??
-              "There was an issue deleting the recurring bill",
-          );
-        }
-      }
+      const [isOpen, setIsOpen] = useState(false);
       return (
         <div className="flex items-center justify-center">
-          <DropdownMenu>
+          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className={`h-8 w-8 p-0`}>
-                {isPending ? (
-                  <Loader className="size-4 animate-spin" />
-                ) : (
-                  <>
-                    <span className="sr-only">Open menu</span>
-                    <MoreHorizontal className="size-4" />
-                  </>
-                )}
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <RecurringBillsEditDialog recurringBill={row.original} />
+              <RecurringBillsEditDialog
+                onEditComplete={() => setIsOpen(false)}
+                recurringBill={row.original}
+              />
               <RecurringBillsDeleteDialog
+                onDeleteComplete={() => setIsOpen(false)}
                 recurringBillId={row.original.id}
                 name={row.original.name}
               />
