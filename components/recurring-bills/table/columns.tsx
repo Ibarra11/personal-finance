@@ -1,19 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import RecurringBillsDeleteDialog from "../RecurringBillsDeleteDialog";
-import RecurringBillsEditDialog from "../RecurringBillsEditDialog";
 import { useState } from "react";
+import RecurringBillsActions from "../RecurringBIllsActions";
 
 export const columns: ColumnDef<RecurringBill>[] = [
   {
@@ -70,26 +61,11 @@ export const columns: ColumnDef<RecurringBill>[] = [
       const [isOpen, setIsOpen] = useState(false);
       return (
         <div className="flex items-center justify-center">
-          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className={`h-8 w-8 p-0`}>
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="size-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <RecurringBillsEditDialog
-                onEditComplete={() => setIsOpen(false)}
-                recurringBill={row.original}
-              />
-              <RecurringBillsDeleteDialog
-                onDeleteComplete={() => setIsOpen(false)}
-                recurringBillId={row.original.id}
-                name={row.original.name}
-              />
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <RecurringBillsActions
+            isOpen={isOpen}
+            onOpenChange={setIsOpen}
+            recurringBill={row.original}
+          />
         </div>
       );
     },

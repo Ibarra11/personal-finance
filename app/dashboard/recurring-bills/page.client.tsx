@@ -71,7 +71,7 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
   }, [recurringBills]);
 
   return (
-    <Card className="space-y-6 lg:flex-1">
+    <Card className="space-y-2 md:space-y-6 lg:flex-1">
       <CardHeader className="flex-row items-center gap-6 md:justify-between">
         <div className="flex-1 md:max-w-[320px]">
           <InputWithIcon
