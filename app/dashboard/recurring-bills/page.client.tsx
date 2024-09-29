@@ -1,24 +1,22 @@
 "use client";
 
 import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
-import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { InputWithIcon } from "@/components/ui/input";
 
-import IconSearch from "@/public/icons/icon-search.svg";
-import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 import { ChangeEvent, useMemo, useState } from "react";
 import { filterRecurringBills, getPaginatedRecurringBills } from "./helpers";
-import RecurringBillsBudgetDropdown from "@/components/recurring-bills/ReccuringBillsBudgetDropdown";
+
 import { TablePagination } from "@/components/TablePagination";
 import { RecurringBillsCardView } from "@/components/recurring-bills/RecurringBillsCardView";
 import { RecurringBillsTableView } from "@/components/recurring-bills/table/RecurringBillsTableView";
+import RecurringBillsFilterControls from "@/components/recurring-bills/RecurringBillsFilterControls";
 
 interface Props {
   recurringBills: RecurringBill[];
@@ -72,33 +70,15 @@ export default function RecurringBillsClient({ recurringBills }: Props) {
 
   return (
     <Card className="space-y-2 md:space-y-6 lg:flex-1">
-      <CardHeader className="flex-row items-center gap-6 md:justify-between">
-        <div className="flex-1 md:max-w-[320px]">
-          <InputWithIcon
-            variant="end"
-            icon={<IconSearch className="size-4" />}
-            placeholder="search bills"
-            onChange={handleSearchTermChange}
-          />
-        </div>
-        <Button className="md:hidden" size="icon" variant="ghost">
-          <IconSortMobile className="size-4" />
-        </Button>
-        <div className="hidden md:flex md:items-center md:gap-2">
-          <p className="text-sm text-gray-500">Sort By</p>
-          <SortByDropdown
-            onSortOptionChange={handleSortOptionChange}
-            sortOption={selectedSortOption}
-          />
-        </div>
-        <div className="hidden md:flex md:items-center md:gap-2">
-          <p className="text-sm text-gray-500">Budget</p>
-          <RecurringBillsBudgetDropdown
-            budgetCategories={budgetCategories}
-            onBudgetChange={handleBudgetChange}
-            selectedBudget={selectedBudget}
-          />
-        </div>
+      <CardHeader>
+        <RecurringBillsFilterControls
+          budgetCategories={budgetCategories}
+          handleBudgetChange={handleBudgetChange}
+          handleSearchTermChange={handleSearchTermChange}
+          handleSortOptionChange={handleSortOptionChange}
+          selectedBudget={selectedBudget}
+          selectedSortOption={selectedSortOption}
+        />
       </CardHeader>
       <CardContent>
         <div className="md:hidden">

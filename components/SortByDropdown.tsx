@@ -5,15 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SORT_BY_OPTIONS } from "@/lib/constants";
 
-export const SORT_BY_OPTIONS = [
-  "Latest",
-  "Oldest",
-  "A to Z",
-  "Z to A",
-  "Highest",
-  "Lowest",
-] as const;
 export type SortTableOptions = (typeof SORT_BY_OPTIONS)[number];
 interface Props {
   sortOption: SortTableOptions;

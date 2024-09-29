@@ -1,5 +1,5 @@
-import { SortTableOptions } from "@/components/SortByDropdown";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
+import { SortTableOptions } from "@/types";
 
 export const ITEMS_PER_PAGE = 10;
 

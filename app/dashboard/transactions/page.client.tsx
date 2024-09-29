@@ -5,14 +5,16 @@ import IconSearch from "@/public/icons/icon-search.svg";
 import CompactTransaction from "@/components/CompactTransaction";
 
 import { TransactionsTable } from "@/components/transaction-table/data-table";
-import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
+import SortByDropdown from "@/components/SortByDropdown";
 import TransactionCategoryDropdown from "@/components/transactions/TransactionsCategoryDropdown";
 import type { Transaction } from "@/services/transactions/getAllTransactions";
 import React, { ChangeEvent, useMemo, useState } from "react";
 import { filterTransactions, getPaginatedTransactions } from "./helpers";
-import TransactionSortPopover from "@/components/transactions/TransactionSortPopover";
+
 import TransactionCategoryPopover from "@/components/transactions/TransactionCategoryPopover";
 import { TablePagination } from "@/components/TablePagination";
+import SortOptionsPopover from "@/components/SortOptionsPopover";
+import { SortTableOptions } from "@/types";
 
 interface Props {
   transactions: Array<Transaction>;
@@ -71,7 +73,7 @@ export default function PageClient({ transactions, categories }: Props) {
           />
         </div>
         <div className="md:hidden">
-          <TransactionSortPopover
+          <SortOptionsPopover
             sortOption={selectedSortOption}
             onSortOptionChange={handleSortOptionChange}
           />

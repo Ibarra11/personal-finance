@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Popover,
   PopoverContent,
@@ -6,27 +7,26 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import IconSortMobile from "@/public/icons/icon-sort-mobile.svg";
-import { SORT_BY_OPTIONS, SortTableOptions } from "../SortByDropdown";
 import { useState } from "react";
+import { SortTableOptions } from "@/types";
+import { SORT_BY_OPTIONS } from "@/lib/constants";
+import clsx from "clsx";
 
 interface Props {
   sortOption: SortTableOptions;
   onSortOptionChange: (sortOption: SortTableOptions) => void;
 }
 
-export default function TransactionSortPopover({
+export default function SortOptionsPopover({
   sortOption,
   onSortOptionChange,
 }: Props) {
   const [open, setIsOpen] = useState(false);
+
   return (
     <Popover open={open} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Open sorting options for transactions"
-        >
+        <Button variant="ghost" size="icon" aria-label={"sort options popover"}>
           <IconSortMobile className="size-5 text-gray-900" />
         </Button>
       </PopoverTrigger>
@@ -37,11 +37,17 @@ export default function TransactionSortPopover({
       >
         {SORT_BY_OPTIONS.map((option) => (
           <Button
+            key={option}
             onClick={() => {
               setIsOpen(false);
               onSortOptionChange(option);
             }}
-            className={`h-10 w-full justify-start text-gray-900 hover:bg-accent hover:text-gray-900 focus-visible:bg-accent ${sortOption === option ? "font-bold text-gray-900" : "text-gray-500"}`}
+            className={clsx(
+              "h-10 w-full justify-start hover:bg-accent focus-visible:bg-accent",
+              sortOption === option
+                ? "font-bold text-gray-900"
+                : "text-gray-500",
+            )}
             size="sm"
             variant="ghost"
           >
