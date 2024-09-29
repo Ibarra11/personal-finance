@@ -1,7 +1,5 @@
 "use client";
 
-import SortByDropdown, { SortTableOptions } from "@/components/SortByDropdown";
-
 import {
   Card,
   CardContent,
@@ -17,6 +15,7 @@ import { TablePagination } from "@/components/TablePagination";
 import { RecurringBillsCardView } from "@/components/recurring-bills/RecurringBillsCardView";
 import { RecurringBillsTableView } from "@/components/recurring-bills/table/RecurringBillsTableView";
 import RecurringBillsFilterControls from "@/components/recurring-bills/RecurringBillsFilterControls";
+import { SortTableOptions } from "@/types";
 
 interface Props {
   recurringBills: RecurringBill[];

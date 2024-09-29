@@ -25,7 +25,7 @@ export function TablePagination({
           <PaginationPrevious
             className="h-10 py-0"
             onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+            disabled={currentPage === 1 || totalPages === 0}
           />
         </PaginationItem>
         <div className="hidden md:flex md:gap-2">
@@ -46,7 +46,7 @@ export function TablePagination({
           <PaginationNext
             className="h-10 py-0"
             onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
+            disabled={currentPage === totalPages || totalPages === 0}
           />
         </PaginationItem>
       </PaginationContent>
@@ -80,7 +80,7 @@ function DesktopTabletPaginationContent({
 function MobilePaginationContent({ currentPage, totalPages }: Props) {
   return (
     <p className="text-sm text-gray-500">
-      Page {currentPage} of {totalPages}
+      Page {Math.min(currentPage, totalPages)} of {totalPages}
     </p>
   );
 }
