@@ -8,9 +8,17 @@ import {
   pots,
   themes,
   recurringBills,
+  billPayments,
+  PAYMENT_FREQUENCY_ENUM,
 } from "@/db/schema";
 
 config({ path: ".env.local" });
+
+const getRandomFrequency = () => {
+  return PAYMENT_FREQUENCY_ENUM[
+    Math.floor(Math.random() * PAYMENT_FREQUENCY_ENUM.length)
+  ];
+};
 
 const SEED_CATEGORIES = [
   { name: "Food" },
@@ -37,19 +45,16 @@ const SEED_THEMES = [
 
 const SEED_BUDGETS = (categoryIds: any, themeIds: any) => [
   {
-    name: "Monthly Expenses",
     maxSpend: "5000.00",
     categoryId: categoryIds[0], // Link to Food
     themeId: themeIds[0], // Link to Sunny
   },
   {
-    name: "Vacation Fund",
     maxSpend: "3000.00",
     categoryId: categoryIds[1], // Link to Rent
     themeId: themeIds[1], // Link to Ocean
   },
   {
-    name: "Home Renovation",
     maxSpend: "10000.00",
     categoryId: categoryIds[2], // Link to Utilities
     themeId: themeIds[2], // Link to Forest
@@ -71,66 +76,78 @@ const SEED_POTS = (themeIds: any) => [
   },
 ];
 
-const SEED_RECURRING_BILLS = (budgetIds: any) => [
+type X = typeof recurringBills.$inferInsert;
+
+const SEED_RECURRING_BILLS = (budgetIds: number[]) => [
   {
     name: "Electricity Bill",
     amount: "120.00",
-    dueDate: format(new Date("2024-10-05"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+    startDate: format(new Date("2024-10-05"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[0],
   },
   {
     name: "Water Bill",
     amount: "75.00",
-    dueDate: format(new Date("2024-10-07"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+    startDate: format(new Date("2024-10-07"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[0],
   },
   {
     name: "Rent Payment",
     amount: "1200.00",
-    dueDate: format(new Date("2024-10-01"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[1], // Link to the "Vacation Fund" budget
+    startDate: format(new Date("2024-10-01"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[1],
   },
   {
     name: "Internet Bill",
     amount: "60.00",
-    dueDate: format(new Date("2024-10-10"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+    startDate: format(new Date("2024-10-10"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[0],
   },
   {
     name: "Gym Membership",
     amount: "30.00",
-    dueDate: format(new Date("2024-10-25"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+    startDate: format(new Date("2024-10-25"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[0],
   },
   {
     name: "Netflix Subscription",
     amount: "15.00",
-    dueDate: format(new Date("2024-10-12"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[2], // Link to the "Home Renovation" budget
+    startDate: format(new Date("2024-10-12"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[2],
   },
   {
     name: "Spotify Subscription",
     amount: "10.00",
-    dueDate: format(new Date("2024-10-28"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[2], // Link to the "Home Renovation" budget
+    startDate: format(new Date("2024-10-28"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[2],
   },
   {
     name: "Car Insurance",
     amount: "200.00",
-    dueDate: format(new Date("2024-10-15"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[1], // Link to the "Vacation Fund" budget
+    startDate: format(new Date("2024-10-15"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[1],
   },
   {
     name: "Phone Bill",
     amount: "45.00",
-    dueDate: format(new Date("2024-10-20"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+    startDate: format(new Date("2024-10-20"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[0],
   },
   {
     name: "Health Insurance Premium",
     amount: "250.00",
-    dueDate: format(new Date("2024-10-30"), "yyyy-MM-dd"), // Format date
-    budgetId: budgetIds[0], // Link to the "Monthly Expenses" budget
+    startDate: format(new Date("2024-10-30"), "yyyy-MM-dd"),
+    frequency: getRandomFrequency(),
+    budgetId: budgetIds[0],
   },
 ];
 
@@ -205,6 +222,7 @@ const main = async () => {
     await db.delete(categories).execute();
     await db.delete(themes).execute();
     await db.delete(recurringBills).execute(); // Reset recurring bills table
+    await db.delete(billPayments).execute(); // Reset bill payments table
 
     // Seed themes and categories, retrieve inserted records
     const themesFromDb = await db

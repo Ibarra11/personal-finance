@@ -13,10 +13,15 @@ import {
   date,
 } from "drizzle-orm/pg-core";
 
-// Enum for transaction type
 export const transactionTypeEnum = pgEnum("transaction_type", [
   "deposit",
   "payment",
+]);
+
+export const recurringBillsFrequencyEnum = pgEnum("recurring_bills_frequency", [
+  "Daily",
+  "Weekly",
+  "Monthly",
 ]);
 
 export const transactions = pgTable(
@@ -103,24 +108,41 @@ export const themes = pgTable("themes", {
   updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
 });
 
-// Define recurringBills table
 export const recurringBills = pgTable("recurring_bills", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
-  dueDate: date("due_date").notNull(),
+  startDate: date("start_date").notNull(),
+  frequency: recurringBillsFrequencyEnum(
+    "recuring_bills_frequency_enum",
+  ).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
     .$onUpdate(() => new Date()),
   budgetId: integer("budget_id")
-    .references(() => budgets.id, { onDelete: "cascade" }) // Ensure cascading on delete
+    .references(() => budgets.id, { onDelete: "cascade" })
     .notNull(),
+});
+
+export const billPayments = pgTable("bill_payments", {
+  id: serial("id").primaryKey(),
+  recurringBillId: integer("recurring_bill_id")
+    .references(() => recurringBills.id, { onDelete: "cascade" })
+    .notNull(),
+  budgetId: integer("budget_id")
+    .references(() => budgets.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  paymentDate: date("payment_date").notNull(),
+  amountPaid: numeric("amount_paid", { precision: 10, scale: 2 }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 export const budgetsRelations = relations(budgets, ({ many, one }) => ({
   transactions: many(transactions),
-  recurringBills: many(recurringBills), // Define the relationship with recurring bills
+  recurringBills: many(recurringBills),
   theme: one(themes, {
     fields: [budgets.themeId],
     references: [themes.id],
@@ -128,18 +150,21 @@ export const budgetsRelations = relations(budgets, ({ many, one }) => ({
   category: one(categories, {
     fields: [budgets.categoryId],
     references: [categories.id],
-  }), // Ensure the budget links to a category
-}));
-
-// Define recurringBills relations
-export const recurringBillsRelations = relations(recurringBills, ({ one }) => ({
-  budget: one(budgets, {
-    fields: [recurringBills.budgetId],
-    references: [budgets.id],
   }),
+  payments: many(billPayments),
 }));
 
-// each pot has one theme
+export const recurringBillsRelations = relations(
+  recurringBills,
+  ({ one, many }) => ({
+    budget: one(budgets, {
+      fields: [recurringBills.budgetId],
+      references: [budgets.id],
+    }),
+    payments: many(billPayments),
+  }),
+);
+
 export const potsRelations = relations(pots, ({ one }) => ({
   theme: one(themes, {
     fields: [pots.themeId],
@@ -153,3 +178,12 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
     references: [budgets.id],
   }),
 }));
+
+export type Transaction = typeof transactions.$inferSelect;
+export type Budget = typeof budgets.$inferSelect;
+export type Pot = typeof pots.$inferSelect;
+export type Category = typeof categories.$inferSelect;
+export type Theme = typeof themes.$inferSelect;
+export type RecurringBill = typeof recurringBills.$inferSelect;
+export type Payment = typeof billPayments.$inferSelect;
+export const PAYMENT_FREQUENCY_ENUM = recurringBillsFrequencyEnum.enumValues;

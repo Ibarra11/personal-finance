@@ -32,12 +32,22 @@ export const columns: ColumnDef<RecurringBill>[] = [
     },
   },
   {
-    accessorKey: "dueDate",
-    header: "Due Date",
+    accessorKey: "startDate",
+    header: "Start Date",
     size: 100, // Adjusted size for Due Date
     cell: ({ row }) => {
       return (
-        <div className="flex h-10 items-center">{row.original.dueDate}</div>
+        <div className="flex h-10 items-center">{row.original.startDate}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "frequency",
+    header: "Frequency",
+    size: 100,
+    cell: ({ row }) => {
+      return (
+        <div className="flex h-10 items-center">{row.original.frequency}</div>
       );
     },
   },
