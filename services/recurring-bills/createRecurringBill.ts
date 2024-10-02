@@ -1,12 +1,14 @@
 import { CreateOrEditBillFormSchemaType } from "@/components/recurring-bills/form/schema";
 import { db } from "@/db";
 import { recurringBills } from "@/db/schema";
+import { formatDate } from "../helpers";
 
 export async function createRecuringBill({
   name,
   amount,
   budgetId,
-  dueDate,
+  startDate,
+  frequency,
 }: CreateOrEditBillFormSchemaType) {
   return db
     .insert(recurringBills)
@@ -14,7 +16,8 @@ export async function createRecuringBill({
       name,
       amount,
       budgetId,
-      dueDate: dueDate.toISOString().split("T")[0],
+      startDate: formatDate(startDate),
+      frequency,
     })
     .returning();
 }

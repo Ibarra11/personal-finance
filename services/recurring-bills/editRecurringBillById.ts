@@ -2,18 +2,25 @@ import { EditRecurringBill } from "@/actions/recurring-bills/edit-recurring-bill
 import { db } from "@/db";
 import { recurringBills } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { formatDate } from "./helpers";
+import { formatDate } from "../helpers";
 
 export async function editRecurringBillById({
   recurringBillId,
   amount,
   budgetId,
-  dueDate,
+  startDate,
   name,
+  frequency,
 }: EditRecurringBill) {
   return db
     .update(recurringBills)
-    .set({ amount, budgetId, dueDate: formatDate(dueDate), name })
+    .set({
+      amount,
+      budgetId,
+      startDate: formatDate(startDate),
+      name,
+      frequency,
+    })
     .where(eq(recurringBills.id, recurringBillId))
     .returning();
 }

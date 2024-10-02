@@ -17,7 +17,7 @@ import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 import ErrorDialogMessage from "../ErrorDialogMessage";
 import { CreateOrEditBillFormSchemaType } from "./form/schema";
-import CreateBillForm from "./form/CreateBillForm";
+import RecurringBillCreateForm from "./form/RecurringBillCreateForm";
 import { createRecurringBillAction } from "@/actions/recurring-bills/create-recurring-bill";
 
 export default function RecurringBillsCreateDialog() {
@@ -75,7 +75,7 @@ export default function RecurringBillsCreateDialog() {
             modify or stop the recurrence at any time.
           </DialogDescription>
         </DialogHeader>
-        <CreateBillForm
+        <RecurringBillCreateForm
           onRecurringBillCreate={handleRecurringBillCreate}
           isDisabled={isPending}
         />

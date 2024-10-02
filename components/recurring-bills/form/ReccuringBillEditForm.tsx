@@ -1,5 +1,4 @@
 "use client";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -15,6 +14,7 @@ import BillAmountField from "./fields/BillAmountField";
 import { BillDateField } from "./fields/BillDateField";
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 import { parseISO } from "date-fns";
+import { BillFrequencyField } from "./fields/BillFrequencyField";
 
 interface Props {
   isDisabled: boolean;
@@ -33,17 +33,14 @@ export default function RecurringBillEditForm({
       amount: recurringBill.amount,
       name: recurringBill.name,
       budgetId: recurringBill.budgetId,
-      dueDate: parseISO(recurringBill.dueDate),
+      startDate: parseISO(recurringBill.startDate),
+      frequency: recurringBill.frequency,
     },
   });
 
-  function onSubmit(values: CreateOrEditBillFormSchemaType) {
-    onRecurringBillEdit(values);
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onRecurringBillEdit)}>
         <fieldset disabled={isDisabled} className="space-y-4">
           <BillNameField form={form} />
           <BillAmountField form={form} />
@@ -53,6 +50,7 @@ export default function RecurringBillEditForm({
             isDisabled={isDisabled}
           />
           <BillDateField form={form} />
+          <BillFrequencyField form={form} />
           <SubmitButton text="Save Changes" />
         </fieldset>
       </form>

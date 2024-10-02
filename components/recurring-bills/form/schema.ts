@@ -1,3 +1,4 @@
+import { PAYMENT_FREQUENCY_ENUM } from "@/db/schema";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 
@@ -13,7 +14,7 @@ export const createOrEditBillFormSchema = z.object({
     .string()
     .min(3, "Bill name must be at least 3 characters long")
     .max(30, "Bill name must be 30 characters or less"),
-  dueDate: z.date(),
+  startDate: z.date(),
   budgetId: z.number(),
   amount: z
     .string()
@@ -21,4 +22,5 @@ export const createOrEditBillFormSchema = z.object({
     .refine((val) => parseFloat(val) > 0, {
       message: "Amount must be greater than 0",
     }),
+  frequency: z.enum(PAYMENT_FREQUENCY_ENUM),
 });

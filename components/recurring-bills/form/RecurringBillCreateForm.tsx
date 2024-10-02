@@ -13,13 +13,14 @@ import BillNameField from "./fields/BillNameField";
 import BillBudgetField from "./fields/BillBudgetField";
 import BillAmountField from "./fields/BillAmountField";
 import { BillDateField } from "./fields/BillDateField";
+import { BillFrequencyField } from "./fields/BillFrequencyField";
 
 interface Props {
   isDisabled: boolean;
   onRecurringBillCreate: (values: CreateOrEditBillFormSchemaType) => void;
 }
 
-export default function CreateBillForm({
+export default function RecurringBillCreateForm({
   onRecurringBillCreate,
   isDisabled,
 }: Props) {
@@ -31,18 +32,15 @@ export default function CreateBillForm({
     },
   });
 
-  function onSubmit(values: CreateOrEditBillFormSchemaType) {
-    onRecurringBillCreate(values);
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onRecurringBillCreate)}>
         <fieldset disabled={isDisabled} className="space-y-4">
           <BillNameField form={form} />
           <BillAmountField form={form} />
           <BillBudgetField isDisabled={isDisabled} form={form} />
           <BillDateField form={form} />
+          <BillFrequencyField form={form} />
           <SubmitButton text="Save Changes" />
         </fieldset>
       </form>

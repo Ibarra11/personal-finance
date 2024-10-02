@@ -19,15 +19,23 @@ export const editRecurringBillAction = actionClient
   .schema(editRecurringBillSchema)
   .action(
     async ({
-      parsedInput: { recurringBillId, name, dueDate, budgetId, amount },
+      parsedInput: {
+        recurringBillId,
+        name,
+        startDate,
+        budgetId,
+        amount,
+        frequency,
+      },
     }) => {
       try {
         const editedRecurringBill = await editRecurringBillById({
           recurringBillId,
           amount,
           name,
-          dueDate,
+          startDate,
           budgetId,
+          frequency,
         });
 
         if (editedRecurringBill.length === 0) {

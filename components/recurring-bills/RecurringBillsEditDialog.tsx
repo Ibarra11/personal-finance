@@ -40,14 +40,16 @@ export default function RecurringBillsEditDialog({
     amount,
     budgetId,
     name,
-    dueDate,
+    startDate,
+    frequency,
   }: CreateOrEditBillFormSchemaType) {
     const result = await executeAsync({
       recurringBillId: recurringBill.id,
       amount,
       budgetId,
       name,
-      dueDate,
+      startDate,
+      frequency,
     });
     if (result?.data?.success) {
       setIsOpen(false);
