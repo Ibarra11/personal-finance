@@ -9,12 +9,19 @@ import RecurringBillsCreateDialog from "@/components/recurring-bills/RecurringBi
 import { getAllBudgets } from "@/services/budgets/getAllBudgets";
 import { getAllRecurringBills } from "@/services/recurring-bills/getAllBills";
 import RecurringBillsClient from "./page.client";
+import { getPaymentsSum } from "@/services/recurring-bills/getPaymentsSum";
+import { formatNumber } from "@/lib/utils";
+import { getPaymentsDueSoon, getUpcomingPaymentsThisMonth } from "./helpers";
 
 export default async function Page() {
-  const [recurringBills, budgets] = await Promise.all([
+  const [recurringBills, budgets, payments] = await Promise.all([
     getAllRecurringBills(),
     getAllBudgets(),
+    getPaymentsSum(),
   ]);
+  const { total, count } = getPaymentsDueSoon(recurringBills);
+  const { total: upcomingMonthTotal, count: upcomingMonthCount } =
+    getUpcomingPaymentsThisMonth(recurringBills);
 
   return (
     <RecurringBillsProvider data={{ budgets }}>
@@ -29,15 +36,21 @@ export default async function Page() {
             <SummaryCard>
               <SummaryItem>
                 <p className="text-gray-500">Paid Bills</p>
-                <p className="font-bold text-gray-900">2 ($320.00)</p>
+                <p className="font-bold text-gray-900">
+                  {payments.count} (${formatNumber(payments.total || 0)})
+                </p>
               </SummaryItem>
               <SummaryItem>
                 <p className="text-gray-500">Total Upcoming</p>
-                <p className="font-bold text-gray-900">6 ($1,230.00)</p>
+                <p className="font-bold text-gray-900">
+                  {upcomingMonthCount} (${formatNumber(upcomingMonthTotal)})
+                </p>
               </SummaryItem>
               <SummaryItem>
                 <p className="text-red">Due Soon</p>
-                <p className="font-bold text-red">2 ($40.00)</p>
+                <p className="font-bold text-red">
+                  {count} (${formatNumber(total)})
+                </p>
               </SummaryItem>
             </SummaryCard>
           </div>

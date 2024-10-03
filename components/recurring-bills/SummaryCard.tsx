@@ -1,9 +1,14 @@
 import { Card } from "@/components/ui/card";
+import { format } from "date-fns";
 
 export function SummaryCard({ children }: { children: React.ReactNode }) {
+  const currentDay = Date.now();
+  const formattedDate = format(currentDay, "MMMM yyyy");
   return (
     <Card className="flex-1 space-y-5 p-5">
-      <p className="text-base font-bold text-gray-900">Summary</p>
+      <p className="text-base font-bold text-gray-900">
+        {formattedDate} Billing Summary
+      </p>
       <div className="first:pt-0 last:pb-0">{children}</div>
     </Card>
   );

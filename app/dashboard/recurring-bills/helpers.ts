@@ -1,5 +1,6 @@
 import { RecurringBill } from "@/services/recurring-bills/getAllBills";
 import { SortTableOptions } from "@/types";
+import { addDays, addMonths, addWeeks, lastDayOfMonth } from "date-fns";
 
 export const ITEMS_PER_PAGE = 10;
 
@@ -93,5 +94,89 @@ export function getPaginatedRecurringBills({
   return {
     paginatedRecurringBills: allRecurringBills.slice(start, end),
     totalPages: Math.ceil(allRecurringBills.length / ITEMS_PER_PAGE),
+  };
+}
+
+export function getPaymentsDueSoon(recurringBills: RecurringBill[]) {
+  const now = new Date();
+
+  const dayOfWeek = now.getDay();
+
+  const startOfWeek = new Date(now);
+  const offset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  startOfWeek.setDate(now.getDate() - offset);
+
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+  const getNextDueDate = (bill: RecurringBill) => {
+    const billStartDate = new Date(bill.startDate);
+    const { frequency } = bill;
+
+    let nextDueDate = billStartDate;
+
+    while (nextDueDate < now) {
+      if (frequency === "Daily") {
+        nextDueDate = addDays(nextDueDate, 1);
+      } else if (frequency === "Weekly") {
+        nextDueDate = addWeeks(nextDueDate, 1);
+      } else if (frequency === "Monthly") {
+        nextDueDate = addMonths(nextDueDate, 1);
+      }
+    }
+
+    return nextDueDate;
+  };
+
+  const billsInPeriod = recurringBills.filter((bill) => {
+    const nextDueDate = getNextDueDate(bill);
+    return nextDueDate >= startOfWeek && nextDueDate <= endOfWeek;
+  });
+
+  return {
+    total: billsInPeriod.reduce((acc, curr) => acc + Number(curr.amount), 0),
+    count: billsInPeriod.length,
+  };
+}
+
+export function getUpcomingPaymentsThisMonth(recurringBills: RecurringBill[]) {
+  const now = new Date();
+  const endOfMonth = lastDayOfMonth(now);
+
+  // Helper function to calculate the next due date based on frequency
+  const getNextDueDate = (bill: RecurringBill) => {
+    const billStartDate = new Date(bill.startDate);
+    const { frequency } = bill;
+
+    let nextDueDate = billStartDate;
+
+    // Move the next due date forward based on frequency
+    while (nextDueDate < now) {
+      if (frequency === "Daily") {
+        nextDueDate = addDays(nextDueDate, 1);
+      } else if (frequency === "Weekly") {
+        nextDueDate = addWeeks(nextDueDate, 1);
+      } else if (frequency === "Monthly") {
+        nextDueDate = addMonths(nextDueDate, 1);
+      }
+    }
+
+    return nextDueDate;
+  };
+
+  const unpaidBillsInPeriod = recurringBills.filter((bill) => {
+    const nextDueDate = getNextDueDate(bill);
+
+    const isDueThisMonth = nextDueDate >= now && nextDueDate <= endOfMonth;
+
+    return isDueThisMonth;
+  });
+
+  return {
+    total: unpaidBillsInPeriod.reduce(
+      (acc, curr) => acc + Number(curr.amount),
+      0,
+    ),
+    count: unpaidBillsInPeriod.length,
   };
 }

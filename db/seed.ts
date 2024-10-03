@@ -76,7 +76,29 @@ const SEED_POTS = (themeIds: any) => [
   },
 ];
 
-type X = typeof recurringBills.$inferInsert;
+const SEED_BILL_PAYMENTS = (
+  recurringBillIds: number[],
+  budgetIds: number[],
+) => [
+  {
+    recurringBillId: recurringBillIds[0],
+    budgetId: budgetIds[0],
+    paymentDate: format(new Date("2024-10-01"), "yyyy-MM-dd"),
+    amountPaid: "120.00",
+  },
+  {
+    recurringBillId: recurringBillIds[1],
+    budgetId: budgetIds[0],
+    paymentDate: format(new Date("2024-10-05"), "yyyy-MM-dd"),
+    amountPaid: "75.00",
+  },
+  {
+    recurringBillId: recurringBillIds[2],
+    budgetId: budgetIds[1],
+    paymentDate: format(new Date("2024-10-10"), "yyyy-MM-dd"),
+    amountPaid: "1200.00",
+  },
+];
 
 const SEED_RECURRING_BILLS = (budgetIds: number[]) => [
   {
@@ -250,9 +272,19 @@ const main = async () => {
       .execute();
 
     // Seed recurring bills
-    await db
+    const recurringBillsFromDb = await db
       .insert(recurringBills)
       .values(SEED_RECURRING_BILLS(budgetsFromDb.map((bud) => bud.id)))
+      .returning();
+
+    await db
+      .insert(billPayments)
+      .values(
+        SEED_BILL_PAYMENTS(
+          recurringBillsFromDb.map((bill) => bill.id),
+          budgetsFromDb.map((bud) => bud.id),
+        ),
+      )
       .execute();
 
     // Generate and seed transactions using database-generated budget IDs
