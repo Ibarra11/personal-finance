@@ -6,6 +6,7 @@ import { getAllTransactions } from "@/services/transactions/getAllTransactions";
 
 export default async function TransactionsCard() {
   const transactions = await getAllTransactions({ limit: 5 });
+
   return (
     <Card className="space-y-8 px-5 py-6 md:p-8">
       <CardHeader className="flex-row items-center justify-between p-0">
