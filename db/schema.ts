@@ -13,11 +13,6 @@ import {
   date,
 } from "drizzle-orm/pg-core";
 
-export const transactionTypeEnum = pgEnum("transaction_type", [
-  "deposit",
-  "payment",
-]);
-
 export const recurringBillsFrequencyEnum = pgEnum("recurring_bills_frequency", [
   "Daily",
   "Weekly",
@@ -28,9 +23,8 @@ export const transactions = pgTable(
   "transactions",
   {
     id: serial("id").primaryKey(),
-    party: varchar("party", { length: 255 }).notNull(),
+    transaction: varchar("transaction", { length: 255 }).notNull(),
     amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
-    type: transactionTypeEnum("type").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at")
       .$onUpdate(() => new Date())

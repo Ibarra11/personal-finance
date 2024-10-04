@@ -21,8 +21,7 @@ export async function getAllBudgets() {
       transactions: {
         columns: {
           id: true,
-          party: true,
-          type: true,
+          transaction: true,
           amount: true,
           createdAt: true,
         },
@@ -33,9 +32,10 @@ export async function getAllBudgets() {
   });
 
   return budgets.map((budget) => {
-    const totalSpent = budget.transactions
-      .filter((transaction) => transaction.type === "payment")
-      .reduce((total, transaction) => total + Number(transaction.amount), 0);
+    const totalSpent = budget.transactions.reduce(
+      (total, transaction) => total + Number(transaction.amount),
+      0,
+    );
 
     const displayedTransactions = budget.transactions.slice(0, 3);
 

@@ -1,16 +1,17 @@
 "use client";
 
+import { formatNumber } from "@/lib/utils";
 import { Transaction } from "@/services/transactions/getAllTransactions";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
-    accessorKey: "transactionParty",
-    header: "Recipient/Sender",
+    accessorKey: "transaction",
+    header: "Transaction",
     cell: ({ row }) => {
       return (
         <div className="flex h-10 w-48 items-center truncate text-sm font-bold text-gray-900">
-          {row.original.party}
+          {row.original.transaction}
         </div>
       );
     },
@@ -45,9 +46,9 @@ export const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => {
       return (
         <div
-          className={`flex h-10 items-center justify-end text-sm font-bold ${row.original.type === "deposit" ? "text-green" : "text-gray-900"}`}
+          className={`flex h-10 items-center justify-end text-sm font-bold text-gray-900`}
         >
-          {row.original.type === "deposit" ? "+" : "-"}${row.original.amount}
+          ${formatNumber(row.original.amount)}
         </div>
       );
     },

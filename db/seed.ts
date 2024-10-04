@@ -175,7 +175,7 @@ const SEED_RECURRING_BILLS = (budgetIds: number[]) => [
 
 const SEED_TRANSACTIONS: (typeof transactions.$inferInsert)[] = [];
 
-const SEED_PARTIES = [
+const SEED_TRANSACTION = [
   "Amazon",
   "Local Grocery",
   "Utility Company",
@@ -209,8 +209,8 @@ const generateTransactionsForDay = (day: Date, budgetsFromDb: any[]) => {
     const budget =
       budgetsFromDb[Math.floor(Math.random() * budgetsFromDb.length)];
 
-    const isExpense = Math.random() > 0.6;
-    const party = SEED_PARTIES[Math.floor(Math.random() * SEED_PARTIES.length)];
+    const transaction =
+      SEED_TRANSACTION[Math.floor(Math.random() * SEED_TRANSACTION.length)];
 
     const amount = generateRandomAmount(category);
 
@@ -221,8 +221,7 @@ const generateTransactionsForDay = (day: Date, budgetsFromDb: any[]) => {
       createdAt: day,
       updatedAt: day,
       amount: amount.toFixed(2),
-      party,
-      type: isExpense ? "payment" : "deposit",
+      transaction,
     });
   }
 };
