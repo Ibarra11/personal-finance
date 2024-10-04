@@ -22,13 +22,13 @@ export default function BudgetLatestTransactions({ transactions }: Props) {
 }
 
 function BudgetTransaction({
-  party,
+  transaction,
   amount,
   createdAt,
-}: Budget["transactions"][number]) {
+}: Props["transactions"][number]) {
   return (
     <div className="flex items-center justify-between border-b border-b-gray-200 py-3 text-xs first:pt-0 last:border-0 last:pb-0">
-      <p className="font-bold text-gray-900">{party}</p>
+      <p className="font-bold text-gray-900">{transaction}</p>
       <div className="space-y-1">
         <p className="font-bold text-gray-900">
           ${formatNumber(Number(amount))}
