@@ -15,7 +15,7 @@ export function TransactionDateField({ form }: { form: TransactionFormType }) {
   return (
     <FormField
       control={form.control}
-      name="date"
+      name="transactionDate"
       render={({ field }) => (
         <FormItem className="bg-t flex flex-col">
           <FormLabel>Date</FormLabel>

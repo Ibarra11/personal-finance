@@ -1,5 +1,5 @@
 import { SortTableOptions } from "@/components/SortByDropdown";
-import { Transaction } from "@/services/transactions/getAllTransactions";
+import { TransactionWithBudgetCategories } from "@/services/transactions/getAllTransactions";
 
 export const TRANSACTIONS_PER_PAGE = 10;
 
@@ -9,12 +9,12 @@ export function filterTransactions({
   searchTerm,
   selectedSortOption,
 }: {
-  transactions: Array<Transaction>;
+  transactions: Array<TransactionWithBudgetCategories>;
   selectedCategory: string | null;
   searchTerm: string;
   selectedSortOption: SortTableOptions;
 }) {
-  let filteredTransactions: Array<Transaction>;
+  let filteredTransactions: Array<TransactionWithBudgetCategories>;
 
   if (!selectedCategory && !searchTerm) {
     //   spread transasctions, so when we change sortOption we have new array and Tanstack table will re-render
@@ -26,7 +26,9 @@ export function filterTransactions({
         : true;
 
       const matchesSearchTerm = searchTerm
-        ? transaction.party.toLowerCase().includes(searchTerm.toLowerCase())
+        ? transaction.transaction
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
         : true;
       return matchesCategory && matchesSearchTerm;
     });
@@ -44,46 +46,38 @@ function sortTransactions({
   filteredTransactions,
   sortOption,
 }: {
-  filteredTransactions: Array<Transaction>;
+  filteredTransactions: Array<TransactionWithBudgetCategories>;
   sortOption: SortTableOptions;
 }) {
   switch (sortOption) {
     case "Latest": {
       return filteredTransactions.sort((a, b) => {
-        return b.createdAt.getTime() - a.createdAt.getTime();
+        return b.transactionDate.getTime() - a.transactionDate.getTime();
       });
     }
     case "Oldest": {
       return filteredTransactions.sort((a, b) => {
-        return a.createdAt.getTime() - b.createdAt.getTime();
+        return a.transactionDate.getTime() - b.transactionDate.getTime();
       });
     }
     case "A to Z": {
       return filteredTransactions.sort((a, b) => {
-        return a.party.localeCompare(b.party);
+        return a.transaction.localeCompare(b.transaction);
       });
     }
     case "Z to A": {
       return filteredTransactions.sort((a, b) => {
-        return b.party.localeCompare(a.party);
+        return b.transaction.localeCompare(a.transaction);
       });
     }
     case "Highest": {
       return filteredTransactions.sort((a, b) => {
-        const bAmount =
-          b.type === "payment" ? Number(b.amount) * -1 : Number(b.amount);
-        const aAmount =
-          a.type === "payment" ? Number(a.amount) * -1 : Number(a.amount);
-        return bAmount - aAmount;
+        return Number(b.amount) - Number(a.amount);
       });
     }
     case "Lowest": {
       return filteredTransactions.sort((a, b) => {
-        const bAmount =
-          b.type === "payment" ? Number(b.amount) * -1 : Number(b.amount);
-        const aAmount =
-          a.type === "payment" ? Number(a.amount) * -1 : Number(a.amount);
-        return aAmount - bAmount;
+        return Number(a.amount) - Number(b.amount);
       });
     }
   }
@@ -94,7 +88,7 @@ export function getPaginatedTransactions({
   allTransactions,
 }: {
   currentPage: number;
-  allTransactions: Array<Transaction>;
+  allTransactions: Array<TransactionWithBudgetCategories>;
 }) {
   const start = (currentPage - 1) * TRANSACTIONS_PER_PAGE;
   const end = currentPage * TRANSACTIONS_PER_PAGE;

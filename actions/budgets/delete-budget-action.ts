@@ -4,8 +4,6 @@ import { z } from "zod";
 import { actionClient } from "@/actions/safe-action";
 
 import { revalidatePath } from "next/cache";
-
-import { deletePotById } from "@/services/pots/deletePotById";
 import { deleteBudgetById } from "@/services/budgets/deleteBudgetById";
 
 const deleteBudgetSchema = z.object({

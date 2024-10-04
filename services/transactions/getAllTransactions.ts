@@ -1,6 +1,8 @@
 import { db } from "@/db";
 
-export type Transaction = Awaited<ReturnType<typeof getAllTransactions>>[0];
+export type TransactionWithBudgetCategories = Awaited<
+  ReturnType<typeof getAllTransactions>
+>[0];
 
 interface Props {
   limit?: number;
@@ -8,7 +10,6 @@ interface Props {
 
 export async function getAllTransactions({ limit }: Props) {
   const transactions = await db.query.transactions.findMany({
-    orderBy: (transactions, { desc }) => [desc(transactions.createdAt)],
     with: {
       budget: {
         columns: {},
@@ -21,6 +22,7 @@ export async function getAllTransactions({ limit }: Props) {
         },
       },
     },
+    orderBy: (transactions, { desc }) => [desc(transactions.transactionDate)],
     limit: limit,
   });
 

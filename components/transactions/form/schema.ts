@@ -11,7 +11,7 @@ export const transactionFormSchema = z.object({
     .min(3, "Transaction name must be at least 3 characters long")
     .max(30, "Transaction name must be 30 characters of less"),
   budgetId: z.number(),
-  date: z.date(),
+  transactionDate: z.date(),
   amount: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format")
