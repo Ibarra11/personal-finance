@@ -215,6 +215,12 @@ const generateTransactionsForDay = (day: Date, budgetsFromDb: any[]) => {
     const amount = generateRandomAmount(category);
 
     if (!amount) continue;
+    // Add random transaction date within the range
+    const transactionDate = new Date(
+      day.getFullYear(),
+      day.getMonth(),
+      Math.floor(Math.random() * 28) + 1,
+    );
 
     SEED_TRANSACTIONS.push({
       budgetId: budget.id, // Use database ID
@@ -222,6 +228,7 @@ const generateTransactionsForDay = (day: Date, budgetsFromDb: any[]) => {
       updatedAt: day,
       amount: amount.toFixed(2),
       transaction,
+      transactionDate,
     });
   }
 };

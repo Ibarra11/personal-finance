@@ -25,6 +25,7 @@ export const transactions = pgTable(
     id: serial("id").primaryKey(),
     transaction: varchar("transaction", { length: 255 }).notNull(),
     amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
+    transactionDate: timestamp("transaction_date").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at")
       .$onUpdate(() => new Date())
