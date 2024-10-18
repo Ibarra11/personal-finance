@@ -15,7 +15,7 @@ export default function Authlayout({
           <span className="sr-only">Home</span>
         </Link>
       </header>
-      <div className="h-full flex-1 px-4 py-6 md:flex md:items-center md:gap-20 lg:p-5">
+      <div className="h-full flex-1 px-4 py-6 lg:flex lg:items-center lg:gap-20 lg:p-5">
         <div className="hidden lg:relative lg:block lg:h-full lg:w-[560px] lg:p-10">
           <AuthIllusration className="absolute bottom-0 left-0 top-0 h-full w-full rounded-xl object-cover" />
           <div className="relative flex h-full flex-col justify-between">
@@ -34,7 +34,9 @@ export default function Authlayout({
             </div>
           </div>
         </div>
-        <div className="lg:flex lg:flex-1 lg:justify-center">{children}</div>
+        <div className="h-full md:flex md:flex-1 md:items-center md:justify-center">
+          {children}
+        </div>
       </div>
     </div>
   );
